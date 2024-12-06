@@ -9,13 +9,13 @@ This is a high-level overview of the MDAI architecture. For a detailed technical
 
 We want to simplify the lives of DevOps teams by providing an on-prem (in your own cloud) solution that can give full control over telemetry pipelines, while maintaining existing use of Observability Platforms and/or tools.
 
-![System & Users](./arch-c1.png)
+![System & Users](arch-c1.png)
 
 ## 1,000 ft. view
 
 Here's a brief diagram for how we are using our preferred technologies to build our infrastructure to help the DevOps community!
 
-![Container Diagram](./arch-c2.png)
+![Container Diagram](arch-c2.png)
 
 ## What super powers the MDAI Cluster?
 
