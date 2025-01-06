@@ -1,21 +1,28 @@
 # MyDecisive Documentation
 
-This is the source repository for the MyDecisive documentation.
-
-## Building the MyDecisive Documentation 
-
-The MyDecisive documentation is built using [Hugo](htts://gohugo.io), a static site generator.
+This is the source repository for the MyDecisive documentation. The documentation is built using [Hugo](htts://gohugo.io), a static site generator. The theme for styling the docs site is [Relearn](https://github.com/McShelby/hugo-theme-relearn).
 
 ### Get Started
 
 The quick way to get started:
 
-1. Close this repository.
+1. Clone this repository with Git. 
 2. Install Hugo (extended edition).
-3. Test changes locally by building and loading the site locally with Hugo.
+3. Test changes locally by building and loading the site with Hugo.
 4. Create a PR to get your changes reviewed before they're mered.
 
-Your environment must have Git before you can get going. Depending on what you intend to do (beyond just documentation and plain CSS), the Hugo documentation has more information on other resources you may need.
+Depending on what you intend to do (beyond just documentation and plain CSS), the Hugo documentation has more information on other resources you may need.
+
+## What's in the Repo
+
+These are the most relevant directories and files:
+
+- `hugo.toml` - the main config file
+- `assets/css` - css files to override theme styles; theme files are copied here and updated; never edit the original as it'll be overwritten with a theme update
+- `layouts/partial/logo.html` - HTML to override theme layouts, with `logo.html` being the custom logo for the header 
+- `static/images` - stores site images
+- `themes` - stores Relearn theme files; imports the theme via git module
+- `content` - the Markdown and image files forming the site; site structure follows the directory structure (see Hugo docs for more info)
 
 ## Resources
 
