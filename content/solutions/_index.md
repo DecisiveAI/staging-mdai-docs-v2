@@ -1,5 +1,5 @@
 +++
-title = 'Mydecisive Solutions'
+title = 'MyDecisive Solutions'
 weight = 30
 +++
 
