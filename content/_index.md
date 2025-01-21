@@ -15,7 +15,7 @@ Before you get started ...
 
 To contribute to the MDAI documentation, file doc bugs on using our docs GitHub repo or create a pull request with your contribution.
 For software issues, use our project GitHub repo.
-Write us at support@mydecisive.ai.
+Write us at info@mydecisive.ai.
 
 ## Disclaimer
 
