@@ -42,3 +42,9 @@
   --BOX-BG-color: rgba(20, 20, 20, 1); /* background color of colored boxes */
   --BOX-TEXT-color: rgba(224, 224, 224, 1); /* text color of colored box content */
 }
+/* changed to 1rem for Mydecisive */
+@media only all and (max-width: 59.999rem) {
+  a#R-logo.R-default {
+    font-size: 1rem;
+  }
+}
