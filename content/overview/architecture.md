@@ -3,21 +3,23 @@ title = 'Architecture Overview'
 weight = 10
 +++
 
-This is a high-level overview of the MDAI architecture. For a detailed technical deep-dive, see (add link to ...).
+This is a high-level overview of the MDAI architecture. For details, see the [solutions pages](mydecisive.ai/solutions).
 
-## 10,000 ft. view
+## 10,000 Ft. View
 
 We want to simplify the lives of DevOps teams by providing an on-prem (in your own cloud) solution that can give full control over telemetry pipelines, while maintaining existing use of Observability Platforms and/or tools.
 
 ![System & Users](../arch-c1.png)
 
-## 1,000 ft. view
+## 1,000 Ft. View
 
 Here's a brief diagram for how we are using our preferred technologies to build our infrastructure to help the DevOps community!
 
 ![Container Diagram](../arch-c2.png)
 
-## What super powers the MDAI Cluster?
+## What Super-Powers the MDAI Cluster?
+
+MDAI takes advantage of a combination of best-in-class open-source technologies.
 
 ### Kubernetes (K8s)
 Kubernetes is a powerful container orchestration platform that automates deployment, scaling, and management of containerized applications. It provides a flexible and scalable infrastructure for running modern microservices architectures, enabling rapid development, deployment, and scaling of applications. To learn more about k8s, visit [kubernetes.io](https://kubernetes.io).
@@ -29,7 +31,9 @@ Kubernetes is a powerful container orchestration platform that automates deploym
 [Prometheus](https://prometheus.io) is an open-source monitoring and alerting toolkit designed for reliability and scalability in dynamic environments like Kubernetes. It excels at collecting and storing time-series data, enabling real-time monitoring, querying, and alerting based on application metrics, service health, and resource utilization.
 
 
-## Why use these technologies together?
+## Why Use These Technologies Together?
+
+Together, these technologies give us a whole that's more powerful than its parts.
 
 ### Unified Observability
 Integrating Prometheus, OTel, and Kubernetes allows for unified observability across the entire application stack. You can collect metrics, traces, and logs from Kubernetes resources, containerized applications, and infrastructure components, providing holistic insights into system health, performance, and behavior.
