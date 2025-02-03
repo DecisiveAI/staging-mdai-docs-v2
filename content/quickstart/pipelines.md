@@ -1,5 +1,5 @@
 +++
-title = 'Create a Pipeline for Log Data
+title = 'Create a Pipeline for Log Data'
 weight = 30
 +++
 
