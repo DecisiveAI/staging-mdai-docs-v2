@@ -19,18 +19,17 @@ You'll need a GitHub account to install MDAI.
 
 ## Bring Up the MDAI Cluster
 
-1. Start Docker.
-2. Use kind in the mdai-helm-chart root directory to create a new cluster.
+1. Use kind in the mdai-helm-chart root directory to create a new cluster.
     ```
     kind create cluster --name mdai
     ```
-3. Create the mdai namespace.
+2. Create the mdai namespace.
    ```
    helm upgrade --install --create-namespace --namespace mdai --cleanup-on-fail --wait-for-jobs mdai .
    ```
    > [!NOTE]
    > If running this command returns an error telling you to run `helm dependency build`, run `helm dependency update .` instead, then try again.
-4. Verify that the cluster's pods are running.
+3. Verify that the cluster's pods are running.
    ```
    kubectl get pods -n mdai
    ```
