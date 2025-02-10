@@ -67,8 +67,46 @@ The logs from the pod named xtra-noisy-logz-54c7877c4f-5svx8 should contain a va
 
 
 ## Set Up a Collector
-TODO: CONTENT
+
+From the mdai-helm-chart repo's root directory, start the collector.
+
+```
+kubectl apply -f ./files/example_collector.yaml
+```
+
+Verify that the collector is running in Kubernetes.
+
+```
+kubectl -o wide -n mdai get pods --selector app.kubernetes.io/name=gateway-collector
+```
 
 ## Collect Logs
-TODO: CONTENT
 
+Use Fluentd to get the logs from where they're being produced to the collector.
+
+1. Install Fluentd.
+    ```
+    helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f values_fluentd.yaml
+    ```
+2. Confirm that Fluentd is running in the default name spce.
+     ```
+     kubectl get pods
+     ```
+    This also gives you the name of the Fluentd pod.
+3. Look at the Fluentd logs, which should indicate that various pod log files are being accessed.
+    ```
+     kubectl logs fluent-fluentd-hrxt4
+    ```
+    You should see log lines similar to the following.
+    ```
+    2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/mdai-prometheus-node-exporter-957tk_mdai_node-exporter-5b9ba8e8394e00b48b54534c075097cdc1bff99d2e634684d450645062a3a390.log
+    2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/mdai-prometheus-node-exporter-957tk_mdai_node-exporter-f6b7eacef004e60992050358d14a1e0780fa56c5cab236b66dcc4aa8debf7ecd.log
+    2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/noisy-mclogface-7ccd56984f-6wmrb_mdai_noisy-mclogface-c60bf1edeacfca17682f7bdb87213485ec4ec18571b334c5953ba74b25dda802.log
+    2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/noisy-mclogface-7ccd56984f-6wmrb_mdai_noisy-mclogface-c85adcb072728b92991a967a4e7503c88e4be5ce0e9d324e10cb56d67065a6fd.log
+    2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/noisy-mclogface-7ccd56984f-7x4qd_mdai_noisy-mclogface-3d159b3e51d63dae5686122bfa03e21fd3f5faf99ae5563b588bbaaeab50d2d1.log
+    2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/noisy-mclogface-7ccd56984f-7x4qd_mdai_noisy-mclogface-b343a4e7d4e995249a934119898368dc11a827a695fb8cb20309dbe67a50a7b9.log
+    2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/noisy-mclogface-7ccd56984f-fwnxk_mdai_noisy-mclogface-609ac69e83dd09e70948f3ad19439132246c2b4ee8072f7a21b845224b0aee00.log
+    2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/noisy-mclogface-7ccd56984f-fwnxk_mdai_noisy-mclogface-ff2407b2005ed2f2f00157840743748800c78078343846acdf0b8539518632d6.log
+    2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/opentelemetry-operator-57bd64b65d-mnf5d_mdai_manager-e1d482d5de3054b584edf8aee1501856d5fe0b61f3c80626c539c5435c48f7f3.log
+    2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/prometheus-kube-prometheus-stack-prometheus-0_mdai_config-reloader-3f50b71d40173e561f5c2110c9ec00241e2057768a4ec6f5267e88589efc6812.log
+    ```
