@@ -9,7 +9,7 @@ The quick way to get started:
 1. Clone this repository with Git. 
 2. Install Hugo (extended edition).
 3. Test changes locally by building and loading the site with Hugo.
-4. Create a PR to get your changes reviewed before they're mered.
+4. Create a PR to get your changes reviewed before they're merged.
 
 Depending on what you intend to do (beyond just documentation and plain CSS), the Hugo documentation has more information on other resources you may need.
 
