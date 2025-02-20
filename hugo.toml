@@ -20,6 +20,8 @@ theme = "hugo-theme-relearn" # https://github.com/McShelby/hugo-theme-relearn
 
 # sidebar menu
 
+collapsibleMenu = true
+
 [menu]
   [[menu.before]]
     name = 'Home'
