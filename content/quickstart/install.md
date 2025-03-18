@@ -3,8 +3,6 @@ title = 'Install MDAI'
 weight = 20
 +++
 
-You'll need a GitHub account to install MDAI.
-
 ## Install Tools and Infrastructure
 
 1. Clone the MDAI Helm Repo.
@@ -16,6 +14,7 @@ You'll need a GitHub account to install MDAI.
 3. Install [Kubernetes](https://kubernetes.io/releases/download/) (k8s).
 4. Install [kubectl and kind](https://kubernetes.io/docs/tasks/tools/).
 5. Install [Helm](https://helm.sh/docs/intro/install/).
+6. Install [cert-manager](https://cert-manager.io/docs/installation/kubectl/).
 6. (Optional) Install [k9s](https://k9scli.io/topics/install/).
 
 ## Bring Up the MDAI Cluster
