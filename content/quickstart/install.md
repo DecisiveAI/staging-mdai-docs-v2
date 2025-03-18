@@ -8,6 +8,7 @@ You'll need a GitHub account to install MDAI.
 ## Install Tools and Infrastructure
 
 1. Clone the MDAI Helm Repo.
+
    ```
    git clone git@github.com:DecisiveAI/mdai-helm-chart.git
    ```
@@ -18,6 +19,8 @@ You'll need a GitHub account to install MDAI.
 6. (Optional) Install [k9s](https://k9scli.io/topics/install/).
 
 ## Bring Up the MDAI Cluster
+
+Make sure Docker is running.
 
 1. Use kind in the mdai-helm-chart root directory to create a new cluster.
     ```
