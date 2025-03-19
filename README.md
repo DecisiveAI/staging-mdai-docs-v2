@@ -36,6 +36,18 @@ assets/css/theme-relearn-dark.css:  --SECONDARY-color: rgba(176, 98, 194, 1); /*
 
 These comments in these examples indicate that the color values were changed from the default.
 
+## Update the Theme
+
+The Hugo [Relearn theme](https://github.com/McShelby/hugo-theme-relearn) is installed as a git module. See the theme website for more info on versions.
+
+To update it to the latest version, run:
+
+```
+git submodule update --remote --merge
+```
+
+Run `hugo server` and check the site locally to ensure that all's well. It's possible for a theme update to mess up customizations. It's also possible that Hugo itself will have to be updated to play nice with the latest theme.
+
 ## Resources
 
 - [Hugo Docs](https://gohugo.io/documentation/)
