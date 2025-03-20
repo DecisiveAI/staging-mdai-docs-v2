@@ -1,26 +1,40 @@
 +++
-title = 'MDAI OpenTelemetry Collector Sample'
+title = 'MDAI OpenTelemetry Collector Sample Config'
 weight = 20
 +++
 
 This **OpenTelemetry Collector (OTEL Collector) configuration** sample defines an **MDAI Gateway Collector**. It is responsible for receiving, processing, and exporting telemetry data (logs, traces, and metrics) within the MDAI ecosystem.
 
-## **Summary**
+---
+
+### Table of Contents
+
+- [MDAI OpenTelemetry Collector Sample Config](#mdai-opentelemetry-collector-sample-config)
+  - [Summary](#summary)
+  - [Link to Example Config](#link-to-example-config)
+  - [Key Components of the Configuration](#key-components-of-the-configuration)
+    - [Receivers](#receivers)
+    - [Extensions](#extensions)
+    - [Processors](#processors)
+    - [Exporters](#exporters)
+    - [Service & Pipelines](#service--pipelines)
+
+---
+
+### Link to example config
+[OpenTelemetry Collector (OTEL Collector) configuration](https://github.com/DecisiveAI/configs/blob/main/mdai_v1_opentelemetry_collector_sample_config_0_6_0.yaml)
+
+[For additional examples and information visit OpenTelemetry](https://opentelemetry.io/docs/collector/configuration/)
+
+---
+
+## Summary
 **MDAI Gateway OTEL Collector**:
 
 ✅ **Receives** logs via **Fluent Forward & OTLP**.  
 ✅ **Filters & processes** logs using memory limits, batching, grouping, and attribute transformations.  
 ✅ **Exports** telemetry to **MDAI Watcher Collectors** and **local debugging logs**.  
 ✅ **Ensures health checks** via the **`health_check` extension**.  
-
----
-
-## Link to example config
-[OpenTelemetry Collector (OTEL Collector) configuration](https://github.com/DecisiveAI/configs/blob/main/mdai_v1_opentelemetry_collector_sample_config_0_6_0.yaml)
-
-[For additional examples and information visit OpenTelemetry](https://opentelemetry.io/docs/collector/configuration/)
-
----
 
 ## **Key Components of the Configuration**
 
@@ -50,9 +64,9 @@ spec:
 
 ---
 
-## **Configuration Breakdown**
+## Configuration Breakdown
 
-### **Receivers**
+### Receivers
 Receivers define how the collector ingests telemetry data.
 
 | **Receiver** | **Required** | **Description** |
@@ -80,7 +94,7 @@ Receivers define how the collector ingests telemetry data.
 
 ---
 
-### **Extensions**
+### Extensions
 Extensions add additional functionality to the collector.
 
 | **Extension** | **Required** | **Purpose** |
@@ -95,7 +109,7 @@ Extensions add additional functionality to the collector.
 ```
 ---
 
-### **Processors**
+### Processors
 Processors modify and filter telemetry data before exporting.
 
 | **Processor** | **Required** | **Purpose** |
@@ -145,7 +159,7 @@ processors:
 
 ---
 
-### **Exporters**
+### Exporters
 Exporters send processed telemetry to external destinations.
 
 | **Exporter** | **Required** | **Destination** |
@@ -165,7 +179,7 @@ Exporters send processed telemetry to external destinations.
 
 ---
 
-### **Service & Pipelines**
+### Service & Pipelines
 Defines how telemetry flows through the system.
 
 | **Pipeline** | **Required** | **Receivers** | **Processors** | **Exporters** |
@@ -194,4 +208,92 @@ Defines how telemetry flows through the system.
           receivers: [ otlp, fluentforward ]
           processors: [ memory_limiter, batch, groupbyattrs, resource/watcher_receiver_tag ]
           exporters: [ debug, otlp/watcher ]
+```
+
+---
+
+### Custom Config to Copy
+
+```yaml
+apiVersion: opentelemetry.io/v1beta1
+kind: OpenTelemetryCollector
+metadata:
+  labels:
+    mdaihub-name: <your-mdaihub-name>
+  name: <your-collector-name>
+  namespace: <your-namespace>
+spec:
+  image: <your-otel-collector-image>
+  envFrom:
+    - configMapRef:
+        name: <your-configmap-name>
+  config:
+    receivers:
+      fluentforward:
+        endpoint: '${env:MY_POD_IP}:<fluentforward-port>'
+      otlp:
+        protocols:
+          grpc:
+            endpoint: '${env:MY_POD_IP}:<otlp-grpc-port>'
+          http:
+            endpoint: '${env:MY_POD_IP}:<otlp-http-port>'
+            cors:
+              allowed_origins:
+                - "http://*"
+                - "https://*"
+
+    extensions:
+      health_check:
+        endpoint: "${env:MY_POD_IP}:<health-check-port>"
+
+    processors:
+      memory_limiter:
+        check_interval: <time-interval>
+        limit_percentage: <memory-limit-percent>
+        spike_limit_percentage: <spike-limit-percent>
+
+      batch:
+        send_batch_size: <batch-size>
+        timeout: <batch-timeout>
+
+      groupbyattrs:
+        keys:
+          - <your-grouping-key>
+
+      resource/custom_tag:
+        attributes:
+          - key: <your-key>
+            value: <your-value>
+            action: upsert
+
+      filter/severity:
+        error_mode: ignore
+        logs:
+          log_record:
+            - 'attributes["log_level"] == "<your-log-level>"'
+
+      filter/custom_filter:
+        error_mode: ignore
+        logs:
+          log_record:
+            - 'IsMatch(attributes["<your-attribute>"], "${env:<your-env-variable>}")'
+
+    exporters:
+      debug: { }
+      otlp/watcher:
+        endpoint: <your-otlp-endpoint>
+        tls:
+          insecure: <true|false>
+
+    service:
+      telemetry:
+        metrics:
+          address: ":<metrics-port>"
+      extensions:
+        - health_check
+      pipelines:
+        logs/custom_pipeline:
+          receivers: [ <your-receivers> ]
+          processors: [ <your-processors> ]
+          exporters: [ <your-exporters> ]
 ```

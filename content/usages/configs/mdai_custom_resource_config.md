@@ -1,11 +1,27 @@
 +++
-title = 'MDAI Hub Custom Resource'
+title = 'MDAI Hub Custom Resource Sample Config'
 weight = 20
 +++
+
+
+
 The **MDAI Hub Custom Resource** provides a declarative way to define **variables**, **observers**, **observer resources**, and **evaluations** within the **MDAI ecosystem**. It allows fine-grained control over telemetry processing and alerting.
 
-## Link to example config
+### Table of Contents
+
+- [MDAI Hub Custom Resource Sample Config](#mdai-hub-custom-resource-sample-config)
+- [Link to Example Config](#link-to-example-config)
+  - [Variables](#variables)
+  - [Observer Resources](#observer-resources)
+  - [Observers](#observers)
+  - [Evaluations](#evaluations)
+- [Custom Config to Copy](#custom-config-to-copy)
+
+---
+### Link to example config
 [MDAI Hub Sample Config](https://github.com/DecisiveAI/configs/blob/main/mdai_v1_mdaihub_sample_config_0_6_0.yaml)
+
+---
 
 ## Variables
 
@@ -155,3 +171,72 @@ evaluations:
 ```
 
 > ℹ️ In this example, our evaluation will set up a Prometheus alert that executes a query looking for any `bytes_received_by_service_total` by `service_name` that exceeds 5MB in the past hour. When the alert fires, the `service_name` will be added to the `service_list` variable. When the alert resolves, the `service_name` will be removed from the list.
+
+---
+
+### Custom Config to Copy
+
+```yaml
+apiVersion: mdai.mdai.ai/v1
+kind: MdaiHub
+metadata:
+  labels:
+    app.kubernetes.io/name: mdai-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: <your-mdaihub-name>
+spec:
+  variables:
+    - storageKey: <your-variable-name>
+      defaultValue: <default-value>
+      with:
+        - exportedVariableName: <your-exported-env-variable>
+          transformer:
+            join:
+              delimiter: <your-delimiter>
+      type: <set or other>
+      storageType: <mdai-valkey or other>
+
+  evaluations:
+    - name: <your-evaluation-name>
+      type: mdai/prometheus_alert
+      expr: '<your-prometheus-query>'
+      severity: <warning | critical | info>
+      onStatus:
+        firing:
+          variableUpdate:
+            variableRef: <your-variable-ref>
+            operation: <mdai/add_element or mdai/remove_element>
+        resolved:
+          variableUpdate:
+            variableRef: <your-variable-ref>
+            operation: <mdai/add_element or mdai/remove_element>
+      for: <time-duration>
+      keep_firing_for: <time-duration>
+      relevantLabels:
+        - "<your-label-key>"
+
+  observers:
+    - name: <your-observer-name>
+      resourceRef: <your-observer-resource-ref>
+      labelResourceAttributes:
+        - <your-label-key>
+      countMetricName: <your-metric-name-for-count>
+      bytesMetricName: <your-metric-name-for-bytes>
+      filter:
+        error_mode: ignore
+        logs:
+          log_record:
+            - '<your-filter-condition>'
+
+  observerResources:
+    - name: <your-resource-name>
+      image: <your-docker-image>
+      replicas: <number-of-replicas>
+      resources:
+        limits:
+          memory: "<memory-limit>"
+          cpu: "<cpu-limit>"
+        requests:
+          memory: "<memory-request>"
+          cpu: "<cpu-request>"
+```
