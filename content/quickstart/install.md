@@ -3,35 +3,46 @@ title = 'Install MDAI'
 weight = 20
 +++
 
-## Install Tools and Infrastructure
+### Prerequisites
+
+- Install [Docker](https://www.docker.com/products/docker-desktop/).
+- Install [Kubernetes](https://kubernetes.io/releases/download/) (k8s).
+- Install [kubectl and kind](https://kubernetes.io/docs/tasks/tools/).
+- Install [Helm](https://helm.sh/docs/intro/install/).
+- (Optional) Install [k9s](https://k9scli.io/topics/install/).
+
+### Other Tools and Infrastructure Used in Installation
+- [cert-manager](https://cert-manager.io/docs/installation/kubectl/).
+- [MinIO](https://min.io/docs/minio/macos/index.html)
+
+## Bring Up the MDAI Cluster
+
+Make sure Docker is running.
 
 1. Clone the MDAI Helm Repo.
 
    ```
    git clone git@github.com:DecisiveAI/mdai-helm-chart.git
    ```
-2. Install [Docker](https://www.docker.com/products/docker-desktop/).
-3. Install [Kubernetes](https://kubernetes.io/releases/download/) (k8s).
-4. Install [kubectl and kind](https://kubernetes.io/docs/tasks/tools/).
-5. Install [Helm](https://helm.sh/docs/intro/install/).
-6. Install [cert-manager](https://cert-manager.io/docs/installation/kubectl/).
-6. (Optional) Install [k9s](https://k9scli.io/topics/install/).
-
-## Bring Up the MDAI Cluster
-
-Make sure Docker is running.
-
-1. Use kind in the mdai-helm-chart root directory to create a new cluster.
+2. Use kind in the **mdai-helm-chart root directory** to create a new cluster.
     ```
     kind create cluster --name mdai
     ```
-2. Create the mdai namespace.
+3. Use kubectl to install cert-manager. Wait a few moments for cert-manager to finish installing.
+    ```
+    kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.17.0/cert-manager.yaml
+    ```
+4. Update helm dependancies in **mdai-helm-chart root directory**.
+   ```
+   helm dependency update .
+   ```
+5. Create the mdai namespace.
    ```
    helm upgrade --install --create-namespace --namespace mdai --cleanup-on-fail --wait-for-jobs mdai .
    ```
    > [!NOTE]
    > If running this command returns an error telling you to run `helm dependency build`, run `helm dependency update .` instead, then try again.
-3. Verify that the cluster's pods are running.
+6. Verify that the cluster's pods are running.
    ```
    kubectl get pods -n mdai
    ```
@@ -40,14 +51,16 @@ If the cluster is running, you'll see output similar to the following.
 
 ```
 NAME                                                READY   STATUS              RESTARTS   AGE
-datalyzer-deployment-7867cff9fc-tmzdm               0/1     ContainerCreating   0          12s
-kube-prometheus-stack-operator-6b9bcb8467-wq2rk     0/1     ContainerCreating   0          12s
-mdai-api-c4644996-sjfdl                             1/1     Running             0          12s
-mdai-grafana-7fbf4fc6c9-4nwf5                       0/3     Init:0/1            0          12s
-mdai-kube-state-metrics-f6c7956f7-d757s             0/1     Running             0          12s
-mdai-operator-controller-manager-6b89944689-v4qlv   0/2     ContainerCreating   0          12s
-mdai-prometheus-node-exporter-9zv5z                 1/1     Running             0          12s
-opentelemetry-operator-57bd64b65d-cskql             0/1     Running             0          12s
+alertmanager-kube-prometheus-stack-alertmanager-0   0/2     Init:0/1            0          9s
+event-handler-webservice-544c79cd7b-p5nxj           1/1     Running             0          19s
+kube-prometheus-stack-operator-6b9bcb8467-h9b6n     1/1     Running             0          19s
+mdai-grafana-74cd6866f4-kd2bg                       0/3     PodInitializing     0          19s
+mdai-kube-state-metrics-f6c7956f7-9vmwv             0/1     Running             0          19s
+mdai-operator-controller-manager-76fd6b479f-8tgcb   0/1     ContainerCreating   0          18s
+mdai-prometheus-node-exporter-8v2m5                 1/1     Running             0          19s
+mdai-valkey-primary-0                               0/1     Running             0          18s
+opentelemetry-operator-5bcc6c77df-ppqhq             0/1     Running             0          19s
+prometheus-kube-prometheus-stack-prometheus-0       0/2     Init:0/1            0          9s
 ```
 
 ## Install MinIO
