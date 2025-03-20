@@ -121,15 +121,15 @@ Evaluations are performed on **metrics emitted by Observers or system components
 |------------|----------|-------------|
 | **`name`** | ✅ **YES** | The name of this evaluation. |
 | **`type`** | ✅ **YES** | The type of evaluation. Currently supported: <br> - `mdai/prometheus_alert`: A Prometheus alert in the MDAI-managed Prometheus installation. |
-| **`expr`** | ❌ **NO** | The Prometheus query to execute. |
-| **`for`** | ❌ **NO** | How long the `expr` must return a value before the alert fires. |
-| **`keep_firing_for`** | ❌ **NO** | Minimum amount of time the alert remains in a firing state before resolving. |
-| **`severity`** | ❌ **NO** | The severity level of the alert. |
-| **`onStatus`** | ❌ **NO** | Operations to execute when an alert enters a `firing` or `resolved` state. |
-| **`firing` / `resolved`** | ❌ **NO** | Defines what happens when the alert is triggered or resolved. |
-| **`variableRef`** | ❌ **NO** | The [variable](#variables) that will be updated when the alert status changes. |
-| **`operation`** | ❌ **NO** | The operation performed on a variable. Available operations: <br> - `mdai/add_element`: Adds `relevantLabels` values to the set variable. <br> - `mdai/remove_element`: Removes `relevantLabels` values from the set variable. |
-| **`relevantLabels`** | ❌ **NO** | Labels of telemetry data used in `onStatus` operations. |
+| **`expr`** | ❌ NO | The Prometheus query to execute. |
+| **`for`** | ❌ NO | How long the `expr` must return a value before the alert fires. |
+| **`keep_firing_for`** | ❌ NO | Minimum amount of time the alert remains in a firing state before resolving. |
+| **`severity`** | ❌ NO | The severity level of the alert. |
+| **`onStatus`** | ❌ NO | Operations to execute when an alert enters a `firing` or `resolved` state. |
+| **`firing` / `resolved`** | ❌ NO | Defines what happens when the alert is triggered or resolved. |
+| **`variableRef`** | ❌ NO | The [variable](#variables) that will be updated when the alert status changes. |
+| **`operation`** | ❌ NO | The operation performed on a variable. Available operations: <br> - `mdai/add_element`: Adds `relevantLabels` values to the set variable. <br> - `mdai/remove_element`: Removes `relevantLabels` values from the set variable. |
+| **`relevantLabels`** | ❌ NO | Labels of telemetry data used in `onStatus` operations. |
 
 **Example Configuration:**
 ```yaml
