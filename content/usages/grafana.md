@@ -15,7 +15,7 @@ title = 'Grafana Dashboards'
   - [OpenTelemetry Collector](#opentelemetry-collector)
 
 ## Prerequisites:
-- `mdai-helm-chart`
+- [`mdai-helm-chart`](https://github.com/DecisiveAI/mdai-helm-chart)
 - MDAI cluster running locally or in AWS 
   - For testing, follow `ooda-test-jan`
 
