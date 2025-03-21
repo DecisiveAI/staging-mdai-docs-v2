@@ -36,7 +36,7 @@ This **OpenTelemetry Collector (OTEL Collector) configuration** sample defines a
 ✅ **Exports** telemetry to **MDAI Watcher Collectors** and **local debugging logs**.  
 ✅ **Ensures health checks** via the **`health_check` extension**.  
 
-## **Key Components of the Configuration**
+## Key Components of the Configuration
 
 | **Component** | **Required** | **Description** |
 |--------------|------------|----------------|

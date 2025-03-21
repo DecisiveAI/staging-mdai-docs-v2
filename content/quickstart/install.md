@@ -13,7 +13,6 @@ weight = 20
 
 ### Other Tools and Infrastructure Used in Installation
 - [cert-manager](https://cert-manager.io/docs/installation/kubectl/).
-- [MinIO](https://min.io/docs/minio/macos/index.html)
 
 ## Bring Up the MDAI Cluster
 
@@ -62,9 +61,3 @@ mdai-valkey-primary-0                               0/1     Running             
 opentelemetry-operator-5bcc6c77df-ppqhq             0/1     Running             0          19s
 prometheus-kube-prometheus-stack-prometheus-0       0/2     Init:0/1            0          9s
 ```
-
-## Install MinIO
-
-[MinIO](https://min.io/docs/minio/macos/index.html) is object storage that provides an Amazon Web Services S3-compatible API and supports all core S3 features. Installing MinIO allows MDAI to work locally as if it had access to cloud storage.
-
-After installing MinIO, you'll be ready to test drive MyDecisive solutions.

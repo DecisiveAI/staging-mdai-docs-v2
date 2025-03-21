@@ -16,8 +16,8 @@ title = 'Grafana Dashboards'
 
 ## Prerequisites:
 - [`mdai-helm-chart`](https://github.com/DecisiveAI/mdai-helm-chart)
-- MDAI cluster running locally or in AWS 
-  - For testing, follow `ooda-test-jan`
+- K8s cluster running locally or in AWS 
+  - For testing, follow [**Install**](../quickstart/install.md) & [**Pipelines**](../quickstart/pipelines.md)
 
 ## Test Grafana Dashboards:
 With a cluster running and data flowing through the cluster:
