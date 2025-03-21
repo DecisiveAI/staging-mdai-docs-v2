@@ -67,14 +67,19 @@ For examlpe, the logs from the pod named **xtra-noisy-logz-54c7877c4f-5svx8** sh
 
 ## Set Up a Collector
 
-We have created a couple examples for the [**MDAI Custom Resource Config**](../usages/configs/mdai_custom_resource_config.md) and [**MDAI OpenTelemetry Collector Sample Config**](../usages/configs/otel_collector_sample_config.md) on our [**Configs repo**](https://github.com/DecisiveAI/configs). You can also checkout our [**configs docs**](../usages/configs/_index.md) for more info on setting up your configurations. Add your configs to the files directory of **mdai-helm-chart repo**
+We’ve provided sample configurations for both the [**MDAI Custom Resource**](../usages/configs/mdai_custom_resource_config.md) and the [**OpenTelemetry Collector**](../usages/configs/otel_collector_sample_config.md) in our [**configs repository**](https://github.com/DecisiveAI/configs). For guidance on how these components work together, check out the [**configuration docs**](../usages/configs/_index.md).
 
-1. From the **mdai-helm-chart repo's root directory**, install your collector with your [**OpenTelemetry Collector Sample Config**](../usages/configs/otel_collector_sample_config.md). If you'd like to use our sample configuration, you can download the [**MDAI OpenTelemetry Collector Sample Config**](https://github.com/DecisiveAI/configs/blob/main/mdai_v1_opentelemetry_collector_sample_config_0_6_0.yaml) and add to file directory of **mdai-helm-chart repo**.
+> 🗂️ For these examples, we will add the config files to the `files/` directory of the **mdai-helm-chart** repository for easy access.
+
+---
+
+1. Apply the OpenTelemetry Collector Configuration. From the root of the `mdai-helm-chart` repo, apply your [**OpenTelemetry Collector config**](../usages/configs/otel_collector_sample_config.md), or use our [**sample config**](https://github.com/DecisiveAI/configs/blob/main/mdai_v1_opentelemetry_collector_sample_config_0_6_0.yaml):
 
 ```
 kubectl apply -f ./files/mdai_v1_opentelemetry_collector_sample_config_0_6_0.yaml
 ```
-2. From the **mdai-helm-chart repo's root directory**, install your collector with your [**MDAI Custom Resource Config**](../usages/configs/mdai_custom_resource_config.md). If you'd like to use our sample configuration, you can download the [**MDAI Custom Resource Config**](https://github.com/DecisiveAI/configs/blob/main/mdai_v1_mdaihub_sample_config_0_6_0.yaml) and add to file directory of **mdai-helm-chart repo**.
+
+2. Apply the MDAI Custom Resource Configuration. From the root of the `mdai-helm-chart` repo, apply your  [**MDAI Custom Resource Config**](../usages/configs/mdai_custom_resource_config.md), or use the provided [**sample config**](https://github.com/DecisiveAI/configs/blob/main/mdai_v1_mdaihub_sample_config_0_6_0.yaml):
 
 ```
 kubectl apply -f ./files/mdai_v1_mdaihub_sample_config_0_6_0.yaml
