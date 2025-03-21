@@ -65,18 +65,19 @@ For examlpe, the logs from the pod named **xtra-noisy-logz-54c7877c4f-5svx8** sh
 > [!TIP]
 > You can instead use K9s for obverving the logs. To launch the K9s application, enter `k9s` in the terminal window where you launched the cluster (for the correct context). Use the arrow keys to select one of the log generators, then press **l** (lowercase letter l). Press ESC to the log window.
 
-
 ## Set Up a Collector
 
-1. From the **mdai-helm-chart repo's root directory**, start the sample operator using the [**MDAI Custom Resource Config**](../usages/configs/mdai_custom_resource_config.md).
+We have created a couple examples for the [**MDAI Custom Resource Config**](../usages/configs/mdai_custom_resource_config.md) and [**MDAI OpenTelemetry Collector Sample Config**](../usages/configs/otel_collector_sample_config.md) on our [**Configs repo**](https://github.com/DecisiveAI/configs). You can also checkout our [**configs docs**](../usages/configs/_index.md) for more info on setting up your configurations. Add your configs to the files directory of **mdai-helm-chart repo**
+
+1. From the **mdai-helm-chart repo's root directory**, install your collector with your [**OpenTelemetry Collector Sample Config**](../usages/configs/otel_collector_sample_config.md). If you'd like to use our sample configuration, you can download the [**MDAI OpenTelemetry Collector Sample Config**](https://github.com/DecisiveAI/configs/blob/main/mdai_v1_opentelemetry_collector_sample_config_0_6_0.yaml) and add to file directory of **mdai-helm-chart repo**.
 
 ```
-kubectl apply -f ./files/example_mdai_custom_resource.yaml
+kubectl apply -f ./files/mdai_v1_opentelemetry_collector_sample_config_0_6_0.yaml
 ```
-2. From the **mdai-helm-chart repo's root directory**, start the sample collector using the [**MDAI OpenTelemetry Collector Sample Config**](../usages/configs/otel_collector_sample_config.md).
+2. From the **mdai-helm-chart repo's root directory**, install your collector with your [**MDAI Custom Resource Config**](../usages/configs/mdai_custom_resource_config.md). If you'd like to use our sample configuration, you can download the [**MDAI Custom Resource Config**](https://github.com/DecisiveAI/configs/blob/main/mdai_v1_mdaihub_sample_config_0_6_0.yaml) and add to file directory of **mdai-helm-chart repo**.
 
 ```
-kubectl apply -f ./files/example_collector.yaml
+kubectl apply -f ./files/mdai_v1_mdaihub_sample_config_0_6_0.yaml
 ```
 
 Verify that the collector is running in Kubernetes.

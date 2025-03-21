@@ -31,6 +31,8 @@ Make sure Docker is running.
     ```
     kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.17.0/cert-manager.yaml
     ```
+   > [!TIP]
+   > You can see the install progress with K9s. To launch the K9s application, enter `k9s` in the terminal window where you launched the cluster (for the correct context). Ctrl C to escape K9s
 4. Update helm dependancies in **mdai-helm-chart root directory**.
    ```
    helm dependency update .
