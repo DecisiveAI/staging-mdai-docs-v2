@@ -13,36 +13,36 @@ weight = 20
 
 ### Other Tools and Infrastructure Used in Installation
 - [cert-manager](https://cert-manager.io/docs/installation/kubectl/).
-- [MinIO](https://min.io/docs/minio/macos/index.html)
 
 ## Bring Up the MDAI Cluster
 
 Make sure Docker is running.
 
-1. Clone the MDAI Helm Repo.
-
-   ```
-   git clone git@github.com:DecisiveAI/mdai-helm-chart.git
-   ```
-2. Use kind in the **mdai-helm-chart root directory** to create a new cluster.
+1. Use kind to create a new cluster.
     ```
     kind create cluster --name mdai
     ```
-3. Use kubectl to install cert-manager. Wait a few moments for cert-manager to finish installing.
+
+2. Use kubectl to install cert-manager. Wait a few moments for cert-manager to finish installing.
     ```
     kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.17.0/cert-manager.yaml
     ```
-4. Update helm dependancies in **mdai-helm-chart root directory**.
+
+3. Install `mdai` helm repo and ensure it's up to date.
    ```
-   helm dependency update .
+   helm repo add mdai https://decisiveai.github.io/mdai-helm-charts
+
+   helm repo update
    ```
-5. Create the mdai namespace.
+
+4. Create the mdai namespace.
    ```
-   helm upgrade --install --create-namespace --namespace mdai --cleanup-on-fail --wait-for-jobs mdai .
+   helm upgrade --install --create-namespace --namespace mdai --cleanup-on-fail --wait-for-jobs mdai mdai/mdai-hub --devel
    ```
    > [!NOTE]
-   > If running this command returns an error telling you to run `helm dependency build`, run `helm dependency update .` instead, then try again.
-6. Verify that the cluster's pods are running.
+   > If running this command returns an error telling you to run `helm repo update`, then try again.
+
+5. Verify that the cluster's pods are running.
    ```
    kubectl get pods -n mdai
    ```
@@ -50,17 +50,17 @@ Make sure Docker is running.
 If the cluster is running, you'll see output similar to the following.
 
 ```
-NAME                                                READY   STATUS              RESTARTS   AGE
-alertmanager-kube-prometheus-stack-alertmanager-0   0/2     Init:0/1            0          9s
-event-handler-webservice-544c79cd7b-p5nxj           1/1     Running             0          19s
-kube-prometheus-stack-operator-6b9bcb8467-h9b6n     1/1     Running             0          19s
-mdai-grafana-74cd6866f4-kd2bg                       0/3     PodInitializing     0          19s
-mdai-kube-state-metrics-f6c7956f7-9vmwv             0/1     Running             0          19s
-mdai-operator-controller-manager-76fd6b479f-8tgcb   0/1     ContainerCreating   0          18s
-mdai-prometheus-node-exporter-8v2m5                 1/1     Running             0          19s
-mdai-valkey-primary-0                               0/1     Running             0          18s
-opentelemetry-operator-5bcc6c77df-ppqhq             0/1     Running             0          19s
-prometheus-kube-prometheus-stack-prometheus-0       0/2     Init:0/1            0          9s
+NAME                                                READY   STATUS    RESTARTS   AGE
+alertmanager-kube-prometheus-stack-alertmanager-0   2/2     Running   0          50s
+event-handler-webservice-57d9d88c5f-r6kgf           1/1     Running   0          59s
+kube-prometheus-stack-operator-6cfdc788d4-pgrx2     1/1     Running   0          59s
+mdai-grafana-68d9c9474c-gh6ff                       3/3     Running   0          59s
+mdai-kube-state-metrics-6cd9fd8458-cn9bq            1/1     Running   0          59s
+mdai-operator-controller-manager-66f9696ff7-7s9j6   1/1     Running   0          59s
+mdai-prometheus-node-exporter-6wvll                 1/1     Running   0          59s
+mdai-valkey-primary-0                               1/1     Running   0          59s
+opentelemetry-operator-6d8ddbdc4d-pcwrb             1/1     Running   0          59s
+prometheus-kube-prometheus-stack-prometheus-0       2/2     Running   0          50s
 ```
 
 ## Set Up the MDAI Hub
@@ -83,6 +83,7 @@ NAME                         CREATED AT
 mdaihubs.hub.mydecisive.ai   2025-03-24T20:02:19Z
 ```
 
+
 ### Success
 
-After installing MinIO, you'll be ready to test drive MyDecisive solutions.
+You're ready to start using mdai.
