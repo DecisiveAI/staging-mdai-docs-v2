@@ -9,22 +9,30 @@ You'll be able to use MDAI to filter out unnecessary log lines. First lets set u
 
 ## Step 1: Generate Log Data
 
-Let's create 3 different log generators. The first emits logs for random services named `service####`, where `####` is a random number.
+### 1. Use synthetics for log generation
+We've built in some sythetics that will emulate log generation. Go to our Configs repo > [synthetics](https://github.com/DecisiveAI/configs/tree/main/synthetics) directory and copy the log generators into your working directory.
+
+
+### 2. Deploy log generators to your cluster
+
+Let's create 3 different log generators.
+
+The first emits logs for random services named `service####`, where `####` is a random number.
 
 ```
-kubectl apply -f ./example_log_generator.yaml
+kubectl apply -f ./loggen_log_generator.yaml
 ```
 
 The second is a noisy log generator for a particular service (`service1234` by default).
 
 ```
-kubectl apply -f ./example_log_generator_noisy_service.yaml
+kubectl apply -f ./loggen_log_generator_noisy_service.yaml
 ```
 
 The third is an excessively noisy version of the second log generator, but for a different service (`service4321` by default).
 
 ```
-kubectl apply -f ./example_log_generator_xtra_noisy_service.yaml
+kubectl apply -f ./loggen_log_generator_xtra_noisy_service.yaml
 ```
 
 ### Verify That Logs Are Being Generated
