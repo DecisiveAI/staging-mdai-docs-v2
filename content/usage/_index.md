@@ -1,5 +1,5 @@
 +++
-title = 'Usages'
+title = 'Usage'
 weight = 30
 +++
 

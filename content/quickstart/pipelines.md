@@ -102,10 +102,10 @@ For examlpe, the logs from the pod named **xtra-noisy-logz-54c7877c4f-5svx8** sh
 
 In this example, we'll use Fluentd to capture the synthetic log streams you created in [step 1](#step-1-generate-log-data) in stdout/stderr, and forward them to the collector.
 
-1. Install Fluentd.
+1. From the [MDAI Example Config repo](https://github.com/DecisiveAI/configs/blob/main/synthetics/loggen_fluent_config.yaml), copy the `loggen_fluent_config.yaml` into your working directory.
 
     ```
-    helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f values_fluentd.yaml
+    helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f loggen_fluent_config.yaml
     ```
 
 2. Confirm that Fluentd is running in the default namespace.
@@ -136,3 +136,7 @@ In this example, we'll use Fluentd to capture the synthetic log streams you crea
     2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/opentelemetry-operator-57bd64b65d-mnf5d_mdai_manager-e1d482d5de3054b584edf8aee1501856d5fe0b61f3c80626c539c5435c48f7f3.log
     2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/prometheus-kube-prometheus-stack-prometheus-0_mdai_config-reloader-3f50b71d40173e561f5c2110c9ec00241e2057768a4ec6f5267e88589efc6812.log
     ```
+
+# Success
+
+You're now sending logs to mdai. See our [usage guide](../usage/_index.md) for more information about taking control of your telemetry streams.
