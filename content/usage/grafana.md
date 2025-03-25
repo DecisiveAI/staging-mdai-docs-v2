@@ -4,20 +4,26 @@ title = 'Grafana Dashboards'
 
 ## Table of Contents
 
-- [Prerequisites](#prerequisites)
-- [Test Grafana Dashboards](#test-grafana-dashboards)
+- [Table of Contents](#table-of-contents)
+- [Prerequisites:](#prerequisites)
+- [Test Grafana Dashboards:](#test-grafana-dashboards)
 - [Dashboards](#dashboards)
   - [MDAI Audit Stream](#mdai-audit-stream)
+    - [Key Features:](#key-features)
   - [MDAI Data Management](#mdai-data-management)
+    - [Key Features:](#key-features-1)
+    - [Metrics Tracked:](#metrics-tracked)
   - [MDAI Cluster Usage](#mdai-cluster-usage)
+    - [Key Features:](#key-features-2)
+    - [Metrics Tracked:](#metrics-tracked-1)
   - [MDAI Controller Runtime Metrics](#mdai-controller-runtime-metrics)
-  - [MDAI USE Dashboard](#mdai-use-dashboard)
+  - [MDAI USE dashboard](#mdai-use-dashboard)
+    - [Key Features:](#key-features-3)
   - [OpenTelemetry Collector](#opentelemetry-collector)
 
 ## Prerequisites:
-- [`mdai-helm-chart`](https://github.com/DecisiveAI/mdai-helm-chart)
-- MDAI cluster running locally or in AWS 
-  - For testing, follow `ooda-test-jan`
+- MDAI installed on a cluster
+- Data flowing through MDAI Hub
 
 ## Test Grafana Dashboards:
 With a cluster running and data flowing through the cluster:
@@ -79,9 +85,9 @@ Based on public dashboard: [Kubernetes / Views / Namespaces](https://grafana.com
 ### MDAI Controller Runtime Metrics
 Observe the metrics exported by controller metrics and collected by Prometheus. This is a dashboard that is generated via [Grafana Plugin (grafana/v1-alpha)](https://book.kubebuilder.io/plugins/available/grafana-v1-alpha). The Grafana plugin supports scaffolding manifests for custom metrics, which can be found [here](https://book.kubebuilder.io/plugins/available/grafana-v1-alpha#visualize-custom-metrics).
 
---- 
+---
 ###  MDAI USE dashboard
-The **MDAI USE Dashboard** provides real-time monitoring of CPU and memory usage across key MDAI components, ensuring optimal performance and resource utilization. 
+The **MDAI USE Dashboard** provides real-time monitoring of CPU and memory usage across key MDAI components, ensuring optimal performance and resource utilization.
 #### Key Features:
 - Tracks **CPU and memory usage** for:
   - **Gateway Collector** (Handles data ingestion)
