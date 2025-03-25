@@ -10,7 +10,7 @@ You'll be able to use MDAI to filter out unnecessary log lines. First lets set u
 ## Step 1: Generate Log Data
 
 ### 1. Use synthetics for log generation
-We've built in some sythetics that will emulate log generation. Go to our Configs repo > [synthetics](https://github.com/DecisiveAI/configs/tree/main/synthetics) directory and copy the log generators into your working directory.
+We've built in some synthetics that will emulate log generation. Go to our Configs repo > [synthetics](https://github.com/DecisiveAI/configs/tree/main/synthetics) directory and copy the log generators into your working directory.
 
 
 ### 2. Deploy log generators to your cluster
@@ -119,7 +119,7 @@ In this example, we'll use Fluentd to capture the synthetic log streams you crea
 3. Look at the Fluentd logs, which should indicate that various pod log files are being accessed.
 
     ```
-     kubectl logs fluent-fluentd-hrxt4
+     kubectl logs fluent-fluentd-<your_pod_id_here>
     ```
 
     You should see log lines similar to the following.
@@ -136,6 +136,29 @@ In this example, we'll use Fluentd to capture the synthetic log streams you crea
     2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/opentelemetry-operator-57bd64b65d-mnf5d_mdai_manager-e1d482d5de3054b584edf8aee1501856d5fe0b61f3c80626c539c5435c48f7f3.log
     2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/prometheus-kube-prometheus-stack-prometheus-0_mdai_config-reloader-3f50b71d40173e561f5c2110c9ec00241e2057768a4ec6f5267e88589efc6812.log
     ```
+
+## Step 4: Verify your OTel collector is receiving data
+
+You just finished connecting your fluentD instance to your Otel collector. You should see a healthy stream of data flowing through the collector.
+
+```
+kubectl logs gateway-collector-<your_pod_id_here> --tail 10
+```
+
+You should see log lines similar to the following.
+
+```
+2025-03-26T21:32:16.442Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/storage", "resource logs": 1, "log records": 185}
+2025-03-26T21:32:17.446Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/storage", "resource logs": 1, "log records": 184}
+2025-03-26T21:32:20.444Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/storage", "resource logs": 1, "log records": 173}
+2025-03-26T21:32:22.440Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/storage", "resource logs": 1, "log records": 12}
+2025-03-26T21:32:23.442Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/storage", "resource logs": 1, "log records": 61}
+2025-03-26T21:32:24.403Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/observer", "resource logs": 114, "log records": 694}
+2025-03-26T21:32:24.442Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/storage", "resource logs": 1, "log records": 31}
+2025-03-26T21:32:25.444Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/storage", "resource logs": 1, "log records": 238}
+2025-03-26T21:32:26.446Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/storage", "resource logs": 1, "log records": 101}
+2025-03-26T21:32:27.509Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/observer", "resource logs": 95, "log records": 3228}
+```
 
 # Success
 
