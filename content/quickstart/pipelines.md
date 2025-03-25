@@ -7,7 +7,7 @@ As they run, services generate log data to provide visibility into what's happen
 
 You'll be able to use MDAI to filter out unnecessary log lines. First lets set up log generators and a pipeline to collect the logs and display telemetry data.
 
-## Generate Log Data
+## Step 1: Generate Log Data
 
 Let's create 3 different log generators. The first emits logs for random services named `service####`, where `####` is a random number.
 
@@ -66,43 +66,56 @@ For examlpe, the logs from the pod named **xtra-noisy-logz-54c7877c4f-5svx8** sh
 > You can instead use K9s for obverving the logs. To launch the K9s application, enter `k9s` in the terminal window where you launched the cluster (for the correct context). Use the arrow keys to select one of the log generators, then press **l** (lowercase letter l). Press ESC to the log window.
 
 
-## Set Up a Collector
+## Step 2: Set Up a Collector
 
-1. From the **mdai-helm-chart repo's root directory**, start the sample operator using the [**MDAI Custom Resource Config**](../usages/configs/mdai_custom_resource_config.md).
+1. From the [MDAI Example Config repo](https://github.com/DecisiveAI/configs/blob/main/otel_config.yaml), copy the `otel_config.yaml` into your working directory.
 
-```
-kubectl apply -f ./files/example_mdai_custom_resource.yaml
-```
-2. From the **mdai-helm-chart repo's root directory**, start the sample collector using the [**MDAI OpenTelemetry Collector Sample Config**](../usages/configs/otel_collector_sample_config.md).
 
-```
-kubectl apply -f ./files/example_collector.yaml
-```
+2. Deploy the Otel config to your cluster
 
-Verify that the collector is running in Kubernetes.
+    ```
+    kubectl apply -f otel_config.yaml
+    ```
 
-```
-kubectl -o wide -n mdai get pods --selector app.kubernetes.io/name=gateway-collector
-```
+3. Verify that the collector is running in Kubernetes.
 
-## Collect Logs
+    ```
+    kubectl -n mdai get pods --selector app.kubernetes.io/name=gateway-collector
+    ```
 
-Use Fluentd to get the logs from where they're being produced to the collector.
+    Output should look as follows
+
+    ```
+    NAME                                 READY   STATUS    RESTARTS   AGE
+    gateway-collector-74f69ccf5b-896gk   1/1     Running   0          2m28s
+    ```
+
+## Step 3: Collect Logs
+
+In this example, we'll use Fluentd to capture the synthetic log streams you created in [step 1](#step-1-generate-log-data) in stdout/stderr, and forward them to the collector.
 
 1. Install Fluentd.
+
     ```
     helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f values_fluentd.yaml
     ```
-2. Confirm that Fluentd is running in the default name spce.
+
+2. Confirm that Fluentd is running in the default namespace.
+
      ```
      kubectl get pods
      ```
+
     This also gives you the name of the Fluentd pod.
+
 3. Look at the Fluentd logs, which should indicate that various pod log files are being accessed.
+
     ```
      kubectl logs fluent-fluentd-hrxt4
     ```
+
     You should see log lines similar to the following.
+
     ```
     2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/mdai-prometheus-node-exporter-957tk_mdai_node-exporter-5b9ba8e8394e00b48b54534c075097cdc1bff99d2e634684d450645062a3a390.log
     2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/mdai-prometheus-node-exporter-957tk_mdai_node-exporter-f6b7eacef004e60992050358d14a1e0780fa56c5cab236b66dcc4aa8debf7ecd.log

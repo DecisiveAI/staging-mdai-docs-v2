@@ -63,8 +63,26 @@ opentelemetry-operator-5bcc6c77df-ppqhq             0/1     Running             
 prometheus-kube-prometheus-stack-prometheus-0       0/2     Init:0/1            0          9s
 ```
 
-## Install MinIO
+## Set Up the MDAI Hub
 
-[MinIO](https://min.io/docs/minio/macos/index.html) is object storage that provides an Amazon Web Services S3-compatible API and supports all core S3 features. Installing MinIO allows MDAI to work locally as if it had access to cloud storage.
+1. From the [MDAI Example Config repo](https://github.com/DecisiveAI/configs/blob/main/mdaihub_config.yaml), copy the `mdaihub_config.yaml` into your working directory.
+
+```
+kubectl apply -f mdaihub_config.yaml
+```
+
+2. Verify the hub is applied by running
+
+```
+kubectl get customresourcedefinitions mdaihubs.hub.mydecisive.ai
+```
+
+Your output should look as follows
+```
+NAME                         CREATED AT
+mdaihubs.hub.mydecisive.ai   2025-03-24T20:02:19Z
+```
+
+### Success
 
 After installing MinIO, you'll be ready to test drive MyDecisive solutions.
