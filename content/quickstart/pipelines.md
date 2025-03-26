@@ -27,14 +27,12 @@ The second is a noisy log generator for a particular service (`service1234` by d
 
 ```
 kubectl apply -f ./loggen_service_noisy.yaml
-kubectl apply -f ./loggen_noisy_service.yaml
 ```
 
 The third is an excessively noisy version of the second log generator, but for a different service (`service4321` by default).
 
 ```
 kubectl apply -f ./loggen_service_xtra_noisy.yaml
-kubectl apply -f ./loggen_xtra_noisy_service.yaml
 ```
 
 ### Verify That Logs Are Being Generated
