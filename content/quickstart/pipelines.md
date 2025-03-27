@@ -142,7 +142,7 @@ In this example, we'll use Fluentd to capture the synthetic log streams you crea
 You just finished connecting your fluentD instance to your Otel collector. You should see a healthy stream of data flowing through the collector.
 
 ```
-kubectl logs gateway-collector-<your_pod_id_here> --tail 10
+kubectl logs svc/gateway-collector --tail 10 -n mdai
 ```
 
 You should see log lines similar to the following.

@@ -29,9 +29,22 @@ title = 'Grafana Dashboards'
 With a cluster running and data flowing through the cluster:
 
 - Port Forward MDAI Grafana Instance:
-  - `kubectl port-forward deployment/mdai-grafana 3000:3000 -n mdai`
+```
+  kubectl port-forward deployment/mdai-grafana 3000:3000 -n mdai
+```
 - Port forward MDAI event-handler-webservice
-  - `kubectl port-forward svc/event-handler-webservice 8081:8081 -n mdai`
+```
+kubectl port-forward svc/event-handler-webservice 8081:8081 -n mdai
+```
+#### Login
+Username: 
+```
+admin
+```
+Password: 
+```
+mdai
+```
 
 ## Dashboards
 ### MDAI Audit Stream
@@ -54,6 +67,8 @@ The **MDAI Data Management** dashboard shows the received and exported metrics f
 - Uses Prometheus as the primary datasource
 - Provides real-time insights into ingress and egress filtered through MDAI
 - Customizable metric options, data type, and group by label
+>Note: Group by Label will need to be selected. This will be the **labelResourceAttributes** from your [MDAI Hub Custom Resource](./configs/mdai_custom_resource_config.md)
+
 #### Metrics Tracked:
 - MDAI I/O by {groupByLabel}
   - Shows how many group by label monitored based on the current selected time interval
