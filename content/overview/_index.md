@@ -1,6 +1,6 @@
 +++
-title = 'Overview'
-weight = 10
+title = 'Technical Overview'
+weight = 3
 +++
 
 MyDecisive.ai (MDAI) is an open-source self-service control plane for [OpenTelemetry](opentelemetry.io) that makes it simple to oversee your observability telemetry and control costs efficiently. MDAI provides a self-monitoring container and a pipeline analysis tool for any supported infrastructure. Currently, MDAI is available for AWS.

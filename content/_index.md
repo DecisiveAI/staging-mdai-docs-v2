@@ -5,13 +5,13 @@ weight = 1
 
 ## What's Here
 
-This is the MyDecisive.ai (MDAI) documentation, generated from the [mdai-docs-v2](https://github.com/DecisiveAI/mdai-docs-v2) GitHub repo. Use this documentation to explore MDAI and try out use cases. 
+This is the MyDecisive.ai (MDAI) documentation, generated from the [mdai-docs-v2](https://github.com/DecisiveAI/mdai-docs-v2) GitHub repo. Use this documentation to explore MDAI and try out use cases.
 
 To learn more, go to [https://mydecisive.ai](https://mydecisive.ai).
 
 ## Before You Get Started
 
-The documentation assumes that you have familiarity with installing and running open-source software on a \*nix machine or equivalent.  
+The documentation assumes that you have familiarity with installing and running open-source software on a \*nix machine or equivalent.
 
 ## Give Feedback, File Bugs, and Get Support
 

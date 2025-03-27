@@ -1,6 +1,16 @@
 +++
-title = 'Mydecisive Solutions'
-weight = 30
+title = 'Reference Solutions'
+weight = 7
 +++
 
-This is the value.
+
+## Reference solutions
+
+[TODO] Some blurb about solutions how, when, why to use
+
+### Dynamic Data filtration
+
+[TODO] Some blurb about dynamic data filtration
+why use it
+example
+
