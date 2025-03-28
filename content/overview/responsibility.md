@@ -10,3 +10,6 @@ Take a look at how [AWS does it](https://aws.amazon.com/compliance/shared-respon
 TBD: A diagram delineating responsibilities.
 
 TBD: Guidelines for understanding and assessing responsibility in your use cases.
+
+
+[TODO] Add security expectations

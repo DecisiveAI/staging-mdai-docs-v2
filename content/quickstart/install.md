@@ -3,27 +3,28 @@ title = 'Install MDAI'
 weight = 20
 +++
 
-### Prerequisites
+[TODO] Some blurb about installation
 
-- Install [Docker](https://www.docker.com/products/docker-desktop/).
-- Install [Kubernetes](https://kubernetes.io/releases/download/) (k8s).
+*These docs were tested primarily on MacOS.*
+
+## Prerequisites
+
+- Install [Docker](https://docs.docker.com/desktop/).
 - Install [kubectl and kind](https://kubernetes.io/docs/tasks/tools/).
 - Install [Helm](https://helm.sh/docs/intro/install/).
 - (Optional) Install [k9s](https://k9scli.io/topics/install/).
 
-### Other Tools and Infrastructure Used in Installation
-- [cert-manager](https://cert-manager.io/docs/installation/kubectl/).
-
 ## Bring Up the MDAI Cluster
 
-Make sure Docker is running.
+> [!NOTE]
+> Make sure Docker is running.
 
 1. Use kind to create a new cluster.
     ```
     kind create cluster --name mdai
     ```
 
-2. Use kubectl to install cert-manager. Wait a few moments for cert-manager to finish installing.
+2. Once cluster is created, install cert-manager to cluster. Wait a few moments for cert-manager to finish installing.
     ```
     kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.17.0/cert-manager.yaml
     ```
@@ -35,7 +36,7 @@ Make sure Docker is running.
    helm repo update
    ```
 
-4. Create the mdai namespace.
+4. Install the mdai helm chart and mdai dependencies in your cluster.
    ```
    helm upgrade --install --create-namespace --namespace mdai --cleanup-on-fail --wait-for-jobs mdai mdai/mdai-hub --devel
    ```
@@ -63,7 +64,17 @@ opentelemetry-operator-6d8ddbdc4d-pcwrb             1/1     Running   0         
 prometheus-kube-prometheus-stack-prometheus-0       2/2     Running   0          50s
 ```
 
-## Set Up the MDAI Hub
+## Setup a working directory
+
+We will soon use pre-configured files for this quickstart. You can create a working directory in order to simulate an mdai-test version controlled repository with your active configurations.
+
+   ```
+   mkdir mdai-test
+   ```
+
+## Set Up the MdaiHub CR
+
+*The MdaiHub is a Kubernetes Custom Resource that mdai uses to manage all mdai infrastructure.*
 
 1. From the [MDAI Example Config repo](https://github.com/DecisiveAI/configs/blob/main/mdaihub_config.yaml), copy the `mdaihub_config.yaml` into your working directory.
 

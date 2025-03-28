@@ -104,11 +104,12 @@ In this example, we'll use Fluentd to capture the synthetic log streams you crea
 
 1. From the [MDAI Example Config repo](https://github.com/DecisiveAI/configs/blob/main/synthetics/loggen_fluent_config.yaml), copy the `loggen_fluent_config.yaml` into your working directory.
 
+2. Install fluentd helm with your config you just copied to your working directory.
     ```
     helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f loggen_fluent_config.yaml
     ```
 
-2. Confirm that Fluentd is running in the default namespace.
+3. Confirm that Fluentd is running in the default namespace.
 
      ```
      kubectl get pods
@@ -116,7 +117,7 @@ In this example, we'll use Fluentd to capture the synthetic log streams you crea
 
     This also gives you the name of the Fluentd pod.
 
-3. Look at the Fluentd logs, which should indicate that various pod log files are being accessed.
+4. Look at the Fluentd logs, which should indicate that various pod log files are being accessed.
 
     ```
      kubectl logs fluent-fluentd-<your_pod_id_here>
@@ -142,7 +143,7 @@ In this example, we'll use Fluentd to capture the synthetic log streams you crea
 You just finished connecting your fluentD instance to your Otel collector. You should see a healthy stream of data flowing through the collector.
 
 ```
-kubectl logs gateway-collector-<your_pod_id_here> --tail 10
+kubectl -n mdai logs gateway-collector-<your_pod_id_here> --tail 10
 ```
 
 You should see log lines similar to the following.
@@ -162,4 +163,4 @@ You should see log lines similar to the following.
 
 # Success
 
-You're now sending logs to mdai. See our [usage guide](../usage/_index.md) for more information about taking control of your telemetry streams.
+You're now sending logs to mdai. See our [usage guide](../insights/_index.md) for more information about taking control of your telemetry streams.
