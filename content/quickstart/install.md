@@ -12,7 +12,7 @@ weight = 20
 - (Optional) Install [k9s](https://k9scli.io/topics/install/).
 
 ### Other Tools and Infrastructure Used in Installation
-- [cert-manager](https://cert-manager.io/docs/installation/kubectl/).
+- [cert-manager](https://cert-manager.io/docs/installation/kubectl/)
 
 ## Bring Up the MDAI Cluster
 
@@ -31,7 +31,9 @@ Make sure Docker is running.
 3. Install `mdai` helm repo and ensure it's up to date.
    ```
    helm repo add mdai https://decisiveai.github.io/mdai-helm-charts
-
+   ```
+3. Update the repo.
+   ```
    helm repo update
    ```
 
@@ -65,19 +67,20 @@ prometheus-kube-prometheus-stack-prometheus-0       2/2     Running   0         
 
 ## Set Up the MDAI Hub
 
-1. From the [MDAI Example Config repo](https://github.com/DecisiveAI/configs/blob/main/mdaihub_config.yaml), copy the `mdaihub_config.yaml` into your working directory.
+1. From the [MDAI Example Config repo](https://github.com/DecisiveAI/configs/blob/main/mdaihub_config.yaml), copy the `mdaihub_config.yaml` file into your working directory.
 
-```
-kubectl apply -f mdaihub_config.yaml
-```
+2. Apply the configuration to the hub resource.
+   ```
+   kubectl apply -f mdaihub_config.yaml
+   ```
 
 2. Verify the hub is applied by running
 
-```
-kubectl get customresourcedefinitions mdaihubs.hub.mydecisive.ai
-```
+   ```
+   kubectl get customresourcedefinitions mdaihubs.hub.mydecisive.ai
+   ```
 
-Your output should look as follows
+Your output should be similar to the following.
 ```
 NAME                         CREATED AT
 mdaihubs.hub.mydecisive.ai   2025-03-24T20:02:19Z
