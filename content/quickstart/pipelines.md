@@ -1,18 +1,24 @@
 +++
-title = 'Create a Pipeline for Log Data'
+title = 'Generate Log Data'
 weight = 30
 +++
 
 As they run, services generate log data to provide visibility into what's happening. Log data can include anything from benign informational messages to full-blown errors. You want to know about errors, but too many informational messages can become distracting noise.
 
-You'll be able to use MDAI to filter out unnecessary log lines. First, lets set up log generators and a pipeline to collect the logs and display telemetry data. Then we'll add a collector and collect logs.
+You'll be able to use MDAI to filter out unnecessary log lines. First, lets set up the log generators and generate log data. 
 
-## Generate Log Data
+## Get the Configuration Files
 
-We've built in some synthetics that will emulate log generation. Go to our Configs repo > [synthetics](https://github.com/DecisiveAI/configs/tree/main/synthetics) directory and copy the log generators into your working directory.
+In our Configs repo's [synthetics](https://github.com/DecisiveAI/configs/tree/main/synthetics) directory are synthetic log generators in the form of configuration files. You'll use these to generate synthetic log data.
 
+Copy the following files into your working directory:
 
-### Deploy Log Generators to Your Cluster
+- loggen_services.yaml
+- loggen_service_xtra_noisy.yaml
+- loggen_service_noisy.yaml
+- loggen_fluent_config.yaml
+
+## Deploy Log Generators to Your Cluster
 
 Let's create 3 different log generators.
 
@@ -34,7 +40,7 @@ The third is an excessively noisy version of the second log generator, but for a
 kubectl apply -f ./loggen_service_xtra_noisy.yaml
 ```
 
-### Verify That Logs Are Being Generated
+## Verify That Logs Are Being Generated
 
 If the log generators are running, get the pods.
 
@@ -85,95 +91,10 @@ For example, the logs from the pod named `mdai-logger-xnoisy-686cb6465f-xdzvp` s
 ```
 
 > [!TIP]
-> If you installed K9s, you can use it for observing the logs. To launch the K9s application, enter `k9s` in the terminal window where you launched the cluster (for the correct context). Use the arrow keys to select one of the log generators, then press **l** (lowercase letter l). Press ESC to exit the log window.
+> If you installed K9s, you can use it to observe the logs. To launch the K9s application, enter `k9s` in the terminal window where you launched the cluster (for the correct context). Use the arrow keys to select one of the log generators, then press **l** (lowercase letter l). Press ESC to exit the log window.
 
 
-## Set Up a Collector
+## Success
 
-1. From the [MDAI Example Config repo](https://github.com/DecisiveAI/configs/blob/main/otel_config.yaml), copy the `otel_config.yaml` into your working directory.
+Now that logs are being generated, we can [create a collector](collect.html).
 
-
-2. Deploy the Otel config to your cluster.
-
-    ```
-    kubectl apply -f otel_config.yaml
-    ```
-
-3. Verify that the collector is running in Kubernetes.
-
-    ```
-    kubectl -n mdai get pods --selector app.kubernetes.io/name=gateway-collector
-    ```
-
-    Output should similar to the following.
-
-    ```
-    NAME                                 READY   STATUS    RESTARTS   AGE
-    gateway-collector-74f69ccf5b-896gk   1/1     Running   0          2m28s
-    ```
-
-## Collect Logs
-
-We'll use Fluentd to capture the synthetic log streams you created in [step 1](#step-1-generate-log-data) in stdout/stderr, and forward them to the collector.
-
-1. From the [MDAI Example Config repo](https://github.com/DecisiveAI/configs/blob/main/synthetics/loggen_fluent_config.yaml), copy the `loggen_fluent_config.yaml` into your working directory.
-
-    ```
-    helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f loggen_fluent_config.yaml
-    ```
-
-2. Confirm that Fluentd is running in the default namespace.
-
-     ```
-     kubectl get pods
-     ```
-
-    This also gives you the name of the Fluentd pod.
-
-3. Look at the Fluentd logs, which should indicate that various pod log files are being accessed.
-
-    ```
-     kubectl logs fluent-fluentd-<your_pod_id_here>
-    ```
-
-    You should see log lines similar to the following.
-
-    ```
-    2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/mdai-prometheus-node-exporter-957tk_mdai_node-exporter-5b9ba8e8394e00b48b54534c075097cdc1bff99d2e634684d450645062a3a390.log
-    2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/mdai-prometheus-node-exporter-957tk_mdai_node-exporter-f6b7eacef004e60992050358d14a1e0780fa56c5cab236b66dcc4aa8debf7ecd.log
-    2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/noisy-mclogface-7ccd56984f-6wmrb_mdai_noisy-mclogface-c60bf1edeacfca17682f7bdb87213485ec4ec18571b334c5953ba74b25dda802.log
-    2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/noisy-mclogface-7ccd56984f-6wmrb_mdai_noisy-mclogface-c85adcb072728b92991a967a4e7503c88e4be5ce0e9d324e10cb56d67065a6fd.log
-    2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/noisy-mclogface-7ccd56984f-7x4qd_mdai_noisy-mclogface-3d159b3e51d63dae5686122bfa03e21fd3f5faf99ae5563b588bbaaeab50d2d1.log
-    2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/noisy-mclogface-7ccd56984f-7x4qd_mdai_noisy-mclogface-b343a4e7d4e995249a934119898368dc11a827a695fb8cb20309dbe67a50a7b9.log
-    2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/noisy-mclogface-7ccd56984f-fwnxk_mdai_noisy-mclogface-609ac69e83dd09e70948f3ad19439132246c2b4ee8072f7a21b845224b0aee00.log
-    2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/noisy-mclogface-7ccd56984f-fwnxk_mdai_noisy-mclogface-ff2407b2005ed2f2f00157840743748800c78078343846acdf0b8539518632d6.log
-    2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/opentelemetry-operator-57bd64b65d-mnf5d_mdai_manager-e1d482d5de3054b584edf8aee1501856d5fe0b61f3c80626c539c5435c48f7f3.log
-    2025-02-10 01:41:18 +0000 [info]: #0 following tail of /var/log/containers/prometheus-kube-prometheus-stack-prometheus-0_mdai_config-reloader-3f50b71d40173e561f5c2110c9ec00241e2057768a4ec6f5267e88589efc6812.log
-    ```
-
-## Step 4: Verify your OTel collector is receiving data
-
-You just finished connecting your fluentD instance to your Otel collector. You should see a healthy stream of data flowing through the collector.
-
-```
-kubectl logs gateway-collector-<your_pod_id_here> --tail 10
-```
-
-You should see log lines similar to the following.
-
-```
-2025-03-26T21:32:16.442Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/storage", "resource logs": 1, "log records": 185}
-2025-03-26T21:32:17.446Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/storage", "resource logs": 1, "log records": 184}
-2025-03-26T21:32:20.444Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/storage", "resource logs": 1, "log records": 173}
-2025-03-26T21:32:22.440Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/storage", "resource logs": 1, "log records": 12}
-2025-03-26T21:32:23.442Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/storage", "resource logs": 1, "log records": 61}
-2025-03-26T21:32:24.403Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/observer", "resource logs": 114, "log records": 694}
-2025-03-26T21:32:24.442Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/storage", "resource logs": 1, "log records": 31}
-2025-03-26T21:32:25.444Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/storage", "resource logs": 1, "log records": 238}
-2025-03-26T21:32:26.446Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/storage", "resource logs": 1, "log records": 101}
-2025-03-26T21:32:27.509Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/observer", "resource logs": 95, "log records": 3228}
-```
-
-# Success
-
-You're now sending logs to mdai. See our [usage guide](../usage/_index.md) for more information about taking control of your telemetry streams.
