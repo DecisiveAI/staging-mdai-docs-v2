@@ -89,4 +89,5 @@ mdaihubs.hub.mydecisive.ai   2025-03-24T20:02:19Z
 
 ### Success
 
-You're ready to start using mdai.
+Now that MDAI is running, we can go on to [generate log data](pipelines.html).
+
