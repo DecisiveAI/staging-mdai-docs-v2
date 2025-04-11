@@ -1,5 +1,5 @@
 +++
-title = 'Configs'
+title = 'Configuration'
 weight = 30
 +++
 
