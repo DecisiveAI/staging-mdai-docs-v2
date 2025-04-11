@@ -1,6 +1,6 @@
 +++
-title = 'Usage'
-weight = 30
+title = 'Insights'
+weight = 40
 +++
 
 ### Links to Example Configs Repo:

@@ -1,6 +1,6 @@
 +++
-title = 'Mydecisive Solutions'
-weight = 30
+title = 'Solutions'
+weight = 50
 +++
 
 This is the value.
