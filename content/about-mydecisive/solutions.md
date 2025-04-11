@@ -1,6 +1,6 @@
 +++
 title = 'Solutions'
-weight = 3
+weight = 7
 +++
 
 ## MYDECISIVE SOLUTIONS

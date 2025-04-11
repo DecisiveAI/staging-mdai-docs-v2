@@ -1,6 +1,6 @@
 +++
 title = 'About MyDecisive'
-weight = 1
+weight = 5
 +++
 
 ## Company Overview
@@ -9,7 +9,11 @@ weight = 1
 
 At MyDecisive, we address a critical challenge in managing vast amounts of telemetry data: the struggle for control over the data pipeline. Many organizations have relied on observability platforms for managing telemetry data, but they often get caught up in the proprietary methods for collecting, storing, and displaying metrics, events, logs, and traces creating silos that make it tough for teams to get a complete picture of their applications and systems.
 
-At MyDecisive, we offer an open-source platform powered by OpenTelemetry and enhanced by technologies like Kubernetes (K8s) and Prometheus. Our platform equips DevOps teams with robust capabilities, enabling them to take control of their entire telemetry pipeline. With MyDecisive’s dynamic configurations and automated workflows, you can define how data is collected, presented, and utilized before it leaves your cloud. This flexibility allows you to build observability pipelines that can be automatically updated and re-deployed as data streams evolve. By leveraging MyDecisive, enterprises gain full control over their telemetry data, empowering them to derive meaningful insights from their applications and infrastructure.
+At MyDecisive, we offer an open-source platform powered by OpenTelemetry and enhanced by technologies like Kubernetes (K8s) and Prometheus.
+
+![MDAI Open-Source](./overview.png)
+
+Our platform equips DevOps teams with robust capabilities, enabling them to take control of their entire telemetry pipeline. With MyDecisive’s dynamic configurations and automated workflows, you can define how data is collected, presented, and utilized before it leaves your cloud. This flexibility allows you to build observability pipelines that can be automatically updated and re-deployed as data streams evolve. By leveraging MyDecisive, enterprises gain full control over their telemetry data, empowering them to derive meaningful insights from their applications and infrastructure.
 
 ### History and Thought Leadership
 

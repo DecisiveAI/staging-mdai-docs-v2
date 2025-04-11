@@ -1,6 +1,6 @@
 +++
 title = 'Platform'
-weight = 2
+weight = 6
 +++
 
 ## MYDECISIVE PLATFORM OVERVIEW
@@ -16,3 +16,5 @@ MDAI works seamlessly with your current observability tools as well as your exis
 The MDAI Smart Telemetry Hub (MDAI Hub) is deployed in your Kubernetes (k8s) cluster and using OpenTelemetry Collector (contrib distribution) as the foundation, collects data from your critical applications and infrastructure. The MDAI Hub is powered by configurations that include variable-based parameters and OTel-based observers that provide dynamic data filtration and log tiering. These MDAI-developed workflows use dynamic variable values mapped to services, incorporating logic that can trigger specific outcomes. Once criteria or thresholds are met, the MDAI Smart Telemetry Hub automatically updates and deploys new configurations—no downtime or manual intervention needed!
 
 ![MDAI Platform Image](../platform.png)
+
+Learn more about [MDAI solutions](solutions.html).
