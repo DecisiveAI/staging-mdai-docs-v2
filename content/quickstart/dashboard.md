@@ -3,6 +3,8 @@ title = 'Set Up a Dashboard'
 weight = 50
 +++
 
+![quick-start page navigation numbers highlighting number 5 dashboard](../dashboard5.png)
+
 Dashboards are an indispensable devops tool providing alerts, enhancing visibility, enabling analysis, and more.
 
 We'll use Prometheus and Grafana, which were installed along with MDAI, to inspect the log data that's flowing through the pipeline we created. Prometheus is collecting and  aggregating the data, while Grafana allows us to visualize that data and create alerts in a dashboard.

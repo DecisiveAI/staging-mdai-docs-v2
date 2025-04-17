@@ -3,6 +3,8 @@ title = 'Create a Collector'
 weight = 40
 +++
 
+![quick-start page navigation numbers highlighting number 4 collector](../collect4.png)
+
 An OpenTelemetry collector is a component that receives and forwards telemetry data.
 
 ## Collect Logs
