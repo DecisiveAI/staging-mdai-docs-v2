@@ -3,16 +3,9 @@ title = 'Install MDAI'
 weight = 20
 +++
 
-### Prerequisites
+![quick-start page navigation numbers highlighting number 2 install](../install2.png)
 
-- Install [Docker](https://www.docker.com/products/docker-desktop/).
-- Install [Kubernetes](https://kubernetes.io/releases/download/) (k8s).
-- Install [kubectl and kind](https://kubernetes.io/docs/tasks/tools/).
-- Install [Helm](https://helm.sh/docs/intro/install/).
-- (Optional) Install [k9s](https://k9scli.io/topics/install/).
-
-### Other Tools and Infrastructure Used in Installation
-- [cert-manager](https://cert-manager.io/docs/installation/kubectl/)
+MDAI runs in a Kubernetes cluster. You'll use Helm charts to bring up the pods in the cluster.
 
 ## Bring Up the MDAI Cluster
 

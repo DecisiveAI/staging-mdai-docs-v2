@@ -3,6 +3,8 @@ title = 'Generate Log Data'
 weight = 30
 +++
 
+![quick-start page navigation numbers highlighting number 3 data](../data3.png)
+
 As they run, services generate log data to provide visibility into what's happening. Log data can include anything from benign informational messages to full-blown errors. You want to know about errors, but too many informational messages can become distracting noise.
 
 You'll be able to use MDAI to filter out unnecessary log lines. First, lets set up the log generators and generate log data. 
