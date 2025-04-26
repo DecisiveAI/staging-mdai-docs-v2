@@ -7,6 +7,30 @@ weight = 40
 
 An OpenTelemetry collector is a component that receives and forwards telemetry data.
 
+## Set Up a Collector
+
+1. From the [MDAI Example Config repo](https://github.com/DecisiveAI/configs/blob/main/otel_config.yaml), copy the `otel_config.yaml` into your working directory.
+
+
+2. Deploy the Otel config to your cluster.
+
+    ```
+    kubectl apply -f otel_config.yaml
+    ```
+
+3. Verify that the collector is running in Kubernetes.
+
+    ```
+    kubectl -n mdai get pods --selector app.kubernetes.io/name=gateway-collector
+    ```
+
+    Output should be similar to the following.
+
+    ```
+    NAME                                 READY   STATUS    RESTARTS   AGE
+    gateway-collector-74f69ccf5b-896gk   1/1     Running   0          2m28s
+    ```
+
 ## Collect Logs
 
 We'll use Fluentd to capture the synthetic log streams you created, and forward them to the collector.
@@ -57,18 +81,18 @@ kubectl logs svc/gateway-collector --tail 10 -n mdai
 You should see log lines similar to the following.
 
 ```
-2025-04-07T04:04:01.492Z	warn	envprovider@v1.23.0/provider.go:59	Configuration references unset environment variable	{"name": "MY_POD_IP"}
-2025-04-07T04:04:01.492Z	warn	envprovider@v1.23.0/provider.go:59	Configuration references unset environment variable	{"name": "MY_POD_IP"}
-2025-04-07T04:04:01.492Z	warn	envprovider@v1.23.0/provider.go:59	Configuration references unset environment variable	{"name": "MY_POD_IP"}
-2025-04-07T04:04:01.497Z	info	service@v0.117.0/service.go:230	Starting otelcol-contrib...	{"Version": "0.117.0", "NumCPU": 8}
-2025-04-07T04:04:01.497Z	info	extensions/extensions.go:39	Starting extensions...
-2025-04-07T04:04:01.497Z	info	extensions/extensions.go:42	Extension is starting...	{"kind": "extension", "name": "health_check"}
-2025-04-07T04:04:01.497Z	info	healthcheckextension@v0.117.0/healthcheckextension.go:32	Starting health_check extension	{"kind": "extension", "name": "health_check", "config": {"Endpoint":":13133","TLSSetting":null,"CORS":null,"Auth":null,"MaxRequestBodySize":0,"IncludeMetadata":false,"ResponseHeaders":null,"CompressionAlgorithms":null,"ReadTimeout":0,"ReadHeaderTimeout":0,"WriteTimeout":0,"IdleTimeout":0,"Path":"/","ResponseBody":null,"CheckCollectorPipeline":{"Enabled":false,"Interval":"5m","ExporterFailureThreshold":5}}}
-2025-04-07T04:04:01.497Z	info	extensions/extensions.go:59	Extension started.	{"kind": "extension", "name": "health_check"}
-2025-04-07T04:04:01.498Z	info	healthcheck/handler.go:132	Health Check state change	{"kind": "extension", "name": "health_check", "status": "ready"}
-2025-04-07T04:04:01.498Z	info	service@v0.117.0/service.go:253	Everything is ready. Begin running and processing data.
+2025-04-18T04:08:18.983Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/storage", "resource logs": 1, "log records": 46}
+2025-04-18T04:08:19.946Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/observer", "resource logs": 74, "log records": 2037}
+2025-04-18T04:08:19.981Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/storage", "resource logs": 1, "log records": 45}
+2025-04-18T04:08:20.980Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/storage", "resource logs": 1, "log records": 14}
+2025-04-18T04:08:26.982Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/storage", "resource logs": 1, "log records": 25}
+2025-04-18T04:08:27.980Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/storage", "resource logs": 1, "log records": 23}
+2025-04-18T04:08:30.981Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/storage", "resource logs": 1, "log records": 40}
+2025-04-18T04:08:31.425Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/observer", "resource logs": 139, "log records": 193}
+2025-04-18T04:08:32.949Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/observer", "resource logs": 119, "log records": 2969}
+2025-04-18T04:08:35.982Z	info	Logs	{"kind": "exporter", "data_type": "logs", "name": "debug/storage", "resource logs": 1, "log records": 55}
 ```
 
 ## Success
 
-To view the log data flowing from end to end, we'll [set up a dashboard](dashboard.md).
+To view the log data flowing frm end to end, we'll [set up a dashboard](dashboard.md).
