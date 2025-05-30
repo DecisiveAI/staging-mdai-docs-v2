@@ -32,7 +32,7 @@ TODO: SCREENSHOT
 
 ## Connect to the Prometheus Dashboard
 
-Use the [Prometheus expression dashboard](localhost:9090) dashboard to run queries against the data you're collecting.
+Use the [Prometheus expression dashboard](localhost:9090) to run queries against the data you're collecting.
 
 You can use [PromQL](https://prometheus.io/docs/prometheus/latest/querying/basics/) to query the data flowing through the pipeline we created. For example, run the following query to see the amount of logs that each of the synthetic services is sending.
 
