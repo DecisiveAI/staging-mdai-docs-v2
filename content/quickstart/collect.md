@@ -31,7 +31,7 @@ An OpenTelemetry collector is a component that receives and forwards telemetry d
     gateway-collector-74f69ccf5b-896gk   1/1     Running   0          2m28s
     ```
 
-## Collect Logs
+## Forward Logs
 
 We'll use Fluentd to capture the synthetic log streams you created, and forward them to the collector.
 
