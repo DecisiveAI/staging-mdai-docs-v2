@@ -18,7 +18,7 @@ Make sure Docker is running.
 
 2. Use kubectl to install cert-manager. Wait a few moments for cert-manager to finish installing.
     ```
-    kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.17.0/cert-manager.yaml
+    kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
     ```
 
 3. Install `mdai` helm repo and ensure it's up to date.
@@ -32,7 +32,7 @@ Make sure Docker is running.
 
 4. Create the mdai namespace.
    ```
-   helm upgrade --install --create-namespace --namespace mdai --cleanup-on-fail --wait-for-jobs mdai mdai/mdai-hub --devel
+   helm upgrade --install --create-namespace --namespace mdai --cleanup-on-fail --wait-for-jobs mdai mdai/mdai-hub --version v0.7.1-rc2
    ```
    > [!NOTE]
    > If running this command returns an error telling you to run `helm repo update`, then try again.
