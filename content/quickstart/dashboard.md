@@ -32,7 +32,7 @@ TODO: SCREENSHOT
 
 ## Connect to the Prometheus Dashboard
 
-Use the [Prometheus expression dashboard][localhost:9090) dashboard to run queries against the data you're collecting.
+Use the [Prometheus expression dashboard](localhost:9090) to run queries against the data you're collecting.
 
 You can use [PromQL](https://prometheus.io/docs/prometheus/latest/querying/basics/) to query the data flowing through the pipeline we created. For example, run the following query to see the amount of logs that each of the synthetic services is sending.
 
@@ -44,6 +44,74 @@ Notice that the volumes of services `service4321` and `service1234` are well abo
 
 Notice that the change in scale on the graph is in orders of magnitude.
 
+## Investigate the Noisy Services
+
+We need to see what kind of logs the 2 noisy services are generating before formulating a plan 
+to dampen their output. 
+
+The noisy log generators are responsible for the noisy services, so let's check one of them.
+
+```
+kubectl logs -n mdai mdai-logger-noisy-77fcbf8b9f-fj2ls
+```
+
+The output shows mixed levels for the log lines of `service1234`.
+
+```
+2025-05-30T00:36:26+00:00 - service1234 - teamA - us-east-1 - ERROR - The algorithm failed to execute. Error code 00x00.
+2025-05-30T00:36:26+00:00 - service1234 - teamA - us-east-1 - INFO - The algorithm successfully executed, triggering neural pathways and producing a burst of optimized data streams.
+2025-05-30T00:36:26+00:00 - service1234 - teamA - us-east-1 - WARNING - Getting hot in here.
+2025-05-30T00:36:26+00:00 - service1234 - teamA - us-east-1 - INFO - The algorithm successfully executed, triggering neural pathways and producing a burst of optimized data streams.
+2025-05-30T00:36:26+00:00 - service1234 - teamA - us-east-1 - ERROR - The algorithm failed to execute. Error code 00x00.
+2025-05-30T00:36:26+00:00 - service1234 - teamA - us-east-1 - WARNING - Getting hot in here.
+2025-05-30T00:36:26+00:00 - service1234 - teamA - us-east-1 - ERROR - The algorithm failed to execute. Error code 00x00.
+2025-05-30T00:36:26+00:00 - service1234 - teamA - us-east-1 - WARNING - Getting hot in here.
+2025-05-30T00:36:26+00:00 - service1234 - teamA - us-east-1 - ERROR - The algorithm failed to execute. Error code 00x00.
+2025-05-30T00:36:26+00:00 - service1234 - teamA - us-east-1 - INFO - The algorithm successfully executed, triggering neural pathways and producing a burst of optimized data streams.
+2025-05-30T00:36:26+00:00 - service1234 - teamA - us-east-1 - ERROR - The algorithm failed to execute. Error code 00x00.
+2025-05-30T00:36:26+00:00 - service1234 - teamA - us-east-1 - WARNING - Getting hot in here.
+2025-05-30T00:36:26+00:00 - service1234 - teamA - us-east-1 - WARNING - Getting hot in here.
+2025-05-30T00:36:26+00:00 - service1234 - teamA - us-east-1 - ERROR - The algorithm failed to execute. Error code 00x00.
+2025-05-30T00:36:26+00:00 - service1234 - teamA - us-east-1 - WARNING - Getting hot in here.
+2025-05-30T00:36:26+00:00 - service1234 - teamA - us-east-1 - WARNING - Getting hot in here.
+2025-05-30T00:36:26+00:00 - service1234 - teamA - us-east-1 - ERROR - The algorithm failed to execute. Error code 00x00.
+2025-05-30T00:36:26+00:00 - service1234 - teamA - us-east-1 - ERROR - The algorithm failed to execute. Error code 00x00.
+2025-05-30T00:36:26+00:00 - service1234 - teamA - us-east-1 - INFO - The algorithm successfully executed, triggering neural pathways and producing a burst of optimized data streams.
+```
+
+
+Now let's check one of the extra noisy ones.
+
+```
+kubectl logs -n mdai mdai-logger-xnoisy-686cb6465f-lg5gd
+```
+
+The output shows that the level of the vast majority of log lines for `service4321` is INFO. 
+
+```
+2025-05-29T07:27:52+00:00 - service4321 - teamB - us-east-1 - INFO - The algorithm successfully executed, triggering neural pathways and producing a burst of optimized data streams.
+2025-05-29T07:27:52+00:00 - service4321 - teamB - us-east-1 - INFO - The algorithm successfully executed, triggering neural pathways and producing a burst of optimized data streams.
+2025-05-29T07:27:52+00:00 - service4321 - teamB - us-east-1 - INFO - The algorithm successfully executed, triggering neural pathways and producing a burst of optimized data streams.
+2025-05-29T07:27:52+00:00 - service4321 - teamB - us-east-1 - INFO - The algorithm successfully executed, triggering neural pathways and producing a burst of optimized data streams.
+2025-05-29T07:27:52+00:00 - service4321 - teamB - us-east-1 - INFO - The algorithm successfully executed, triggering neural pathways and producing a burst of optimized data streams.
+2025-05-29T07:27:52+00:00 - service4321 - teamB - us-east-1 - INFO - The algorithm successfully executed, triggering neural pathways and producing a burst of optimized data streams.
+2025-05-29T07:27:52+00:00 - service4321 - teamB - us-east-1 - ERROR - The algorithm failed to execute. Error code 00x00.
+2025-05-29T07:27:52+00:00 - service4321 - teamB - us-east-1 - INFO - The algorithm successfully executed, triggering neural pathways and producing a burst of optimized data streams.
+2025-05-29T07:27:52+00:00 - service4321 - teamB - us-east-1 - INFO - The algorithm successfully executed, triggering neural pathways and producing a burst of optimized data streams.
+2025-05-29T07:27:52+00:00 - service4321 - teamB - us-east-1 - INFO - The algorithm successfully executed, triggering neural pathways and producing a burst of optimized data streams.
+2025-05-29T07:27:52+00:00 - service4321 - teamB - us-east-1 - INFO - The algorithm successfully executed, triggering neural pathways and producing a burst of optimized data streams.
+2025-05-29T07:27:52+00:00 - service4321 - teamB - us-east-1 - INFO - The algorithm successfully executed, triggering neural pathways and producing a burst of optimized data streams.
+2025-05-29T07:27:52+00:00 - service4321 - teamB - us-east-1 - INFO - The algorithm successfully executed, triggering neural pathways and producing a burst of optimized data streams.
+2025-05-29T07:27:52+00:00 - service4321 - teamB - us-east-1 - INFO - The algorithm successfully executed, triggering neural pathways and producing a burst of optimized data streams.
+2025-05-29T07:27:52+00:00 - service4321 - teamB - us-east-1 - INFO - The algorithm successfully executed, triggering neural pathways and producing a burst of optimized data streams.
+2025-05-29T07:27:52+00:00 - service4321 - teamB - us-east-1 - INFO - The algorithm successfully executed, triggering neural pathways and producing a burst of optimized data streams.
+2025-05-29T07:27:52+00:00 - service4321 - teamB - us-east-1 - INFO - The algorithm successfully executed, triggering neural pathways and producing a burst of optimized data streams.
+2025-05-29T07:27:52+00:00 - service4321 - teamB - us-east-1 - INFO - The algorithm successfully executed, triggering neural pathways and producing a burst of optimized data streams.
+2025-05-29T07:27:52+00:00 - service4321 - teamB - us-east-1 - INFO - The algorithm successfully executed, triggering neural pathways and producing a burst of optimized data streams.
+```
+
+Our systems are generating a great deal of INFO log lines. We want to know when things are about to go wrong (WARNING), or when they've actually gone wrong (ERROR), but knowing that services are performing as expected (INFO) isn't worth paying for in our use case.
+
 ## Success
 
-Now that we've found 2 very noisy services, our next task is to apply a filter to [remove the noise](filter.md).
+Now that we've found 2 noisy services, our next task is to apply a filter to [remove the noise](filter.md).
