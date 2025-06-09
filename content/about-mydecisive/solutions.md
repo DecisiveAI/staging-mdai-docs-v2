@@ -17,7 +17,7 @@ MDAI’s Dynamic Data Filtration solution provides the ability to filter the dat
 
 ### What MyDecisive Delivers
 
-With the MyDecisive and the Smart Telemetry Hub, IT organizations can transform observability from passive monitoring to intelligent automation. Unlike traditional tools that rely on dashboards and reactive alerts, the Smart Telemetry Hub continuously interprets data, detects emerging patterns, and initiates proactive solutions - optimizing system performance, minimizing downtime, and reducing resolution times.
+With MyDecisive and the Smart Telemetry Hub, IT organizations can transform observability from passive monitoring to intelligent automation. Unlike traditional tools that rely on dashboards and reactive alerts, the Smart Telemetry Hub continuously interprets data, detects emerging patterns, and initiates proactive solutions - optimizing system performance, minimizing downtime, and reducing resolution times.
 
 With MyDecisive’s Smart Telemetry Hub integrated into your telemetry pipeline, your organization adopts an action-oriented approach that not only optimizes system availability and operational responsiveness but also reduces costs to their lowest levels. This transformation empowers your IT organization to evolve from a reactive support function into a strategic driver of business value and agility.
 
