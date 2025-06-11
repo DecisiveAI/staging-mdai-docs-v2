@@ -11,14 +11,14 @@ MDAI works seamlessly with your current observability tools as well as your exis
 
 ![MDAI Platform Image](../platform.png)
 
-The programmable Smart Telemetry Hub is powered by OTel-based observers and dynamic variables which are configuration parameters that adapt based on real-time data streams. Dynamic variable values mapped to services, incorporates logic that can automatically trigger specific outcomes such as data filtration and enrichment, intelligent security policies and cost optimization.
+The programmable Smart Telemetry Hub is powered by OTel-based observers and dynamic variables which are configuration parameters that adapt based on real-time data streams. Dynamic variable values map to services and incorporate logic that can automatically trigger specific outcomes such as data filtration and enrichment, intelligent security policies and cost optimization.
 
 With MDAI integrated into your telemetry pipeline, you can:
 
 - **Simplify OpenTelemetry management and boost productivity**
   MDAI's Smart Telemetry Hub streamlines OpenTelemetry-based pipeline management empowering you to centrally manage and control system health in real-time as well as make dynamic adjustment and re-deployments with minimal human intervention and zero downtime.
 - **Take control of telemetry costs without sacrificing data richness**
-  The programmable Smart Telemetry Hub, enables you to filter data safely and maintain a data backfill. When issues arise, you’ll have all your full telemetry available to replay and display on your monitoring system. The result: improved visibility, optimized system performance and controlled costs.
+  The programmable Smart Telemetry Hub enables you to filter data safely and maintain a data backfill. When issues arise, you’ll have all your full telemetry available to replay and display on your monitoring system. The result: improved visibility, optimized system performance and controlled costs.
 - **Transform passive monitoring to full automation**
   With the programmable Smart Telemetry Hub, you can automate observability workflows and create specific outcomes based on real-time data conditions. This is done with minimal human intervention and zero downtime, enabling your engineers to focus on strategic initiatives and drive business growth.
 
