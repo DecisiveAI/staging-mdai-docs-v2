@@ -20,9 +20,10 @@ With MDAI integrated into your telemetry pipeline, you can:
 - **Take control of telemetry costs without sacrificing data richness**
   The programmable Smart Telemetry Hub enables you to filter data safely and maintain a data backfill. When issues arise, you’ll have all your full telemetry available to replay and display on your monitoring system. The result: improved visibility, optimized system performance and controlled costs.
 - **Transform passive monitoring to full automation**
-  With the programmable Smart Telemetry Hub, you can automate observability workflows and create specific outcomes based on real-time data conditions. This is done with minimal human intervention and zero downtime**, enabling your engineers to focus on strategic initiatives and drive business growth.
+  With the programmable Smart Telemetry Hub, you can automate observability workflows and create specific outcomes based on real-time data conditions. This is done with minimal human intervention and zero downtime, enabling your engineers to focus on strategic initiatives and drive business growth.
   
- ** zero downtime - we have done extensive testing and have not yet found any data packets to be lost or dropped. 
+> [!NOTE]
+> Regarding *zero downtime*, our extensive testing has not found any lost or dropped data packets. 
 
 With MyDecisive integrated into your telemetry pipeline, your organization adopts an action-oriented approach that not only optimizes system availability and operational responsiveness but also reduces costs to their lowest levels. As a result, your IT organization elevates from a reactive support function to a strategic driver of business value and agility.
 
