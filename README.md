@@ -8,7 +8,8 @@ The quick way to get started:
 
 1. Clone this repository with Git.
 2. Re-download the Relearn theme (see instructions in [Update the Theme](#update-the-theme))
-3. Install Hugo (extended edition).
+3. Install [Hugo](https://gohugo.io/installation/) (extended edition).
+   1. `brew install hugo`
 4. Test changes locally by building and loading the site with Hugo.
 5. Create a PR to get your changes reviewed before they're merged.
 
@@ -44,7 +45,7 @@ The Hugo [Relearn theme](https://github.com/McShelby/hugo-theme-relearn) is inst
 If you cloned this repo, the Relearn theme will need to be re-downloaded. Run:
 
 ```
-git module init
+git submodule init
 git submodule update --remote --merge
 ```
 

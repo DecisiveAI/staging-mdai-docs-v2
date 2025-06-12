@@ -54,7 +54,7 @@ Make sure Docker is running.
 
 4. Create the mdai namespace.
    ```
-   helm upgrade --install --create-namespace --namespace mdai --cleanup-on-fail --wait-for-jobs mdai mdai/mdai-hub --version v0.7.1-rc2
+   helm upgrade --install --create-namespace --namespace mdai --cleanup-on-fail --wait-for-jobs mdai mdai/mdai-hub --version v0.8.0-rc1
    ```
    > [!NOTE]
    > If running this command returns an error telling you to run `helm repo update`, then try again.
