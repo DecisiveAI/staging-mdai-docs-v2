@@ -48,7 +48,7 @@ kubectl port-forward -n mdai svc/mdai-grafana 3000:80
 
 The [MDAI Grafana dashboards](http://localhost:3000/dashboards) shows summaries of cluster usage, runtime metrics, and more. Log in with the username `admin` and the password `mdai`.
 
-TODO: SCREENSHOT
+> Note: WE have documented our dashboards individually. We go into further detail in our [Grafana Dashboards](../insights/grafana.md) page. These documents are rapidly changing, so we do not guarantee accuracy. If you have questions, please raise a Slack message in our [#mdai-docs-questions Slack Channel](https://mydecisivecommunity.slack.com/archives/C090KU6F679)
 
 ## Connect to the Prometheus Dashboard
 

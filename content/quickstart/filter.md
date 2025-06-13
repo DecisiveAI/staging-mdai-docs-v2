@@ -73,4 +73,13 @@ The log volume for `service4321` has decreased so much that it's not visible at 
 
 ## Success
 
-TODO: OVERALL REVIEW OF QUICK START AND USE-CASE VALUE
+Thanks for sticking around. To emphasize the power of what you completed, let's recap what happened...
+
+1. You setup a bare-bones cluster to install MDAI
+2. You installed the MDAI helm repo (all MDAI dependencies)
+3. You installed an instance of the MDAI Smart Telemetry H
+4. You installed a few log generators that created synthetic data to simulate telemetry flow from your services/infra to MDAI
+5. You setup an OTel collector for ETL + routing activities
+6. You setup a log forwarder to capture the log streams from the log generators and forward on to your OTel collector
+7. You applied a data filter in your OTel collector
+8. You successfully filtered data -- which at the end of the day in a prod environment, would provide cost savings.
