@@ -18,7 +18,7 @@ weight = 60
     <img src="../stepper/6.4.png" alt="Step 6.4 - Complete">
   </a>
   <a href="../dashboard">
-    <img src="../stepper/6.6.png" alt="Step 6.5 - Complete">
+    <img src="../stepper/6.5.png" alt="Step 6.5 - Complete">
   </a>
   <a href="#">
     <img src="../stepper/6.6.png" alt="Step 6.6 - Active">
