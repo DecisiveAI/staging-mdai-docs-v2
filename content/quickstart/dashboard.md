@@ -3,7 +3,27 @@ title = 'Set Up a Dashboard'
 weight = 50
 +++
 
-![quick-start page navigation numbers highlighting number 5 dashboard](../dashboard5.png)
+
+<div style="align-items: center; display: flex; justify-content: center;">
+  <a href="/quickstart">
+    <img src="../stepper/5.1.png" alt="Step 5.1 - Complete">
+  </a>
+  <a href="../install">
+    <img src="../stepper/5.2.png" alt="Step 5.2 - Complete">
+  </a>
+  <a href="../pipelines">
+    <img src="../stepper/5.3.png" alt="Step 5.3 - Complete">
+  </a>
+  <a href="../collect">
+    <img src="../stepper/5.4.png" alt="Step 5.4 - Complete">
+  </a>
+  <a href="#">
+    <img src="../stepper/5.5.png" alt="Step 5.5 - Active">
+  </a>
+  <a href="../filter">
+    <img src="../stepper/5.6.png" alt="Step 5.6">
+  </a>
+</div>
 
 Dashboards are an indispensable devops tool providing alerts, enhancing visibility, enabling analysis, and more.
 
@@ -26,7 +46,7 @@ kubectl port-forward -n mdai svc/mdai-grafana 3000:80
 
 ## Connect to Grafana
 
-The [MDAI Grafana dashboards](http://localhost:3000/dashboards) shows summaries of cluster usage, runtime metrics, and more. Log in with the username `admin` and the password `mdai`. 
+The [MDAI Grafana dashboards](http://localhost:3000/dashboards) shows summaries of cluster usage, runtime metrics, and more. Log in with the username `admin` and the password `mdai`.
 
 TODO: SCREENSHOT
 
@@ -46,8 +66,8 @@ Notice that the change in scale on the graph is in orders of magnitude.
 
 ## Investigate the Noisy Services
 
-We need to see what kind of logs the 2 noisy services are generating before formulating a plan 
-to dampen their output. 
+We need to see what kind of logs the 2 noisy services are generating before formulating a plan
+to dampen their output.
 
 The noisy log generators are responsible for the noisy services, so let's check one of them.
 
@@ -86,7 +106,7 @@ Now let's check one of the extra noisy ones.
 kubectl logs -n mdai mdai-logger-xnoisy-686cb6465f-lg5gd
 ```
 
-The output shows that the level of the vast majority of log lines for `service4321` is INFO. 
+The output shows that the level of the vast majority of log lines for `service4321` is INFO.
 
 ```
 2025-05-29T07:27:52+00:00 - service4321 - teamB - us-east-1 - INFO - The algorithm successfully executed, triggering neural pathways and producing a burst of optimized data streams.

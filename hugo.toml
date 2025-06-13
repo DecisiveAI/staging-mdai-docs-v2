@@ -11,7 +11,7 @@ theme = "hugo-theme-relearn" # https://github.com/McShelby/hugo-theme-relearn
   # (Optional, default light) Sets color theme: light, dark or auto.
   # Theme 'auto' switches between dark and light modes based on browser/os preferences
   # BookTheme = 'dark'
-  themeVariant = "relearn-dark" 
+  themeVariant = "relearn-dark"
   linkTitle = " " # Sets text at top of sidebar, replace with logo, has space to prevent default behavior
   landingPageName = '<i class="fa-fw fas fa-home"></i> Documentation' # text with home button
   disableInlineCopyToClipBoard = true
@@ -27,8 +27,8 @@ collapsibleMenu = true
   [[menu.before]]
     name = 'Home'
     pageRef = '/'
-    weight = 1 
- 
+    weight = 1
+
 
 
 # experimental to see if images will render correctly...
@@ -37,4 +37,7 @@ collapsibleMenu = true
     [markup.goldmark.renderHooks]
       [markup.goldmark.renderHooks.image]
         enableDefault = true  # enable embedded image render hook
-
+      [markup.goldmark.renderHooks.link]
+        enableDefault = true
+    [markup.goldmark.renderer]
+      unsafe= true

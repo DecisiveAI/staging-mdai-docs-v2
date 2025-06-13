@@ -1,13 +1,37 @@
 +++
 title = 'Quickstart'
+url = '/quickstart/'
+sectionPagesMenu = "quickstart"
 weight = 20
 +++
+
+
+<div style="align-items: center; display: flex; justify-content: center;">
+  <a href="#">
+    <img src="./stepper/1.1.png" alt="Step 1.1 - Active">
+  </a>
+  <a href="./install">
+    <img src="./stepper/1.2.png" alt="Step 1.2">
+  </a>
+  <a href="./pipelines">
+    <img src="./stepper/1.3.png" alt="Step 1.3">
+  </a>
+  <a href="./collect">
+    <img src="./stepper/1.4.png" alt="Step 1.4">
+  </a>
+  <a href="./dashboard">
+    <img src="./stepper/1.5.png" alt="Step 1.5">
+  </a>
+  <a href="./filter">
+    <img src="./stepper/1.6.png" alt="Step 1.6">
+  </a>
+</div>
+
 
 {{% notice style="transparent" %}}
 _“Enterprise-Class OpenTelemetry Made Simple - Transform OTel from a static configuration challenge into an intelligent, self-managing platform. No more rebuilds for reconfigurations or specialized headcount requirements.”_
 {{% /notice %}}
 
-![quick-start page navigation numbers highlighting number 1 prereqs](prereq1.png)
 
 Quickly set up the MDAI cluster and test drive MyDecisive observability solutions on your laptop.
 

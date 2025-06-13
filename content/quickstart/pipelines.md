@@ -3,11 +3,30 @@ title = 'Generate Log Data'
 weight = 30
 +++
 
-![quick-start page navigation numbers highlighting number 3 data](../data3.png)
+<div style="align-items: center; display: flex; justify-content: center;">
+  <a href="/quickstart">
+    <img src="../stepper/3.1.png" alt="Step 3.1 - Complete">
+  </a>
+  <a href="../install">
+    <img src="../stepper/3.2.png" alt="Step 3.2 - Complete">
+  </a>
+  <a href="#">
+    <img src="../stepper/3.3.png" alt="Step 3.3 - Active">
+  </a>
+  <a href="../collect">
+    <img src="../stepper/3.4.png" alt="Step 3.4">
+  </a>
+  <a href="../dashboard">
+    <img src="../stepper/3.5.png" alt="Step 3.5">
+  </a>
+  <a href="../filter">
+    <img src="../stepper/3.6.png" alt="Step 3.6">
+  </a>
+</div>
 
 As they run, services generate log data to provide visibility into what's happening. Log data can include anything from benign informational messages to full-blown errors. You want to know about errors, but too many informational messages can become distracting noise.
 
-You'll be able to use MDAI to filter out unnecessary log lines. First, lets set up the log generators and generate log data. 
+You'll be able to use MDAI to filter out unnecessary log lines. First, lets set up the log generators and generate log data.
 
 ## Get the Configuration Files
 

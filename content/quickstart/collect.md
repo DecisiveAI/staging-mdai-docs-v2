@@ -3,7 +3,26 @@ title = 'Create a Collector'
 weight = 40
 +++
 
-![quick-start page navigation numbers highlighting number 4 collector](../collect4.png)
+<div style="align-items: center; display: flex; justify-content: center;">
+  <a href="/quickstart">
+    <img src="../stepper/4.1.png" alt="Step 4.1 - Complete">
+  </a>
+  <a href="../install">
+    <img src="../stepper/4.2.png" alt="Step 4.2 - Complete">
+  </a>
+  <a href="../pipelines">
+    <img src="../stepper/4.3.png" alt="Step 4.3 - Complete">
+  </a>
+  <a href="#">
+    <img src="../stepper/4.4.png" alt="Step 4.4 - Active">
+  </a>
+  <a href="../dashboard">
+    <img src="../stepper/4.5.png" alt="Step 4.5">
+  </a>
+  <a href="../filter">
+    <img src="../stepper/4.6.png" alt="Step 4.6">
+  </a>
+</div>
 
 An OpenTelemetry collector is a component that receives and forwards telemetry data.
 

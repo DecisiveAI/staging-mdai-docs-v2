@@ -3,9 +3,31 @@ title = 'Install MDAI'
 weight = 20
 +++
 
-![quick-start page navigation numbers highlighting number 2 install](../install2.png)
+
+<div style="align-items: center; display: flex; justify-content: center;">
+  <a href="/quickstart">
+    <img src="../stepper/2.1.png" alt="Step 2.1 - Complete">
+  </a>
+  <a href="#">
+    <img src="../stepper/2.2.png" alt="Step 2.2 - Active">
+  </a>
+  <a href="../pipelines">
+    <img src="../stepper/2.3.png" alt="Step 2.3">
+  </a>
+  <a href="../collect">
+    <img src="../stepper/2.4.png" alt="Step 2.4">
+  </a>
+  <a href="../dashboard">
+    <img src="../stepper/2.5.png" alt="Step 2.5">
+  </a>
+  <a href="../filter">
+    <img src="../stepper/2.6.png" alt="Step 2.6">
+  </a>
+</div>
+
 
 MDAI runs in a Kubernetes cluster. You'll use Helm charts to bring up the pods in the cluster.
+
 
 ## Bring Up the MDAI Cluster
 
