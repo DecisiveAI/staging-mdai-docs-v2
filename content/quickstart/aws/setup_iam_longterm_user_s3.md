@@ -1,4 +1,4 @@
-# IAM User Secrets for writing to S3
+# Setup MDAI Collector with S3 Access
 
 ## Steps involved
 
@@ -11,13 +11,19 @@
 1. The `mdai-collector` references the secret to enable the e2e connectivity for MDAI to access the specified s3 bucket.
 
 
+>[!Info]
+>
+>This guide assumes you have
+>1. Cloned our [`mdai-labs` repo](https://github.com/DecisiveAI/mdai-labs/tree/main) set this as your working directory
+>2. Have access to an AWS account with Admin Admin access
+
 ### Step 1: Create a user via IAM
 
-For our quickstart example, we will use a non-federated user in AWS IAM that has long-term credentials. You do not need console access for this user.
+For our quickstart example, we will use a [non-federated user in AWS IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started-workloads.html) that has long-term credentials. You do not need console access for this user.
 
 #### Set Permissions: Attach inline policies
 
-Using our `./aws/s3-policy.json` file, you should be able to _Attach policies directly_ to the user. Don't forget to update the policy to point to your bucket.
+Using our [`./aws/s3-policy.json` file](https://github.com/DecisiveAI/mdai-labs/blob/main/aws/s3-policy.json), you should be able to _Attach policies directly_ to the user. Don't forget to update the policy to point to your bucket.
 
 #### Create an Access Key for the user
 

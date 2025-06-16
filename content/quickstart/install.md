@@ -77,6 +77,10 @@ Make sure Docker is running.
     helm upgrade --install --create-namespace --namespace mdai --cleanup-on-fail --wait-for-jobs mdai mdai/mdai-hub --version v0.8.0-dev
     ```
 
+    **Jump ahead to [MDAI Labs](#mdai-labs)**
+
+    ---
+
     #### Alternative installation methods
 
     >[!INFO]
