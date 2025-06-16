@@ -5,9 +5,9 @@ weight = 102
 
 _Last Update: June 5, 2025_
 
-### Frequently Asked Questions about MyDecisive
+## Frequently Asked Questions about MyDecisive
 
-## Table of Contents
+### Table of Contents
 
 - [What is the MyDecisive platform and how does it work?](#what-is-the-mydecisive-platform-and-how-does-it-work)
 - [What advantages does MyDecisive offer compared to traditional observability solutions?](#what-advantages-does-mydecisive-offer-compared-to-traditional-observability-solutions)
@@ -20,7 +20,7 @@ _Last Update: June 5, 2025_
 
 ---
 
-##### What is the MyDecisive platform and how does it work?
+### What is the MyDecisive platform and how does it work?
 
 MyDecisive.ai (MDAI) built its platform, the Smart Telemetry Hub, on Open Telemetry, and is deployed on your Kubernetes cluster.  It is designed to work with your existing observability tools to transform passive monitoring to an automated platform.
 
@@ -30,7 +30,7 @@ Much like Cisco transformed network management, MyDecisive is revolutionizing ob
 
 ---
 
-##### What advantages does MyDecisive offer compared to traditional observability solutions?
+### What advantages does MyDecisive offer compared to traditional observability solutions?
 
 The Smart Telemetry Hub empowers IT teams to transform their observability tools from passive monitoring to an action-oriented automated platform. Its advantages over traditional observability solutions include:
 
@@ -48,40 +48,40 @@ The Smart Telemetry Hub empowers IT teams to transform their observability tools
 
 ---
 
-<!-- #### Is any specific infrastructure required to implement MyDecisive?
+<!-- ### Is any specific infrastructure required to implement MyDecisive?
 [Link to system requirements]
 
 --- -->
 
-##### How does MyDecisive integrate with my existing observability tools and infrastructure?
+### How does MyDecisive integrate with my existing observability tools and infrastructure?
 
 If you are using open-source technologies such as OpenTelemetry, Kubernetes, Prometheus, ValKey, and others, the MyDecisive platform will integrate seamlessly with your existing infrastructure. Learn more about the [technologies behind MyDecisive’s Smart Telemetry Hub](https://docs.mydecisive.ai/overview/architecture/index.html).
 
 ---
 
-##### How does MyDecisive and the Smart Telemetry Hub add value to my existing data management processes?
+### How does MyDecisive and the Smart Telemetry Hub add value to my existing data management processes?
 
 Current data management processes involve proprietary technologies and numerous manual processes to get desired results. MyDecisive uses open-source software and a programmable platform to provide flexibility, automation, and additional intelligence. As a result, manual processes are reduced and real-time insights are delivered.
 
 ---
 
-##### How does the Dynamic Data Filtration feature function?
+### How does the Dynamic Data Filtration feature function?
 [Check out our solutions](/solutions)
 
 ---
 
-##### What kind of support and resources do you provide for new users?
+### What kind of support and resources do you provide for new users?
 
 You can find support, learning resources, and connect with our team in our [MyDecisive community Slack channel](https://communityinviter.com/apps/mydecisivecommunity/octobuddy).
 
 ---
 
-##### How does MyDecisive address data security and compliance concerns?
+### How does MyDecisive address data security and compliance concerns?
 
 Since the MyDecisive platform is deployed in your own cloud, we don’t have any visibility into your data. You have full control over your data and can implement your own security and compliance measures.    
 
 ---
 
-##### What is the pricing model for MyDecisive?
+### What is the pricing model for MyDecisive?
 
 The current release of the MyDecisive platform is free to use, operating under the AGPL (GNU Affero General Public License) framework. This allows users to utilize the platform without cost.  
