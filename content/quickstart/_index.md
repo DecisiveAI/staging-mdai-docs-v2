@@ -52,3 +52,6 @@ You'll need to install the following software.
 - [Helm](https://helm.sh/docs/intro/install/).
 - (Kubernetes add-on) [cert-manager](https://cert-manager.io/docs/installation/kubectl/)
 - (Optional) [k9s](https://k9scli.io/topics/install/).
+
+
+## Next steps: [Installation](./install.md)

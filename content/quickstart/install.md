@@ -43,54 +43,76 @@ Make sure Docker is running.
     ```
 
 3. Install `mdai` helm repo and ensure it's up to date.
-   ```
-   helm repo add mdai https://decisiveai.github.io/mdai-helm-charts
-   ```
+    ```
+    helm repo add mdai https://decisiveai.github.io/mdai-helm-charts
+    ```
+
 4. Update the repo.
-   ```
-   helm repo update
-   ```
+    ```
+    helm repo update
+    ```
 
 5. Install MDAI dependencies via Helm chart
 
-   See our [Install methods](./installMethods.md) for choosing the correct install method.
+    ### MDAI with Self-Monitoring via S3
+
+    Send MDAI Smart Telemetry hub component logs to an s3 bucket for explainability of MDAI operations.
+
+    #### Setup Long-Term IAM User and MDAI Collector
+
+    >[!NOTE]
+    >
+    >***DO NOT IGNORE THIS STEP***
+    >
+    >This is an involved step that cannot be skipped
+    >
+    >* **If you have an AWS account**, jump over to our [Setup IAM & MDAI Collector User Guide](./aws/setup_iam_longterm_user_s3.md).
+    >
+    >* **If you do not have an AWS account**, please see our [Alternative Install methods](./installMethods.md)
+
+
+    #### Install MDAI Collector
+
+    ```sh
+    helm upgrade --install --create-namespace --namespace mdai --cleanup-on-fail --wait-for-jobs mdai mdai/mdai-hub --version v0.8.0-dev
+    ```
+
+    #### Alternative installation methods
+
+    >[!INFO]
+    >
+    >*There are multiple [MDAI-supported installation methods](./installMethods.md), however, the MDAI with Self-Monitoring is our recommended approach*
+
 
 
 6. Verify that the cluster's pods are running.
-   ```
-   kubectl get pods -n mdai
-   ```
+    ```
+    kubectl get pods -n mdai
+    ```
 
-If the cluster is running, you'll see output similar to the following.
+    If the cluster is running, you'll see output similar to the following.
 
-```
-NAME                                                READY   STATUS                       RESTARTS   AGE
-alertmanager-kube-prometheus-stack-alertmanager-0   2/2     Running                      0          11m
-kube-prometheus-stack-operator-6cfdc788d4-l9vn7     1/1     Running                      0          12m
-mdai-event-hub-556c8897f5-fss8k                     1/1     Running                      0          12m
-mdai-gateway-64cb746f-slm6f                         1/1     Running                      0          12m
-mdai-grafana-84bb594f6c-s5xwt                       3/3     Running                      0          12m
-mdai-kube-state-metrics-6cd9fd8458-m2dzg            1/1     Running                      0          12m
-mdai-operator-controller-manager-65955fb98b-vsvqg   1/1     Running                      0          12m
-mdai-prometheus-node-exporter-2427z                 1/1     Running                      0          12m
-mdai-rabbitmq-0                                     1/1     Running                      0          12m
-mdai-s3-logs-reader-7dc95b7479-94ml9                0/1     CreateContainerConfigError   0          12m
-mdai-valkey-primary-0                               1/1     Running                      0          12m
-opentelemetry-operator-6d8ddbdc4d-8hbcj             1/1     Running                      0          12m
-prometheus-kube-prometheus-stack-prometheus-0       2/2     Running                      0          11m
-```
+    ```
+    NAME                                                READY   STATUS                       RESTARTS   AGE
+    alertmanager-kube-prometheus-stack-alertmanager-0   2/2     Running                      0          11m
+    kube-prometheus-stack-operator-6cfdc788d4-l9vn7     1/1     Running                      0          12m
+    mdai-event-hub-556c8897f5-fss8k                     1/1     Running                      0          12m
+    mdai-gateway-64cb746f-slm6f                         1/1     Running                      0          12m
+    mdai-grafana-84bb594f6c-s5xwt                       3/3     Running                      0          12m
+    mdai-kube-state-metrics-6cd9fd8458-m2dzg            1/1     Running                      0          12m
+    mdai-operator-controller-manager-65955fb98b-vsvqg   1/1     Running                      0          12m
+    mdai-prometheus-node-exporter-2427z                 1/1     Running                      0          12m
+    mdai-rabbitmq-0                                     1/1     Running                      0          12m
+    mdai-s3-logs-reader-7dc95b7479-94ml9                0/1     CreateContainerConfigError   0          12m
+    mdai-valkey-primary-0                               1/1     Running                      0          12m
+    opentelemetry-operator-6d8ddbdc4d-8hbcj             1/1     Running                      0          12m
+    prometheus-kube-prometheus-stack-prometheus-0       2/2     Running                      0          11m
+    ```
 
-<br />
+    <br />
 
-> ❌ **Expected Error**
->
->You will now see an error with the service, `mdai-s3-logs-reader`, until you finish adding valid AWS IAM long-term credentials. Instructions to follow.
 
-**Setup Long-Term IAM User and MDAI Collector**
-
-Jump to [Setup IAM Long-term User](./aws/setup_iam_longterm_user_s3.md) for setting up a user and access keys for your cluster.
-
-*After running through the IAM and collector setup, skip ahead to [MDAI Labs](#mdai-labs)*
+    *After running through the IAM and collector setup and verification, skip ahead to [MDAI Labs](#mdai-labs)*
 
 
 ## MDAI Labs
@@ -100,24 +122,24 @@ We've put together some pre-defined solutions in our [mdai-labs](https://github.
 ## Install MDAI Smart Telemetry Hub
 
 1. Apply the configuration to the hub resource.
-   ```
-   kubectl apply -f ./mdai/hub/0.8/hub_guaranteed_working.yaml -n mdai
-   ```
+    ```
+    kubectl apply -f ./mdai/hub/0.8/hub_guaranteed_working.yaml -n mdai
+    ```
 
 2. Verify the hub is applied by running
 
-   ```
-   kubectl get customresourcedefinitions mdaihubs.hub.mydecisive.ai
-   ```
+    ```
+    kubectl get customresourcedefinitions mdaihubs.hub.mydecisive.ai
+    ```
 
-Your output should be similar to the following.
-```
-NAME                         CREATED AT
-mdaihubs.hub.mydecisive.ai   2025-03-24T20:02:19Z
-```
+    Your output should be similar to the following.
+    ```
+    NAME                         CREATED AT
+    mdaihubs.hub.mydecisive.ai   2025-03-24T20:02:19Z
+    ```
 
 
-### Success
+## Success
 
 Now that MDAI is running, we can go on to [generate log data](pipelines.html).
 
