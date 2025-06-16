@@ -22,7 +22,7 @@ This **OpenTelemetry Collector (OTEL Collector) configuration** sample defines a
 ---
 
 ### Link to example config
-[OpenTelemetry Collector (OTEL Collector) configuration](https://github.com/DecisiveAI/configs/blob/main/mdai_v1_opentelemetry_collector_sample_config_0_6_0.yaml)
+[OpenTelemetry Collector (OTEL Collector) configuration](https://github.com/DecisiveAI/mdai-labs/blob/main/otel/0.8/otel_guaranteed_working.yaml)
 
 [For additional examples and information visit OpenTelemetry](https://opentelemetry.io/docs/collector/configuration/)
 
