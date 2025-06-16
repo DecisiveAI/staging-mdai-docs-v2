@@ -7,6 +7,17 @@ _Last Update: June 5, 2025_
 
 ### Frequently Asked Questions about MyDecisive
 
+## Table of Contents
+
+- [What is the MyDecisive platform and how does it work?](#what-is-the-mydecisive-platform-and-how-does-it-work)
+- [What advantages does MyDecisive offer compared to traditional observability solutions?](#what-advantages-does-mydecisive-offer-compared-to-traditional-observability-solutions)
+- [How does MyDecisive integrate with my existing observability tools and infrastructure?](#how-does-mydecisive-integrate-with-my-existing-observability-tools-and-infrastructure)
+- [How does MyDecisive and the Smart Telemetry Hub add value to my existing data management processes?](#how-does-mydecisive-and-the-smart-telemetry-hub-add-value-to-my-existing-data-management-processes)
+- [How does the Dynamic Data Filtration feature function?](#how-does-the-dynamic-data-filtration-feature-function)
+- [What kind of support and resources do you provide for new users?](#what-kind-of-support-and-resources-do-you-provide-for-new-users)
+- [How does MyDecisive address data security and compliance concerns?](#how-does-mydecisive-address-data-security-and-compliance-concerns)
+- [What is the pricing model for MyDecisive?](#what-is-the-pricing-model-for-mydecisive)
+
 ---
 
 ##### What is the MyDecisive platform and how does it work?
