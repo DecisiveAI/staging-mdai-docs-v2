@@ -28,13 +28,12 @@ An OpenTelemetry collector is a component that receives and forwards telemetry d
 
 ## Set Up a Collector
 
-1. From the [MDAI Example Config repo](https://github.com/DecisiveAI/configs/blob/main/otel_config.yaml), copy the `otel_config.yaml` into your working directory.
-
+1. Your working directory should still be pointed at [MDAI Labs repo](https://github.com/DecisiveAI/mdai-labs/). Run the following command:
 
 2. Deploy the Otel config to your cluster.
 
     ```
-    kubectl apply -f otel_config.yaml
+    kubectl apply -f ./otel/0.8/otel_guaranteed_working.yaml -n mdai
     ```
 
 3. Verify that the collector is running in Kubernetes.
@@ -54,10 +53,10 @@ An OpenTelemetry collector is a component that receives and forwards telemetry d
 
 We'll use Fluentd to capture the synthetic log streams you created, and forward them to the collector.
 
-1. From the [MDAI Example Config repo](https://github.com/DecisiveAI/configs/blob/main/synthetics/loggen_fluent_config.yaml), copy the `loggen_fluent_config.yaml` into your working directory.
+1. Your working directory should still be pointed at [MDAI Labs repo](https://github.com/DecisiveAI/mdai-labs/). Run the following command:
 
     ```
-    helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f loggen_fluent_config.yaml
+    helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f ./synthetics/loggen_fluent_config.yaml
     ```
 
 2. Confirm that Fluentd is running in the default namespace.

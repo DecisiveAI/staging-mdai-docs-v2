@@ -28,16 +28,9 @@ As they run, services generate log data to provide visibility into what's happen
 
 You'll be able to use MDAI to filter out unnecessary log lines. First, lets set up the log generators and generate log data.
 
-## Get the Configuration Files
+## Get the MDAI Labs Configuration Files
 
-In our Configs repo's [synthetics](https://github.com/DecisiveAI/configs/tree/main/synthetics) directory are synthetic log generators in the form of configuration files. You'll use these to generate synthetic log data.
-
-Copy the following files into your working directory:
-
-- loggen_services.yaml
-- loggen_service_xtra_noisy.yaml
-- loggen_service_noisy.yaml
-- loggen_fluent_config.yaml
+In our MDAI Labs repo's [synthetics](https://github.com/DecisiveAI/mdai-labs/tree/main/synthetics) directory are synthetic log generators in the form of configuration files. You'll use these to generate synthetic log data.
 
 ## Deploy Log Generators to Your Cluster
 
@@ -46,19 +39,19 @@ Let's create 3 different log generators.
 The first emits logs for random services named `service####`, where `####` is a random number.
 
 ```
-kubectl apply -f ./loggen_services.yaml
+kubectl apply -f ./synthetics/loggen_services.yaml
 ```
 
 The second is a noisy log generator for a particular service (`service1234` by default).
 
 ```
-kubectl apply -f ./loggen_service_noisy.yaml
+kubectl apply -f ./synthetics/loggen_service_noisy.yaml
 ```
 
 The third is an excessively noisy version of the second log generator, but for a different service (`service4321` by default).
 
 ```
-kubectl apply -f ./loggen_service_xtra_noisy.yaml
+kubectl apply -f ./synthetics/loggen_service_xtra_noisy.yaml
 ```
 
 ## Verify That Logs Are Being Generated
