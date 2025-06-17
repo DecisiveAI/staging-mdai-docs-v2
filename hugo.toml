@@ -7,6 +7,10 @@ title = 'MyDecisive Documentation'
 # theme = "hugo-book" # https://github.com/alex-shpak/hugo-book
 theme = "hugo-theme-relearn" # https://github.com/McShelby/hugo-theme-relearn
 
+[services]
+  [services.googleAnalytics]
+    ID = 'G-3LC2SJ2HZN'
+
 [params]
   # (Optional, default light) Sets color theme: light, dark or auto.
   # Theme 'auto' switches between dark and light modes based on browser/os preferences
