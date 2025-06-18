@@ -40,7 +40,6 @@ To do that, let's add a managed filter to `otel/0.8/otel_guaranteed_working.yaml
     #   error_mode: ignore
     #   logs:
     #     log_record:
-    #       # below is an example of how an environment variable configured in the mdai_v1_mdaihub_sample_config_0_6_0.yaml can be used in an opentelemetry collector config
     #       - 'IsMatch(attributes["mdai_service"], "${env:SERVICE_LIST_REGEX}")'
 ```
 

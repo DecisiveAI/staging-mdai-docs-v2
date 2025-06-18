@@ -19,7 +19,7 @@ The **MDAI Hub Custom Resource** provides a declarative way to define **variable
 
 ---
 ### Link to example config
-[MDAI Hub Sample Config](https://github.com/DecisiveAI/configs/blob/main/mdai_v1_mdaihub_sample_config_0_6_0.yaml)
+[MDAI Hub Sample Config](https://github.com/DecisiveAI/mdai-labs/blob/main/mdai/hub/mdaihub_dynamic_filtration_config.yaml)
 
 ---
 
