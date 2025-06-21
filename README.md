@@ -39,7 +39,7 @@ These comments in these examples indicate that the color values were changed fro
 
 ## Update the Theme
 
-The Hugo [Relearn theme](https://github.com/McShelby/hugo-theme-relearn) is installed as a git module. See the theme website for more info on versions.
+The Hugo [Relearn theme](https://github.com/McShelby/hugo-theme-relearn) is installed as a git module. The current version is stored in `themes/hugo-theme-relearn/layouts/partials/version.txt`. See the theme website for more info on versions.
 
 If you cloned this repo, the Relearn theme will need to be re-downloaded. Run:
 
