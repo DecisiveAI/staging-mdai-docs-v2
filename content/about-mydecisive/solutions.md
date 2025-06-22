@@ -5,15 +5,41 @@ weight = 7
 
 ## MYDECISIVE SOLUTIONS
 
-### Challenges
+### Challenges In Current Observability Solutions
 
-Current observability solutions pose several challenges for organizations. They often require the installation of proprietary agents, which makes interoperability with other platforms nearly impossible. To make matters worse, many vendors price their solutions based on the volume of data ingested, resulting in teams compromising data richness to control observability costs. At the end of the day, even with sampled data ingests, IT organizations are still experiencing higher costs without getting the promised benefits.
+Today’s observability solutions continue to fail in delivering all the insights that organizations require due to:
 
-Enter the MDAI Smart Telemetry Hub. This programmable platform empowers IT teams to maintain data richness while reducing costs using dynamic data filtration.
+- Limited Interoperability: Proprietary agents and methods hinder seamless integration, leading to longer mean time to detection.
+- Data Richness vs. Cost Trade-off: Volume-based pricing forces teams to sacrifice comprehensive visibility in order to manage costs making root-cause analysis challenging.
+- Lack of Braided Context: Linking error logs to sampled-based tracing leaves critical gaps in application monitoring.
+
+What’s more, traditional solutions have made IT organizations reliant on dashboards and reactive alerts relegating them to a passive and reactive stance. It's time for a change.
+
+Introducing MyDecisive's Smart Telemetry Hub: Revolutionizing Observability
+
+With MyDecisive's OpenTelemetry-based programmable Smart Telemetry Hub, IT teams are empowered to transform passive monitoring into an action-oriented and automated platform.
+
+We've developed observability solutions that directly address the challenges associated with limited interoperability, lack of data richness and braided context as well as rising costs:
+
+1. Dynamic Data Filtration
+2. Dynamic Trace Triggers
+
+These open-source based solutions not only improve infrastructure interoperability but also empower IT organizations to take a more proactive approach to observability, enabling them to:
+
+- Control the data ingest volume on a per service basis, allowing a balance of optimized performance and reduced costs.
+- Access complete and searchable trace data and link them to log data and spot anomalies quickly, improving mean time to resolution.
 
 ### Dynamic Data Filtration
 
 MDAI’s Dynamic Data Filtration solution provides the ability to filter the data you need based on operational priorities and also have a backfill of all other data for replay on demand during an incident. Engineering teams set up parameters on specific services at particular times and establish quotas on data volume. For example, critical services receive more data during peak business hours while less critical components operate with reduced telemetry. MDAI provides the ability to use a local buffer—a temporary storage layer (e.g., an S3 bucket or similar) that holds all of your telemetry for a certain number of hours. When an incident occurs, the data can be replayed and visualized through your existing observability vendor. The replay mechanism is dynamically triggered through specific criteria. For example, you can program the data backfill to automatically replay when the error rate increases, or when latency spikes, or when other anomalies occur. The result, your teams gain a dynamic, intelligent, and automated platform that is responsive to real-time business conditions.
+
+### Dynamic Trace Triggers
+
+Capturing all trace data with zero sampling and streamed to low-cost storage is at the heart of MDAI’s Dynamic Trace Triggers solution. MDAI’s Smart Telemetry Hub uses OpenTelemetry (OTel) to capture every span between all services. The hub stores all span data in low-cost cloud storage and sends a subset to your current observability tools. At the same time, the hub maintains a set of business data that enables IT teams to further analyze what is normal during the course of business operations.
+
+For example, ecommerce organizations that use the Smart Telemetry Hub allows them to store traces that track things like the highest product searches. Dynamic Trace Triggers allow them to easily spot products that aren't getting attention based on the trace data. For healthcare providers, Dynamic Trace Triggers can flag unusual billing amounts or codes. Teams can access the traces where these odd transactions happened, making it easy to investigate.
+
+Unlike other systems that only look at a small sample of data, the Smart Telemetry Hub’s Dynamic Trace Triggers captures all traces and empowers teams to analyze everything. As a result, IT teams can spot unusual patterns or behaviors, alerting you to potential issues in your business operations and automatically trigger workflows that enable teams to take action.
 
 ### What MyDecisive Delivers
 
