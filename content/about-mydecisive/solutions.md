@@ -7,7 +7,7 @@ weight = 7
 
 ### Challenges In Current Observability Solutions
 
-Today’s observability solutions continue to fail in delivering all the insights that organizations require due to:
+Today’s observability solutions continue to fail in delivering all of the insights that organizations require due to:
 
 - Limited Interoperability: Proprietary agents and methods hinder seamless integration, leading to longer mean time to detection.
 - Data Richness vs. Cost Trade-off: Volume-based pricing forces teams to sacrifice comprehensive visibility in order to manage costs making root-cause analysis challenging.
@@ -15,14 +15,11 @@ Today’s observability solutions continue to fail in delivering all the insight
 
 What’s more, traditional solutions have made IT organizations reliant on dashboards and reactive alerts relegating them to a passive and reactive stance. It's time for a change.
 
-Introducing MyDecisive's Smart Telemetry Hub: Revolutionizing Observability
+### Introducing MyDecisive's Smart Telemetry Hub: Revolutionizing Observability
 
 With MyDecisive's OpenTelemetry-based programmable Smart Telemetry Hub, IT teams are empowered to transform passive monitoring into an action-oriented and automated platform.
 
-We've developed observability solutions that directly address the challenges associated with limited interoperability, lack of data richness and braided context as well as rising costs:
-
-1. Dynamic Data Filtration
-2. Dynamic Trace Triggers
+We've developed observability solutions that directly address the challenges associated with limited interoperability, lack of data richness, braided context and rising costs: Dynamic Data Filtration and Dynamic Trace Triggers.
 
 These open-source based solutions not only improve infrastructure interoperability but also empower IT organizations to take a more proactive approach to observability, enabling them to:
 
@@ -37,9 +34,9 @@ MDAI’s Dynamic Data Filtration solution provides the ability to filter the dat
 
 Capturing all trace data with zero sampling and streamed to low-cost storage is at the heart of MDAI’s Dynamic Trace Triggers solution. MDAI’s Smart Telemetry Hub uses OpenTelemetry (OTel) to capture every span between all services. The Smart Telemetry Hub stores all span data in low-cost cloud storage and sends a subset to your current observability tools. At the same time, it maintains a set of business data that enables IT teams to further analyze what is normal during the course of business operations.
 
-For example, ecommerce organizations that use the Smart Telemetry Hub allows them to store traces that track customer activities including the highest product searches. Dynamic Trace Triggers allow them to easily spot products that aren't getting attention based on the trace data. For healthcare providers, Dynamic Trace Triggers can flag unusual billing amounts or codes. As a result, teams can access the traces where these odd transactions happened, making it easy to investigate.
+For example, ecommerce organizations that use the Smart Telemetry Hub can store traces that track customer activities including the highest product searches. With Dynamic Trace Triggers they can easily identify products that aren't getting attention. For healthcare providers, Dynamic Trace Triggers can flag unusual billing amounts or codes. As a result, teams can access the traces where these anomalies happen, making it easy to investigate.
 
-Unlike other systems that only look at a small sample of data, the Smart Telemetry Hub’s Dynamic Trace Triggers captures all traces and empowers teams to analyze everything. As a result, IT teams can spot unusual patterns or behaviors, alerting to potential issues in  business operations and automatically trigger workflows that enable teams to take action.
+Unlike other systems that only look at a small sample of data, the Smart Telemetry Hub’s Dynamic Trace Triggers captures all traces and empowers teams to analyze all of the data. As a result, IT teams can spot unusual patterns or behaviors, alerting to potential issues in business operations and automatically trigger workflows that enable them to take action.
 
 ### What MyDecisive Delivers
 
