@@ -15,7 +15,7 @@
 >
 >This guide assumes you have
 >1. Cloned our [`mdai-labs` repo](https://github.com/DecisiveAI/mdai-labs/tree/main) set this as your working directory
->2. Have access to an AWS account with Admin Admin access
+>2. Have access to an AWS account with Admin access
 
 ### Step 1: Create a user via IAM
 
@@ -33,7 +33,7 @@ For this example, we can choose _Local Code_ or _Other_. You will likely be [rec
 >
 > 🛑 **Warning**
 >
-> We do not recommend using this setup for a development or greater environment -- this is truly for the quickstart. If you're in AW EKS, we recommend [IRSA](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) for a similar effect.
+> We do not recommend using this setup for a development or greater environment -- this is truly for the quickstart. If you're in AWS EKS, we recommend [IRSA](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) for a similar effect.
 >
 >
 > ⚠️ **Important**
@@ -52,7 +52,7 @@ Programatically update the `.env` file to use your long-term access keys
 
 ##### Create / Use `.env` file to store Access Keys
 
-If you don't already, create a `.env` file. Then, update the `.env` file to have your credentials. It should look similar to the following:
+If you haven't already, create a `.env` file. Then, update the `.env` file to have your credentials. It should look similar to the following:
 
 ```
 AWS_ACCESS_KEY_ID="50M3R@ND0M@CC355K3Y"
@@ -88,7 +88,7 @@ kubectl apply -f ./mdai/hub_monitor/mdai_monitor_no_secrets.yaml
 
 >[!NOTE]
 >
->To stop logs from sending to s3, you will need to delete the MdaiCollector Custom Resource
+>To stop logs from sending to s3, you will need to delete the MDAI Collector Custom Resource (CR)
 
 
 <br />
@@ -121,7 +121,7 @@ kubectl apply -f ./mdai/hub_monitor/mdai_monitor.yaml
 >* `mdai/hub_monitor/mdai_monitor_no_secrets.yaml`
 >* `mdai/hub_monitor/mdai_monitor.yaml`
 >
-> The name (`hub-monitor`) must correspond to the beginning of the host name in the `values.yaml` for the [operator](https://github.com/DecisiveAI/mdai-helm-chart/blob/422e1c345806f634ed92db2a67a672ed7e9c7101/values.yaml#L52) and [mdai-gateway](https://github.com/DecisiveAI/mdai-helm-chart/blob/422e1c345806f634ed92db2a67a672ed7e9c7101/values.yaml#L59). So if the MdaiCollector resource name is `hub-monitor`, the corresponding service endpoint created is `http://hub-monitor-mdai-collector-service.mdai.svc.cluster.local:4318`.
+> The name (`hub-monitor`) must correspond to the beginning of the host name in the `values.yaml` for the [operator](https://github.com/DecisiveAI/mdai-hub/blob/422e1c345806f634ed92db2a67a672ed7e9c7101/values.yaml#L52) and [mdai-gateway](https://github.com/DecisiveAI/mdai-hub/blob/422e1c345806f634ed92db2a67a672ed7e9c7101/values.yaml#L59). So if the MdaiCollector resource name is `hub-monitor`, the corresponding service endpoint created is `http://hub-monitor-mdai-collector-service.mdai.svc.cluster.local:4318`.
 >
 > ⚠️ **Important**
 >

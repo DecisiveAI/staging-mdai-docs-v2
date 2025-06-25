@@ -37,20 +37,26 @@ Make sure Docker is running.
     kind create cluster --name mdai
     ```
 
-2. Use kubectl to install cert-manager. Wait a few moments for cert-manager to finish installing.
+2. Use kubectl to install cert-manager.
     ```
     kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
+    kubectl wait --for=condition=Established crd/certificates.cert-manager.io --timeout=60s
+    kubectl wait --for=condition=Ready pod -l app.kubernetes.io/instance=cert-manager -n cert-manager --timeout=60s
+    kubectl wait --for=condition=Available=True deploy -l app.kubernetes.io/instance=cert-manager -n cert-manager --timeout=60s
     ```
+   > [!NOTE]
+   > Wait a few moments for cert-manager to finish installing.
 
 3. Install `mdai` helm repo and ensure it's up to date.
     ```
-    helm repo add mdai https://decisiveai.github.io/mdai-helm-charts
-    ```
-
-4. Update the repo.
-    ```
-    helm repo update
-    ```
+   helm upgrade --install \
+     mdai mdai-hub \
+     --repo https://charts.mydecisive.ai \
+     --version v0.8.0-rc3 \
+     --namespace mdai \
+     --create-namespace \
+     --cleanup-on-fail
+   ```
 
 5. Install MDAI dependencies via Helm chart
 
