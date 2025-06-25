@@ -52,9 +52,15 @@ The [MDAI Grafana dashboards](http://localhost:3000/dashboards) shows summaries 
 
 ## Connect to the Prometheus Dashboard
 
-Use the [Prometheus expression dashboard](localhost:9090) to run queries against the data you're collecting.
+Use the [Prometheus expression dashboard](http://localhost:9090) to run queries against the data you're collecting.
 
-You can use [PromQL](https://prometheus.io/docs/prometheus/latest/querying/basics/) to query the data flowing through the pipeline we created. For example, run the following query to see the amount of logs that each of the synthetic services is sending.
+You can use [PromQL](https://prometheus.io/docs/prometheus/latest/querying/basics/) to query the data flowing through the pipeline we created. For example, run this query to see the amount of logs that each of the synthetic services is sending:
+
+```
+sum by (mdai_service) (increase(bytes_received_by_service_total[6m]))
+```
+
+A graph similar to the following should appear.
 
 ![Prometheus dashboard showing Promql query](../promql.png)
 
@@ -69,7 +75,7 @@ Notice that the change in scale on the graph is in orders of magnitude.
 We need to see what kind of logs the 2 noisy services are generating before formulating a plan
 to dampen their output.
 
-The noisy log generators are responsible for the noisy services, so let's check one of them.
+The noisy log generators are responsible for the noisy services, so let's check one of them. Substitute the name of one of your a noisy loggers in the following command.
 
 ```
 kubectl logs -n mdai mdai-logger-noisy-77fcbf8b9f-fj2ls
