@@ -15,10 +15,12 @@ theme = "hugo-theme-relearn" # https://github.com/McShelby/hugo-theme-relearn
   # (Optional, default light) Sets color theme: light, dark or auto.
   # Theme 'auto' switches between dark and light modes based on browser/os preferences
   # BookTheme = 'dark'
+  
   themeVariant = "relearn-dark"
   linkTitle = " " # Sets text at top of sidebar, replace with logo, has space to prevent default behavior
   landingPageName = '<i class="fa-fw fas fa-home"></i> Documentation' # text with home button
   disableInlineCopyToClipBoard = true
+  disableShortcutsTitle = true
 
 # theme = 'ananke' this is a basic/default but not really for docs
 # theme = 'docsy' <-- this looks great on paper but very complicated error-prone setup
@@ -32,6 +34,11 @@ collapsibleMenu = true
     name = 'Home'
     pageRef = '/'
     weight = 1
+
+[[menu.shortcuts]]
+  name = "← MyDecisive Webpage"
+  url = "https://www.mydecisive.ai/"
+  weight = 2
 
 
 
