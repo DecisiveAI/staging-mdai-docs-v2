@@ -25,80 +25,86 @@ weight = 20
   </a>
 </div>
 
-
+## Install MDAI into your cluster
 MDAI runs in a Kubernetes cluster. You'll use Helm charts to bring up the pods in the cluster.
 
-## Install MDAI into your cluster
+### MDAI Labs
+We've put together some pre-defined solutions and an **automated installation** in our [mdai-labs](https://github.com/DecisiveAI/mdai-labs/blob/main/README.md) repo. 
 
-Make sure Docker is running.
+1. Clone [mdai-labs](https://github.com/DecisiveAI/mdai-labs/tree/main) repo and use as your working directory
 
-1. Use kind to create a new cluster.
-    ```
-    kind create cluster --name mdai
-    ```
+> [!NOTE]
+> If you choose to use automated installation method, follow the automated install steps on mdai-labs readme. Jump over to our [Setup IAM & MDAI Collector User Guide](./aws/setup_iam_longterm_user_s3.md) for Self-Monitoring S3 set up. Then skip ahead to [Set Up a Dashboard](./dashboard.md)
 
-2. Use kubectl to install cert-manager.
-    ```
-    kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
-    kubectl wait --for=condition=Established crd/certificates.cert-manager.io --timeout=60s
-    kubectl wait --for=condition=Ready pod -l app.kubernetes.io/instance=cert-manager -n cert-manager --timeout=60s
-    kubectl wait --for=condition=Available=True deploy -l app.kubernetes.io/instance=cert-manager -n cert-manager --timeout=60s
-    ```
-   > [!NOTE]
-   > Wait a few moments for cert-manager to finish installing.
+---
 
-3. Install `mdai` helm repo and ensure it's up to date.
-    ```
+### Manual Installation
+
+There are two main manual installation methods. The **[MDAI with Self-Monitoring](#manual-installation-a-mdai-with-self-monitoring-recommended)** is our recommended approach.
+
+> Steps 2 and 3 below are required for both manual installations methods
+
+2. Use kind to create a new cluster.
+  ```bash
+  kind create cluster --name mdai
+  ```
+
+3. Use kubectl to install cert-manager.
+
+```bash
+  kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
+  kubectl wait --for=condition=Established crd/certificates.cert-manager.io --timeout=60s
+  kubectl wait --for=condition=Ready pod -l app.kubernetes.io/instance=cert-manager -n cert-manager --timeout=60s
+  kubectl wait --for=condition=Available=True deploy -l app.kubernetes.io/instance=cert-manager -n cert-manager --timeout=60s
+```
+  > [!NOTE]
+  > Wait a few moments for cert-manager to finish installing.
+
+### Manual Installation A: MDAI with Self-Monitoring (**Recommended**) 
+
+**MDAI with Self-Monitoring.** Send MDAI Smart Telemetry hub component logs to an S3 bucket for explainability of MDAI operations. 
+   
+**If you have an AWS account or would like to set one up use this installation method**     
+
+4a.  **Setup Long-Term IAM User and MDAI Collector**  
+  - This is an involved step and is **required** for this installation method.  
+  - Jump over to our [Setup IAM & MDAI Collector User Guide](./aws/setup_iam_longterm_user_s3.md).  
+  
+5a. **Install MDAI Hub Helm**  
+  ```bash
    helm upgrade --install \
-     mdai mdai-hub \
-     --repo https://charts.mydecisive.ai \
-     --version v0.8.0-rc3 \
+     mdai-hub oci://ghcr.io/decisiveai/mdai-hub \
+     --version --devel \
      --namespace mdai \
      --create-namespace \
      --cleanup-on-fail
+  ```
+---  
+
+### Manual Installation B: MDAI with Without Self-Monitoring (**Not Recommended**)
+
+**MDAI without Self-Monitoring.** If you do not have an AWS account, please use this installation method.
+
+4b. **Install MDAI Hub Helm without Self-Monitoring**  
+   ```bash
+    helm upgrade --install \
+      mdai mdai-hub \
+      --repo https://charts.mydecisive.ai \
+      --set mdai-s3-logs-reader.enabled=false
+      --version v0.8.0-rc3 \
+      --namespace mdai \
+      --create-namespace \
+      --cleanup-on-fail
+  ```
+
+  >[!INFO]
+  >Additional [MDAI-supported installation methods](./installMethods.md)
+---
+
+## Verify that the cluster's pods are running
    ```
-
-5. Install MDAI dependencies via Helm chart
-
-    ### MDAI with Self-Monitoring via S3
-
-    Send MDAI Smart Telemetry hub component logs to an s3 bucket for explainability of MDAI operations.
-
-    #### Setup Long-Term IAM User and MDAI Collector
-
-    >[!NOTE]
-    >
-    >***DO NOT IGNORE THIS STEP***
-    >
-    >This is an involved step that cannot be skipped
-    >
-    >* **If you have an AWS account**, jump over to our [Setup IAM & MDAI Collector User Guide](./aws/setup_iam_longterm_user_s3.md).
-    >
-    >* **If you do not have an AWS account**, please see our [Alternative Install methods](./installMethods.md)
-
-
-    #### Install MDAI Collector
-
-    ```sh
-    helm upgrade --install --create-namespace --namespace mdai --cleanup-on-fail --wait-for-jobs mdai mdai/mdai-hub --version v0.8.0-dev
-    ```
-
-    **Jump ahead to [MDAI Labs](#mdai-labs)**
-
-    ---
-
-    #### Alternative installation methods
-
-    >[!INFO]
-    >
-    >*There are multiple [MDAI-supported installation methods](./installMethods.md), however, the MDAI with Self-Monitoring is our recommended approach*
-
-
-
-6. Verify that the cluster's pods are running.
-    ```
-    kubectl get pods -n mdai
-    ```
+   kubectl get pods -n mdai
+   ```
 
     If the cluster is running, you'll see output similar to the following.
 
@@ -113,27 +119,22 @@ Make sure Docker is running.
     mdai-operator-controller-manager-65955fb98b-vsvqg   1/1     Running                      0          12m
     mdai-prometheus-node-exporter-2427z                 1/1     Running                      0          12m
     mdai-rabbitmq-0                                     1/1     Running                      0          12m
-    mdai-s3-logs-reader-7dc95b7479-94ml9                0/1     CreateContainerConfigError   0          12m
+    mdai-s3-logs-reader-7dc95b7479-94ml9                0/1     Running                      0          12m 
     mdai-valkey-primary-0                               1/1     Running                      0          12m
     opentelemetry-operator-6d8ddbdc4d-8hbcj             1/1     Running                      0          12m
     prometheus-kube-prometheus-stack-prometheus-0       2/2     Running                      0          11m
     ```
 
-    <br />
+> [!NOTE]
+> If you see **CreateContainerConfigError** on mdai-s3-logs-reader, be sure you followed [Setup IAM & MDAI Collector User Guide](./aws/setup_iam_longterm_user_s3.md)
 
-
-    *After running through the IAM and collector setup and verification, skip ahead to [MDAI Labs](#mdai-labs)*
-
-
-## MDAI Labs
-
-We've put together some pre-defined solutions in our [mdai-labs](https://github.com/DecisiveAI/configs/blob/main/mdaihub_config.yaml) repo. Please pull this repo down and make it your working directory.
+---
 
 ## Install MDAI Smart Telemetry Hub
 
 1. Apply the configuration to the hub resource.
     ```
-    kubectl apply -f ./mdai/hub/0.8/hub_guaranteed_working.yaml -n mdai
+    kubectl apply -f ./mdai/hub/hub_ref.yaml -n mdai
     ```
 
 2. Verify the hub is applied by running
@@ -147,7 +148,6 @@ We've put together some pre-defined solutions in our [mdai-labs](https://github.
     NAME                         CREATED AT
     mdaihubs.hub.mydecisive.ai   2025-03-24T20:02:19Z
     ```
-
 
 ## Success
 

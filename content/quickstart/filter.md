@@ -31,9 +31,12 @@ But not all logs are created equal. Now that we're generating log data, let's fi
 
 ## Using a Managed Filter
 
+> [!WARNING]
+> This section is a WIP! The information below is actively being updated and may or may notbe currently updated. It is still valuable information to see how MDAI's filters work.
+
 MDAI is monitoring services by a service identifier (log attribute), `mdai_service`, and a tolerance threshold over a rolling time window. When a given service surpasses that threshold, we'd like to drop non-critical data such as log lines with a level below WARN.
 
-To do that, let's add a managed filter to `otel/0.8/otel_guaranteed_working.yaml`, the collector's configuration file. Open the file for editing and look for the configuration block that looks like this:
+To do that, let's add a managed filter to `otel/otel_ref.yaml`, the collector's configuration file. Open the file for editing and look for the configuration block that looks like this:
 
 ```
     # filter/service_list:
@@ -59,7 +62,7 @@ You will also need to uncomment the line in the following pipeline, filter proce
 Apply the updated configuration:
 
 ```
-kubectl apply -f otel/0.8/otel_guaranteed_working.yaml --namespace mdai
+kubectl apply -f otel/otel_ref.yaml --namespace mdai
 ```
 
 ## Confirm the Change in Log Volume

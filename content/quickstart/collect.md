@@ -33,7 +33,7 @@ An OpenTelemetry collector is a component that receives and forwards telemetry d
 2. Deploy the Otel config to your cluster.
 
     ```
-    kubectl apply -f ./otel/0.8/otel_guaranteed_working.yaml -n mdai
+    kubectl apply -f ./otel/otel_ref.yaml -n mdai
     ```
 
 3. Verify that the collector is running in Kubernetes.
