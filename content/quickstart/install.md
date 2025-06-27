@@ -28,21 +28,12 @@ weight = 20
 ## Install MDAI into your cluster
 MDAI runs in a Kubernetes cluster. You'll use Helm charts to bring up the pods in the cluster.
 
-### MDAI Labs
-We've put together some pre-defined solutions and an **automated installation** in our [mdai-labs](https://github.com/DecisiveAI/mdai-labs/blob/main/README.md) repo. 
+We've put together some pre-defined solutions and an [**automated installation**](../local-install/automated.md) in our [mdai-labs](https://github.com/DecisiveAI/mdai-labs/blob/main/README.md) repo. 
 
 1. Clone [mdai-labs](https://github.com/DecisiveAI/mdai-labs/tree/main) repo and use as your working directory
 
 > [!NOTE]
-> If you choose to use automated installation method, follow the automated install steps on mdai-labs readme. Jump over to our [Setup IAM & MDAI Collector User Guide](./aws/setup_iam_longterm_user_s3.md) for Self-Monitoring S3 set up. Then skip ahead to [Set Up a Dashboard](./dashboard.md)
-
----
-
-### Manual Installation
-
-There are two main manual installation methods. The **[MDAI with Self-Monitoring](#manual-installation-a-mdai-with-self-monitoring-recommended)** is our recommended approach.
-
-> Steps 2 and 3 below are required for both manual installations methods
+> If you choose to use automated installation method, follow the [**automated installation**](../local-install/automated.md) steps. Then skip ahead to [Set Up a Dashboard](./dashboard.md)
 
 2. Use kind to create a new cluster.
   ```bash
@@ -60,17 +51,16 @@ There are two main manual installation methods. The **[MDAI with Self-Monitoring
   > [!NOTE]
   > Wait a few moments for cert-manager to finish installing.
 
-### Manual Installation A: MDAI with Self-Monitoring (**Recommended**) 
+4.  Setup Long-Term IAM User and MDAI Collector
 
-**MDAI with Self-Monitoring.** Send MDAI Smart Telemetry hub component logs to an S3 bucket for explainability of MDAI operations. 
-   
-**If you have an AWS account or would like to set one up use this installation method**     
+Send MDAI Smart Telemetry hub component logs to an S3 bucket for explainability of MDAI operations. 
 
-4a.  **Setup Long-Term IAM User and MDAI Collector**  
   - This is an involved step and is **required** for this installation method.  
   - Jump over to our [Setup IAM & MDAI Collector User Guide](./aws/setup_iam_longterm_user_s3.md).  
+
+> If you do not have an AWS account, please follow [MDAI without Self-Monitoring]() Then skip ahead to [Set Up a Dashboard](./dashboard.md). We do however strongly recommend setting up AWS S3. 
   
-5a. **Install MDAI Hub Helm**  
+5. Install MDAI Hub Helm
   ```bash
    helm upgrade --install \
      mdai-hub oci://ghcr.io/decisiveai/mdai-hub \
@@ -80,26 +70,6 @@ There are two main manual installation methods. The **[MDAI with Self-Monitoring
      --cleanup-on-fail
   ```
 ---  
-
-### Manual Installation B: MDAI with Without Self-Monitoring (**Not Recommended**)
-
-**MDAI without Self-Monitoring.** If you do not have an AWS account, please use this installation method.
-
-4b. **Install MDAI Hub Helm without Self-Monitoring**  
-   ```bash
-    helm upgrade --install \
-      mdai mdai-hub \
-      --repo https://charts.mydecisive.ai \
-      --set mdai-s3-logs-reader.enabled=false
-      --version v0.8.0-rc3 \
-      --namespace mdai \
-      --create-namespace \
-      --cleanup-on-fail
-  ```
-
-  >[!INFO]
-  >Additional [MDAI-supported installation methods](./installMethods.md)
----
 
 ## Verify that the cluster's pods are running
    ```
