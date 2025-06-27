@@ -1,11 +1,16 @@
-# Optional: MDAI Self-Monitoring
++++
+title = 'About Self-Monitoring'
+weight = 25
++++
 
-## About Self-monitoring
+## Optional: MDAI Self-Monitoring
+
+### About Self-monitoring
 
 The MDAI Smart Telemetry Hub contains complex infrastructure. To maintain and monitor operational excellence, we have included an opt-in capability to create an understanding of internal metrics, audit history of change events, and log streams affording traceability across our services and their events.
 
 
-## How it works
+### How it works
 
 The `mdai-hub` installed `mdai-operator` and `mdai-gateway` expect a destination to send their logs to, but this chart does not manage deploying the logs destination for those services.
 
@@ -18,19 +23,18 @@ There are currently two compatible destinations the `mdai-collector` supports
 1. S3 (preferred)
 2. OTLP endpoint
 
-
 ### MDAI Collector -> S3 (MDAI Recommended)
 
 Send MDAI Smart Telemetry hub component logs to an s3 bucket.
 
-[Jump ahead to instructions](./install.md#mdai-with-self-monitoring-via-s3)
+[Jump ahead to instructions](s3-self-monitoring)
 
 
 ### MDAI Collector -> OTLP endpoint
 
 Send MDAI Smart Telemetry hub component logs to a custom OTLP HTTP destination.
 
-[Jump ahead to instructions](./installMethods.md#mdai-with-self-monitoring-via-otlp-endpoint)
+[Jump ahead to instructions](otlp-endpoint-self-monitoring)
 
 
 ## Opt-out of Self-Monitoring
@@ -40,5 +44,5 @@ You can also choose to opt-out of self-monitoring by disabling OTel logging for 
 If you do not want to send logs from these components, you can disable sending logs by updating the `values.yaml` by setting `mdai-operator.manager.env.otelSdkDisabled` and `mdai-gateway.otelSdkDisabled` to `"true"` (a string value, not boolean).
 
 
-[Jump ahead to instructions](./installMethods.md#mdai-collector-without-self-monitoring-opt-out)
+[Jump ahead to instructions](without-self-monitoring)
 
