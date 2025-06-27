@@ -33,7 +33,7 @@ We've put together some pre-defined solutions and an [**automated installation**
 1. Clone [mdai-labs](https://github.com/DecisiveAI/mdai-labs/tree/main) repo and use as your working directory
 
 > [!NOTE]
-> If you choose to use automated installation method, follow the [**automated installation**](../local-install/automated.md) steps. Then skip ahead to [Set Up a Dashboard](./dashboard.md)
+> If you choose to use automated installation method, follow the [**automated installation**](../local-install/automated.md) steps. Then skip ahead to [Set Up a Dashboard](dashboard)
 
 2. Use kind to create a new cluster.
   ```bash
@@ -56,11 +56,11 @@ We've put together some pre-defined solutions and an [**automated installation**
 Send MDAI Smart Telemetry hub component logs to an S3 bucket for explainability of MDAI operations. 
 
   - This is an involved step and is **required** for this installation method.  
-  - Jump over to our [Setup IAM & MDAI Collector User Guide](./aws/setup_iam_longterm_user_s3.md).  
+  - Jump over to our [Setup IAM & MDAI Collector User Guide](setup_iam_longterm_user_s3.).  
 
-> If you do not have an AWS account, please follow [MDAI without Self-Monitoring]() Then skip ahead to [Set Up a Dashboard](./dashboard.md). We do however strongly recommend setting up AWS S3. 
+> If you do not have an AWS account, please follow [MDAI without Self-Monitoring]() Then skip ahead to [Set Up a Dashboard](dashboard). We do however strongly recommend setting up AWS S3. 
   
-5. Install MDAI Hub Helm
+#### Install MDAI Hub Helm
   ```bash
    helm upgrade --install \
      mdai-hub oci://ghcr.io/decisiveai/mdai-hub \
@@ -96,7 +96,7 @@ Send MDAI Smart Telemetry hub component logs to an S3 bucket for explainability 
     ```
 
 > [!NOTE]
-> If you see **CreateContainerConfigError** on mdai-s3-logs-reader, be sure you followed [Setup IAM & MDAI Collector User Guide](./aws/setup_iam_longterm_user_s3.md)
+> If you see **CreateContainerConfigError** on mdai-s3-logs-reader, be sure you followed [Setup IAM & MDAI Collector User Guide](setup_iam_longterm_user_s3.md)
 
 ---
 
@@ -121,5 +121,5 @@ Send MDAI Smart Telemetry hub component logs to an S3 bucket for explainability 
 
 ## Success
 
-Now that MDAI is running, we can go on to [generate log data](pipelines.html).
+Now that MDAI is running, we can go on to [generate log data](pipelines).
 
