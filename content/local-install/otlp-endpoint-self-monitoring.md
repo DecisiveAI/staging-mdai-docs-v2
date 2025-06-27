@@ -34,7 +34,7 @@ Changes should be made in the following locations:
 
 ### Step 2: Install MDAI
 
-***Note**: Make sure you can access `values.yaml` your working directory. You have have to clone the `mdai-hub` repo.*
+***Note**: Make sure you can access `values.yaml` your working directory. You have have to clone the [`mdai-hub`]((https://github.com/DecisiveAI/mdai-hub/blob/main/values.yaml)) repo and use it as your working directory while for the next step.*
 
 ```sh
 helm upgrade --install \
@@ -44,14 +44,13 @@ helm upgrade --install \
   --namespace mdai \
   --create-namespace \
   --cleanup-on-fail
+  --values values.yaml
 ```
 
->[!NOTE]
->
->To stop logs from sending to s3, you will need to delete the MdaiCollector Custom Resource
-
-
 ### Step 3: Install Log Generators
+
+>[!NOTE]
+>Switch to [mdai-labs](https://github.com/DecisiveAI/mdai-labs/tree/main) as your working directory**
 
 1. Initiate super noisy logs
 ```sh

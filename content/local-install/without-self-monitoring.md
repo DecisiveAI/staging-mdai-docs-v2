@@ -39,7 +39,7 @@ You must change `otelSdkDisabled: "true"` in two locations:
 
 ### Step 2: Install MDAI
 
-***Note**: Make sure you can access `values.yaml` your working directory. You have have to clone the `mdai-hub` repo.*
+***Note**: Make sure you can access `values.yaml` your working directory. You have have to clone the [`mdai-hub`]((https://github.com/DecisiveAI/mdai-hub/blob/main/values.yaml)) repo and use it as your working directory while for the next step.*
 
 ```sh
  helm upgrade --install \
@@ -57,6 +57,9 @@ You must change `otelSdkDisabled: "true"` in two locations:
 >Without this capability, you will not have access to our built-in, self-instrumentation that ensures visibility and accuracy of MDAI operations.
 
 ### Step 3: Install Log Generators
+
+>[!NOTE]
+>Switch to [mdai-labs](https://github.com/DecisiveAI/mdai-labs/tree/main) as your working directory**
 
 1. Initiate super noisy logs
 ```sh
