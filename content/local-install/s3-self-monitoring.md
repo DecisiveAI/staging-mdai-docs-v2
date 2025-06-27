@@ -61,7 +61,7 @@ helm upgrade --install \
   kubectl apply -f ./otel/0.8/otel_guaranteed_working.yaml -n mdai
 ```
 
-### Step 6: Forward logs from the log generator services to MDAI
+### Step 6: Forward logs from the synthetic log generators to OTEL Collector
 ```sh
   helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f ./synthetics/loggen_fluent_config.yaml
 ```
