@@ -11,7 +11,7 @@
 1. The `mdai-collector` references the secret to enable the e2e connectivity for MDAI to access the specified s3 bucket.
 
 
->[!Info]
+>[!NOTE]
 >
 >This guide assumes you have
 >1. Cloned our [`mdai-labs` repo](https://github.com/DecisiveAI/mdai-labs/tree/main) set this as your working directory
@@ -52,7 +52,7 @@ Programatically update the `.env` file to use your long-term access keys
 
 ##### Create / Use `.env` file to store Access Keys
 
-If you haven't already, create a `.env` file. Then, update the `.env` file to have your credentials. It should look similar to the following:
+If you don't already, create a `.env` file. Then, update the `.env` file to have your credentials. It should look similar to the following:
 
 ```
 AWS_ACCESS_KEY_ID="50M3R@ND0M@CC355K3Y"
@@ -78,7 +78,7 @@ Execute the shell script to generate and map new long-term aws credentials as a 
 
 After running this, you will have a secret created inside of your cluster.
 
-##### Deploy the MDAI Collector to your cluster**
+##### Deploy the MDAI Hub Monitor to your cluster**
 
 ```sh
 kubectl apply -f ./mdai/hub_monitor/mdai_monitor_no_secrets.yaml
@@ -88,22 +88,22 @@ kubectl apply -f ./mdai/hub_monitor/mdai_monitor_no_secrets.yaml
 
 >[!NOTE]
 >
->To stop logs from sending to s3, you will need to delete the MDAI Collector Custom Resource (CR)
+>To stop logs from sending to s3, you will need to delete the MdaiCollector Custom Resource
 
 
 <br />
 
-Jump ahead to [Install MDAI Collector](../install.md#install-mdai-collector)
+Jump ahead to [Install MDAI Hub](../install.md#install-mdai-dependencies-via-helm)
 
 ---
 
 #### Option 2: Manually
 
-Manually update the MDAI Collector CR with Access keys (not recommended)
+Manually update the MDAI Hub Custom Resource with Access keys (not recommended)
 
 From Step 1, you should have saved your credentials. You can update the file `mdai/hub_monitor/mdai_monitor.yaml` with your access keys.
 
-**Deploy the MDAI Collector with updated keys**
+**Deploy the MDAI Hub Monitor with updated keys**
 
 ```sh
 kubectl apply -f ./mdai/hub_monitor/mdai_monitor.yaml
@@ -131,7 +131,7 @@ kubectl apply -f ./mdai/hub_monitor/mdai_monitor.yaml
 
 <br />
 
-## Next steps: [Install MDAI Collector](../install.md#install-mdai-collector)
-
-
-
+## Next steps 
+- Quickstart: [Install MDAI Hub](install.md#install-mdai-hub-helm)
+- Automated Install: [Step 5: Apply MDAI commands MDAI Hub](../local-install/automated.md#step-5-apply-mdai-commands)
+- MDAI Manual Install with Self-Monitoring via S3: [Step 2: Install MDAI dependencies via Helm](../local-install/s3-self-monitoring.md#step-2-install-mdai-dependencies-via-helm)

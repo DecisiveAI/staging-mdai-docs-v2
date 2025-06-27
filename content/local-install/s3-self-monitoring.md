@@ -17,9 +17,9 @@ Send MDAI Smart Telemetry hub component logs to an s3 bucket for explainability 
 >
 >This is an involved step that cannot be skipped
 
-Follow our [Setup IAM for AWS & MDAI Collector User Guide](./aws/setup_iam_longterm_user_s3.md) before you continue.
+Follow our [Setup IAM for AWS & MDAI Collector User Guide](../quickstart/setup_iam_longterm_user_s3) before you continue.
 
-> * **If you do not have an AWS account**, please see our [Alternative Install methods](./local-install.html)
+> * **If you do not have an AWS account**, please see our [Alternative Install methods](without-self-monitoring)
 
 ### Step 2: Install MDAI dependencies via Helm
 
