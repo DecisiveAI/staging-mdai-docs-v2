@@ -34,7 +34,7 @@ Changes should be made in the following locations:
 
 ### Step 2: Install MDAI
 
-***Note**: Make sure you can access `values.yaml` your working directory. You have have to clone the [`mdai-hub`]((https://github.com/DecisiveAI/mdai-hub/blob/main/values.yaml)) repo and use it as your working directory while for the next step.*
+***Note**: Make sure you can access `values.yaml` your working directory. You have have to clone the [mdai-hub](https://github.com/DecisiveAI/mdai-hub/blob/main/values.yaml) repo and use it as your working directory while for the next step.*
 
 ```sh
 helm upgrade --install \
@@ -79,7 +79,7 @@ kubectl apply -f ./mdai/hub/hub_ref.yaml -n mdai
 kubectl apply -f ./otel/0.8/otel_guaranteed_working.yaml -n mdai
 ```
 
-### Step 6: Fwd logs from the loggen services to MDAI
+### Step 6: Forward logs from the log generator services to MDAI
 ```sh
 helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f ./synthetics/loggen_fluent_config.yaml
 ```
