@@ -44,14 +44,14 @@ Before you get started, you'll need to log into a GitHub account to access MDAI 
 
 ### Prerequisites
 
-You'll need to install the following software.
+Install the following software.
 
-- [Docker](https://www.docker.com/products/docker-desktop/).
-- [Kubernetes](https://kubernetes.io/releases/download/) (k8s).
-- [kubectl and kind](https://kubernetes.io/docs/tasks/tools/).
-- [Helm](https://helm.sh/docs/intro/install/).
+- [Docker](https://www.docker.com/products/docker-desktop/)
+- [Kubernetes](https://kubernetes.io/releases/download/) (k8s)
+- [kubectl and kind](https://kubernetes.io/docs/tasks/tools/)
+- [Helm](https://helm.sh/docs/intro/install/)
 - (Kubernetes add-on) [cert-manager](https://cert-manager.io/docs/installation/kubectl/)
-- (Optional) [k9s](https://k9scli.io/topics/install/).
+- (Optional) [k9s](https://k9scli.io/topics/install/)
 
 
-## Next steps: [Installation](./install.md)
+## Next: [Installation](./install.md)
