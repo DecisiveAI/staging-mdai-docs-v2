@@ -25,22 +25,59 @@ weight = 20
   </a>
 </div>
 
-## Install MDAI into your cluster
-MDAI runs in a Kubernetes cluster. You'll use Helm charts to bring up the pods in the cluster.
+MDAI is configured and deployed using Helm charts, and runs in a Kubernetes cluster. You'll also install synthetic log generators to provide the telemetry data. That data can be sent to one of 3 destinations: 
 
-We've put together some pre-defined solutions and an [**automated installation**](../local-install/automated.md) in our [mdai-labs](https://github.com/DecisiveAI/mdai-labs/blob/main/README.md) repo. 
+- Your local machine. This is the simplest option. Follow the steps on this page.
+- An [Open Telemetry Protocol](https://opentelemetry.io/docs/specs/otlp/) (OTLP) endpoint. You can use this if you have a backend system with an OTLP endpoint, or have one set up one up in AWS. With this setup, you can take advantage of MDAI's self monitoring feature. See [MDAI Installation with OTLP Endpoint](../local-install/otlp-endpoint-self-monitoring.md).
+- An S3 bucket. If you have access to AWS account, you can set up a user and an S3 bucket to receive telemetry data. With this setup, you can take advantage of MDAI's self monitoring feature. See [Setup IAM & MDAI Collector User Guide](setup_iam_longterm_user_s3.md).
 
-1. Clone [mdai-labs](https://github.com/DecisiveAI/mdai-labs/tree/main) repo and use as your working directory
+The quick-start installation options are intended for demonstration purposes and not intended for production environments.
 
-> [!NOTE]
-> If you choose to use automated installation method, follow the [**automated installation**](../local-install/automated.md) steps. Then skip ahead to [Set Up a Dashboard](dashboard)
+To make installing MDAI easy, we've put together some pre-defined solutions and an [automated installation](../local-install/automated.md) in our [mdai-labs](https://github.com/DecisiveAI/mdai-labs/blob/main/README.md) repo. Before you start, clone [mdai-labs](https://github.com/DecisiveAI/mdai-labs/tree/main) and use its root directory as your working directory.
 
-2. Use kind to create a new cluster.
+
+## Install MDAI Into Your Cluster
+
+There are 2 ways to install MDAI.
+
+- The automated installation saves time and helps you avoid command-line mistakes.
+- The manual install helps you better understand what components run in the MDAI cluster and how they work together.
+
+### Automated Installation
+
+1. Make the installation script executable.
+```
+chmod +x mdai-kind.sh
+```
+
+2. Install the cluster.
+```
+./mdai-kind.sh install
+```
+
+#### Uninstall the Cluster
+
+To completely uninstall the cluster:
+
+1. Delete the cluster.
+```
+./mdai-kind.sh delete
+```
+
+2. Delete deployed configuration and all of the resources in the `MDAI` namespace.
+```
+./mdai-kind.sh rm_configs
+```
+
+
+### Manual Installation
+
+1. Use kind to create a new cluster.
   ```bash
   kind create cluster --name mdai
   ```
 
-3. Use kubectl to install cert-manager.
+2. Use kubectl to install cert-manager.
 
 ```bash
   kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
@@ -48,19 +85,10 @@ We've put together some pre-defined solutions and an [**automated installation**
   kubectl wait --for=condition=Ready pod -l app.kubernetes.io/instance=cert-manager -n cert-manager --timeout=60s
   kubectl wait --for=condition=Available=True deploy -l app.kubernetes.io/instance=cert-manager -n cert-manager --timeout=60s
 ```
-  > [!NOTE]
-  > Wait a few moments for cert-manager to finish installing.
+  Wait a few moments for cert-manager to finish installing.
 
-4.  Setup Long-Term IAM User and MDAI Collector
+3. Install the MDAI Hub with Helm.
 
-Send MDAI Smart Telemetry hub component logs to an S3 bucket for explainability of MDAI operations. 
-
-  - This is an involved step and is **required** for this installation method.  
-  - Jump over to our [Setup IAM & MDAI Collector User Guide](setup_iam_longterm_user_s3.).  
-
-> If you do not have an AWS account, please follow [MDAI without Self-Monitoring]() Then skip ahead to [Set Up a Dashboard](dashboard). We do however strongly recommend setting up AWS S3. 
-  
-#### Install MDAI Hub Helm
   ```bash
    helm upgrade --install \
      mdai-hub oci://ghcr.io/decisiveai/mdai-hub \
@@ -69,7 +97,6 @@ Send MDAI Smart Telemetry hub component logs to an S3 bucket for explainability 
      --create-namespace \
      --cleanup-on-fail
   ```
----  
 
 ## Verify that the cluster's pods are running
    ```
@@ -95,10 +122,6 @@ Send MDAI Smart Telemetry hub component logs to an S3 bucket for explainability 
     prometheus-kube-prometheus-stack-prometheus-0       2/2     Running                      0          11m
     ```
 
-> [!NOTE]
-> If you see **CreateContainerConfigError** on mdai-s3-logs-reader, be sure you followed [Setup IAM & MDAI Collector User Guide](setup_iam_longterm_user_s3.md)
-
----
 
 ## Install MDAI Smart Telemetry Hub
 
@@ -121,5 +144,7 @@ Send MDAI Smart Telemetry hub component logs to an S3 bucket for explainability 
 
 ## Success
 
-Now that MDAI is running, we can go on to [generate log data](pipelines).
+If you used the automated installation, skip ahead to [Set Up a Dashboard](dashboard).
+
+For the manual installation, next you'll [generate log data](pipelines).
 
