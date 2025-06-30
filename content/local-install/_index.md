@@ -1,23 +1,22 @@
 +++
-title = 'Install Locally'
+title = 'Quickstart with AWS or OTLP'
 url = '/local-install/'
 sectionPagesMenu = "local-install"
 weight = 23
 +++
 
-## Your options for MDAI Installation
+Your options for installing MDAI using a remote destination for logs allows you to exlore the MDAI self-monitoring feature.
 
 1. [MDAI Automated Install with Self-Monitoring via S3](automated)
 2. [MDAI Manual Install with Self-Monitoring via S3](s3-self-monitoring)
 3. [MDAI Manual Install with Self-Monitoring via OTLP Endpoint](otlp-endpoint-self-monitoring)
-4. [MDAI Manual Install without Self-Monitoring](without-self-monitoring)
 
 >**Read about [about self-monitoring](self_monitoring) with MDAI to understand the right choice for you.**
 
 > [!INFO]
-> If this is your first time here, we encourage you to run through our [**Quickstart**](quickstart.html)!
+> If you don't want to use an external endpoint for logs with the MDAI quick start, see [**Quickstart**](quickstart.html).
 
-# Install MDAI into your cluster
+## Install MDAI into your cluster
 
 > [!IMPORTANT]
 >
@@ -25,15 +24,13 @@ weight = 23
 
 Make sure Docker is running.
 
-## Step 1. Create kind cluster
-
-Use kind to create a new cluster.
+1. Create a new cluster.
 
 ```
 kind create cluster --name mdai
 ```
 
-## Step 2. Install cert-manager
+2. Install cert-manager.
 
 ```bash
   kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
@@ -46,4 +43,4 @@ kind create cluster --name mdai
 
 ## Success
 
-Now that we have a mdai cluster with cert-manager, we can go on to our recommended [MDAI Manual Install with Self-Monitoring via S3](./local-install/s3-self-monitoring.html).
+Now that we have an MDAI cluster with cert-manager, we can go on to our recommended [MDAI Manual Install with Self-Monitoring via S3](s3-self-monitoring).

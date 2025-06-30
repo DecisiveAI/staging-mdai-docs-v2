@@ -1,4 +1,7 @@
-# Setup MDAI Collector with S3 Access
++++
+title = "Set Up MDAI Collector with S3 Access"
+weight = 80
++++
 
 ## Steps involved
 
@@ -91,12 +94,6 @@ kubectl apply -f ./mdai/hub_monitor/mdai_monitor_no_secrets.yaml
 >To stop logs from sending to s3, you will need to delete the MdaiCollector Custom Resource
 
 
-<br />
-
-Jump ahead to [Install MDAI Hub](../install.md#install-mdai-dependencies-via-helm)
-
----
-
 #### Option 2: Manually
 
 Manually update the MDAI Hub Custom Resource with Access keys (not recommended)
@@ -132,6 +129,6 @@ kubectl apply -f ./mdai/hub_monitor/mdai_monitor.yaml
 <br />
 
 ## Next steps 
-- Quickstart: [Install MDAI Hub](install.md#install-mdai-hub-helm)
+- Quickstart: [Install MDAI Hub](s3-self-monitoring/#step-2-install-mdai-dependencies-via-helm)
 - Automated Install: [Step 5: Apply MDAI commands MDAI Hub](../local-install/automated.md#step-5-apply-mdai-commands)
 - MDAI Manual Install with Self-Monitoring via S3: [Step 2: Install MDAI dependencies via Helm](../local-install/s3-self-monitoring.md#step-2-install-mdai-dependencies-via-helm)

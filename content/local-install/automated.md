@@ -25,7 +25,7 @@ chmod +x mdai-kind.sh
 
 ### Step 4: Apply AWS Credentials Secret 
 >[!NOTE]
->Follow our [Setup IAM for AWS & MDAI Collector User Guide](../quickstart/setup_iam_longterm_user_s3) to get your AWS secrets.
+>Follow our [Setup IAM for AWS & MDAI Collector User Guide](setup_iam_longterm_user_s3) to get your AWS secrets.
 ```sh
 ./mdai-kind.sh aws_secret
 ```
@@ -66,7 +66,7 @@ chmod +x mdai-kind.sh
 
 >[!WARNING]
 >
->If you see the error **CreateContainerConfigError** with the `svc/mdai-s3-logs-reader-service`. This is due to a missing secret attached to this service that enable this service to write to S3. You can jump ahead to [MDAI collector install with s3 access](../quickstart/setup_iam_longterm_user_s3). Follow instructions from here through the rest of the installation flow.
+>If you see the error **CreateContainerConfigError** with the `svc/mdai-s3-logs-reader-service`. This is due to a missing secret attached to this service that enable this service to write to S3. You can jump ahead to [MDAI collector install with s3 access](setup_iam_longterm_user_s3). Follow instructions from here through the rest of the installation flow.
 
 ### Step 6: Apply Data Generators - Deploys synthetic noisy and normal log services (DEMO)
 ```sh
