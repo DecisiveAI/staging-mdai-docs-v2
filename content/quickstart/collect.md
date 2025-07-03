@@ -28,13 +28,18 @@ An OpenTelemetry collector is a component that receives and forwards telemetry d
 
 ## Set Up a Collector
 
-1. From the [MDAI Example Config repo](https://github.com/DecisiveAI/configs/blob/main/otel_config.yaml), copy the `otel_config.yaml` into your working directory.
+1. From the your `mdai-labs` working directory, you should see the `./otel/otel_ref.yaml` file.
 
+    Verify this by running:
+
+    ```
+    ls -a otel/
+    ```
 
 2. Deploy the Otel config to your cluster.
 
     ```
-    kubectl apply -f otel_config.yaml
+    kubectl apply -f ./otel/otel_ref.yaml
     ```
 
 3. Verify that the collector is running in Kubernetes.
@@ -54,13 +59,18 @@ An OpenTelemetry collector is a component that receives and forwards telemetry d
 
 We'll use Fluentd to capture the synthetic log streams you created, and forward them to the collector.
 
-1. From the [MDAI Example Config repo](https://github.com/DecisiveAI/configs/blob/main/synthetics/loggen_fluent_config.yaml), copy the `loggen_fluent_config.yaml` into your working directory.
+1. From the your `mdai-labs` working directory, you should see the `./synthetics/loggen_fluent_config.yaml` file.
+
+    Verify this by running:
 
     ```
-    helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f loggen_fluent_config.yaml
+    ls -a synthetics/
     ```
-
-2. Confirm that Fluentd is running in the default namespace.
+2. Then
+    ```
+    helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f ./synthetics/loggen_fluent_config.yaml
+    ```
+3. Confirm that Fluentd is running in the default namespace.
 
      ```
      kubectl get pods
@@ -68,7 +78,7 @@ We'll use Fluentd to capture the synthetic log streams you created, and forward 
 
     This also gives you the name of the Fluentd pod.
 
-3. Look at the Fluentd logs, which should indicate that various pod log files are being accessed.
+4. Look at the Fluentd logs, which should indicate that various pod log files are being accessed.
 
     ```
      kubectl logs svc/fluent-fluentd

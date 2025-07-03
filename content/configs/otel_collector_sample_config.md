@@ -9,15 +9,15 @@ This **OpenTelemetry Collector (OTEL Collector) configuration** sample defines a
 
 ### Table of Contents
 
-- [MDAI OpenTelemetry Collector Sample Config](#mdai-opentelemetry-collector-sample-config)
-  - [Summary](#summary)
-  - [Link to Example Config](#link-to-example-config)
-  - [Key Components of the Configuration](#key-components-of-the-configuration)
-    - [Receivers](#receivers)
-    - [Extensions](#extensions)
-    - [Processors](#processors)
-    - [Exporters](#exporters)
-    - [Service & Pipelines](#service--pipelines)
+- [Summary](#summary)
+- [**Key Components of the Configuration**](#key-components-of-the-configuration)
+- [Configuration Breakdown](#configuration-breakdown)
+  - [Receivers](#receivers)
+  - [Extensions](#extensions)
+  - [Processors](#processors)
+  - [Exporters](#exporters)
+  - [Service \& Pipelines](#service--pipelines)
+  - [Custom Config to Copy](#custom-config-to-copy)
 
 ---
 
@@ -31,10 +31,10 @@ This **OpenTelemetry Collector (OTEL Collector) configuration** sample defines a
 ## Summary
 **MDAI Gateway OTEL Collector**:
 
-✅ **Receives** logs via **Fluent Forward & OTLP**.  
-✅ **Filters & processes** logs using memory limits, batching, grouping, and attribute transformations.  
-✅ **Exports** telemetry to **MDAI Watcher Collectors** and **local debugging logs**.  
-✅ **Ensures health checks** via the **`health_check` extension**.  
+✅ **Receives** logs via **Fluent Forward & OTLP**.
+✅ **Filters & processes** logs using memory limits, batching, grouping, and attribute transformations.
+✅ **Exports** telemetry to **MDAI Observer Collectors** and **local debugging logs**.
+✅ **Ensures health checks** via the **`health_check` extension**.
 
 ## **Key Components of the Configuration**
 
@@ -117,44 +117,45 @@ Processors modify and filter telemetry data before exporting.
 | **`memory_limiter`** | ✅ **YES** | Ensures memory usage remains below **75%**, with a spike limit of **15%**. |
 | **`batch`** | ✅ **YES** | Groups telemetry into **batches of 10,000 records** or after **13 seconds**. |
 | **`groupbyattrs`** | ❌ NO | Groups logs by **`service.name`** to enable per-service aggregation. |
-| **`resource/watcher_receiver_tag`** | ❌ NO | Adds a **`watcher_direction: received`** label to received telemetry. |
-| **`resource/watcher_exporter_tag`** | ❌ NO | Adds a **`watcher_direction: exported`** label to exported telemetry. |
+| **`resource/observer_receiver_tag`** | ❌ NO | Adds a **`observer_direction: received`** label to received telemetry. |
+| **`resource/observer_exporter_tag`** | ❌ NO | Adds a **`observer_direction: exported`** label to exported telemetry. |
 | **`filter/severity`** | ❌ NO | Filters logs, only keeping logs where **`log_level == INFO`**. |
 | **`filter/service_list`** | ❌ NO | Filters logs based on **environment variable `${env:SERVICE_LIST_REGEX}`**, dynamically configuring services to be monitored. |
 
 **Example Configuration:**
 ```yaml
+
 processors:
-      memory_limiter:
+    memory_limiter:
         check_interval: 23s
         limit_percentage: 75
         spike_limit_percentage: 15
-      batch:
+
+    batch:
         send_batch_size: 10000
         timeout: 13s
-      groupbyattrs:
+
+    groupbyattrs:
         keys:
-          - service.name
-      resource/watcher_receiver_tag:
+          - mdai_service
+
+    resource/observer_receiver_tag:
         attributes:
-          - key: watcher_direction
-            value: "received"
-            action: upsert
-      resource/watcher_exporter_tag:
+            - key: observer_direction
+              value: "received"
+              action: upsert
+
+    resource/observer_exporter_tag:
         attributes:
-          - key: watcher_direction
-            value: "exported"
-            action: upsert
-      filter/severity:
+            - key: observer_direction
+              value: "exported"
+              action: upsert
+
+    filter/service_list:
         error_mode: ignore
-        logs:
-          log_record:
-            - 'attributes["log_level"] == "INFO"'
-      filter/service_list:
-        error_mode: ignore
-        logs:
-          log_record:
-            - 'IsMatch(attributes["service.name"], "${env:SERVICE_LIST_REGEX}")'
+          logs:
+              log_record:
+                  - 'IsMatch(attributes["service.name"], "${env:SERVICE_LIST_REGEX}")'
 ```
 
 ---
@@ -165,14 +166,14 @@ Exporters send processed telemetry to external destinations.
 | **Exporter** | **Required** | **Destination** |
 |-------------|------------|----------------|
 | **`debug`** | ❌ NO | Outputs telemetry to **local logs** for debugging. |
-| **`otlp/watcher`** | ✅ **YES** | Sends telemetry to **`mdaihub-sample-watcher-collector-service`** via OTLP (`4317`). **TLS is disabled (`insecure: true`)**. |
+| **`otlp/observer`** | ✅ **YES** | Sends telemetry to **`mdaihub-sample-observer-collector-service`** via OTLP (`4317`). **TLS is disabled (`insecure: true`)**. |
 
 **Example Configuration:**
 ```yaml
    exporters:
       debug: { }
-      otlp/watcher:
-        endpoint: mdaihub-sample-watcher-collector-service.mdai.svc.cluster.local:4317
+      otlp/observer:
+        endpoint: mdaihub-sample-observer-collector-service.mdai.svc.cluster.local:4317
         tls:
           insecure: true
 ```
@@ -184,8 +185,8 @@ Defines how telemetry flows through the system.
 
 | **Pipeline** | **Required** | **Receivers** | **Processors** | **Exporters** |
 |-------------|------------|--------------|---------------|--------------|
-| **`logs/customer_pipeline`** | ✅ **YES** | `otlp`, `fluentforward` | `filter/service_list`, `memory_limiter`, `batch`, `groupbyattrs`, `resource/watcher_exporter_tag` | `debug`, `otlp/watcher` |
-| **`logs/watch_receivers`** | ✅ **YES** | `otlp`, `fluentforward` | `memory_limiter`, `batch`, `groupbyattrs`, `resource/watcher_receiver_tag` | `debug`, `otlp/watcher` |
+| **`logs/customer_pipeline`** | ✅ **YES** | `otlp`, `fluentforward` | `filter/service_list`, `memory_limiter`, `batch`, `groupbyattrs`, `resource/observer_exporter_tag` | `debug`, `otlp/observer` |
+| **`logs/watch_receivers`** | ✅ **YES** | `otlp`, `fluentforward` | `memory_limiter`, `batch`, `groupbyattrs`, `resource/observer_receiver_tag` | `debug`, `otlp/observer` |
 
 - The **customer pipeline** filters logs using `filter/service_list` before exporting.
 - The **watch receivers pipeline** applies grouping and tagging before exporting.
@@ -201,13 +202,13 @@ Defines how telemetry flows through the system.
       pipelines:
         logs/customer_pipeline:
           receivers: [ otlp, fluentforward ]
-          processors: [ filter/service_list, memory_limiter, batch, groupbyattrs, resource/watcher_exporter_tag ]
-          exporters: [ debug, otlp/watcher ]
+          processors: [ filter/service_list, memory_limiter, batch, groupbyattrs, resource/observer_exporter_tag ]
+          exporters: [ debug, otlp/observer ]
 
         logs/watch_receivers:
           receivers: [ otlp, fluentforward ]
-          processors: [ memory_limiter, batch, groupbyattrs, resource/watcher_receiver_tag ]
-          exporters: [ debug, otlp/watcher ]
+          processors: [ memory_limiter, batch, groupbyattrs, resource/observer_receiver_tag ]
+          exporters: [ debug, otlp/observer ]
 ```
 
 ---
@@ -280,7 +281,7 @@ spec:
 
     exporters:
       debug: { }
-      otlp/watcher:
+      otlp/observer:
         endpoint: <your-otlp-endpoint>
         tls:
           insecure: <true|false>
