@@ -46,62 +46,63 @@ There are 2 ways to install MDAI.
 ### Automated Installation
 
 1. Make the installation script executable.
-```
-chmod +x mdai-kind.sh
-```
+    ```
+    chmod +x mdai-kind.sh
+    ```
 
 2. Install the cluster.
-```
-./mdai-kind.sh install
-```
+    ```
+    ./mdai-kind.sh install
+    ```
 
 #### Uninstall the Cluster
 
 To completely uninstall the cluster:
 
 1. Delete the cluster.
-```
-./mdai-kind.sh delete
-```
+    ```
+    ./mdai-kind.sh delete
+    ```
 
 2. Delete deployed configuration and all of the resources in the `MDAI` namespace.
-```
-./mdai-kind.sh rm_configs
-```
+    ```
+    ./mdai-kind.sh rm_configs
+    ```
 
 
 ### Manual Installation
 
 1. Use kind to create a new cluster.
-  ```bash
-  kind create cluster --name mdai
-  ```
+    ```bash
+    kind create cluster --name mdai
+    ```
 
 2. Use kubectl to install cert-manager.
 
-```bash
-  kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
-  kubectl wait --for=condition=Established crd/certificates.cert-manager.io --timeout=60s
-  kubectl wait --for=condition=Ready pod -l app.kubernetes.io/instance=cert-manager -n cert-manager --timeout=60s
-  kubectl wait --for=condition=Available=True deploy -l app.kubernetes.io/instance=cert-manager -n cert-manager --timeout=60s
-```
-  Wait a few moments for cert-manager to finish installing.
+    ```bash
+    kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
+    kubectl wait --for=condition=Established crd/certificates.cert-manager.io --timeout=60s
+    kubectl wait --for=condition=Ready pod -l app.kubernetes.io/instance=cert-manager -n cert-manager --timeout=60s
+    kubectl wait --for=condition=Available=True deploy -l app.kubernetes.io/instance=cert-manager -n cert-manager --timeout=60s
+    ```
 
-3. Install the MDAI Hub with Helm.
+    Wait a few moments for cert-manager to finish installing.
 
-  ```bash
-   helm upgrade --install \
-     mdai-hub oci://ghcr.io/decisiveai/mdai-hub \
-     --version --devel \
-     --namespace mdai \
-     --create-namespace \
-     --cleanup-on-fail
-  ```
+3. Install the MDAI hub.
 
-## Verify that the cluster's pods are running
-   ```
-   kubectl get pods -n mdai
-   ```
+    ```
+    helm upgrade --install mdai-hub oci://ghcr.io/decisiveai/mdai-hub \
+      --version --devel \
+      --namespace mdai \
+      --create-namespace \
+      --cleanup-on-fail
+    ```
+
+4. Verify that the cluster's pods are running.
+
+    ```
+    kubectl get pods -n mdai
+    ```
 
     If the cluster is running, you'll see output similar to the following.
 
@@ -144,7 +145,5 @@ To completely uninstall the cluster:
 
 ## Success
 
-If you used the automated installation, skip ahead to [Set Up a Dashboard](dashboard).
-
-For the manual installation, next you'll [generate log data](pipelines).
+Now that we've got the cluster running, it's time to [generate log data](pipelines).
 
