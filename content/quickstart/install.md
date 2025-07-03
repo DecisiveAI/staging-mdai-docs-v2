@@ -53,7 +53,7 @@ Make sure Docker is running.
    helm upgrade --install \
      mdai mdai-hub \
      --repo https://charts.mydecisive.ai \
-     --version v0.8.0-rc3 \
+     --version v0.7.1-rc2 \
      --namespace mdai \
      --create-namespace \
      --cleanup-on-fail
