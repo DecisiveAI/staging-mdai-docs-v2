@@ -9,13 +9,12 @@ The **MDAI Hub Custom Resource** provides a declarative way to define **variable
 
 ### Table of Contents
 
-- [MDAI Hub Custom Resource Sample Config](#mdai-hub-custom-resource-sample-config)
-- [Link to Example Config](#link-to-example-config)
-  - [Variables](#variables)
-  - [Observer Resources](#observer-resources)
-  - [Observers](#observers)
-  - [Evaluations](#evaluations)
-- [Custom Config to Copy](#custom-config-to-copy)
+- [Variables](#variables)
+  - [Variable Definition](#variable-definition)
+- [ObserverResources](#observerresources)
+- [Observers](#observers)
+- [Evaluations](#evaluations)
+  - [Custom Config to Copy](#custom-config-to-copy)
 
 ---
 ### Link to example config
@@ -68,15 +67,15 @@ Observer Resources are used to run the observers defined below. These are servic
 | Variable   | Required | Description |
 |------------|----------|-------------|
 | **`name`**  | ✅ **YES** | Unique name of this observer resource. |
-| **`image`** | ✅ **YES** | Docker image for the observer resource. Recommended: `public.ecr.aws/decisiveai/watcher-collector:0.1` as it is pre-configured to work as an observer|
-| **`replicas`** | ❌ NO (default: `1`) | The number of replicas for k8s to spin up for this watcher. We recommend matching the total number of replicas in your collector fleet that will be sending to these observer resources. |
+| **`image`** | ✅ **YES** | Docker image for the observer resource. Recommended: `public.ecr.aws/decisiveai/observer-collector:0.1` as it is pre-configured to work as an observer|
+| **`replicas`** | ❌ NO (default: `1`) | The number of replicas for k8s to spin up for this observer. We recommend matching the total number of replicas in your collector fleet that will be sending to these observer resources. |
 | **`resources`** | ❌ NO | A standard kubernetes [resource definition](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#requests-and-limits). We recommend matching the resources of your collector fleet. |
 
 **Example Configuration:**
 ```yaml
 observerResources:
-  - name: watcher-collector
-    image: public.ecr.aws/decisiveai/watcher-collector:0.1
+  - name: observer-collector
+    image: public.ecr.aws/decisiveai/observer-collector:0.1
     replicas: 3
     resources:
       limits:
@@ -87,7 +86,7 @@ observerResources:
         cpu: "100m"
 ```
 
-> ℹ️ In this example, we have defined a single observer resource that uses the watcher-collector image, with three replicas and set k8s resource limits.
+> ℹ️ In this example, we have defined a single observer resource that uses the observer-collector image, with three replicas and set k8s resource limits.
 
 ---
 
@@ -112,7 +111,7 @@ Observers are **MDAI Operator-managed components** that observe telemetry flowin
 ```yaml
 observers:
   - name: service_team
-    resourceRef: watcher-collector
+    resourceRef: observer-collector
     labelResourceAttributes:
       - service.name
       - team

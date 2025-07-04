@@ -33,14 +33,13 @@ But not all logs are created equal. Now that we're generating log data, let's fi
 
 MDAI is monitoring services by a service identifier (log attribute), `mdai_service`, and a tolerance threshold over a rolling time window. When a given service surpasses that threshold, we'd like to drop non-critical data such as log lines with a level below WARN.
 
-To do that, let's add a managed filter to `otel_config.yaml`, the collector's configuration file. Open the file for editing and look for the configuration block that looks like this:
+To do that, let's add a managed filter to `./otel/otel_config.yaml`, the collector's configuration file. Open the file for editing and look for the configuration block that looks like this:
 
 ```
     # filter/service_list:
     #   error_mode: ignore
     #   logs:
     #     log_record:
-    #       # below is an example of how an environment variable configured in the mdai_v1_mdaihub_sample_config_0_6_0.yaml can be used in an opentelemetry collector config
     #       - 'IsMatch(attributes["mdai_service"], "${env:SERVICE_LIST_REGEX}")'
 ```
 
@@ -50,20 +49,27 @@ Notice this block is currently commented out. Go ahead and uncomment it.
 You will also need to uncomment the line in the following pipeline, filter processor instruction.
 
 ```
-    logs/filter:
-        receivers: [ routing/filter ]
+    logs/customer_pipeline:
+        receivers: [ otlp, fluentforward ]
         processors: [
-            # filter/service_list, <---- UNCOMMENT THIS LINE
-            attributes/state_filtered
+            # Uncomment the following line to start filtration
+            # filter/service_list,  <---- UNCOMMENT THIS LINE
+            # DO NOT CHANGE ORDER
+            resource/observer_exporter_tag,
+            groupbyattrs,
+            memory_limiter,
+            # DO NOT CHANGE ORDER
+            # batch must be last in processor list
+            batch
         ]
-        exporters: [ routing/external ]
+        exporters: [ debug, otlp/observer ]
 ```
 
 
 Apply the updated configuration:
 
 ```
-kubectl apply -f otel_config.yaml --namespace mdai
+kubectl apply -f ./otel/otel_config.yaml --namespace mdai
 ```
 
 ## Confirm the Change in Log Volume

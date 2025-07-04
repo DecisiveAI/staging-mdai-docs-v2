@@ -49,27 +49,30 @@ Make sure Docker is running.
    > Wait a few moments for cert-manager to finish installing.
 
 3. Use helm to install MDAI.
-   ```
-   helm upgrade --install \
-     mdai mdai-hub \
-     --repo https://charts.mydecisive.ai \
-     --version v0.7.1-rc2 \
-     --namespace mdai \
-     --create-namespace \
-     --cleanup-on-fail
-   ```
+    ```
+    helm upgrade --install \
+      --repo https://charts.mydecisive.ai \
+      --namespace mdai \
+      --create-namespace \
+      --cleanup-on-fail \
+      --set mdai-operator.manager.env.otelSdkDisabled=true \
+      --set mdai-gateway.otelSdkDisabled=true \
+      --set mdai-s3-logs-reader.enabled=false \
+      --version v0.8.0-rc3 \
+      mdai mdai-hub
+    ```
 
 4. Verify that the cluster's pods are running.
-   ```
-   kubectl get pods -n mdai
-   ```
+    ```
+    kubectl get pods -n mdai
+    ```
 
 If the cluster is running, you'll see output similar to the following.
 
 ```
 NAME                                                READY   STATUS    RESTARTS   AGE
 alertmanager-kube-prometheus-stack-alertmanager-0   2/2     Running   0          50s
-event-handler-webservice-57d9d88c5f-r6kgf           1/1     Running   0          59s
+mdai-gateway-57d9d88c5f-r6kgf                       1/1     Running   0          59s
 kube-prometheus-stack-operator-6cfdc788d4-pgrx2     1/1     Running   0          59s
 mdai-grafana-68d9c9474c-gh6ff                       3/3     Running   0          59s
 mdai-kube-state-metrics-6cd9fd8458-cn9bq            1/1     Running   0          59s
@@ -80,13 +83,33 @@ opentelemetry-operator-6d8ddbdc4d-pcwrb             1/1     Running   0         
 prometheus-kube-prometheus-stack-prometheus-0       2/2     Running   0          50s
 ```
 
+## Clone our examples repo `mdai-labs`
+
+### Choose how you'd like to clone
+
+**via https**
+
+```
+git clone https://github.com/DecisiveAI/mdai-labs.git
+```
+
+**via ssh**
+
+```
+git clone git@github.com:DecisiveAI/mdai-labs.git
+```
+
+### Make the `mdai-labs` repo your working directory
+
+```
+cd mdai-labs
+```
+
 ## Set Up the MDAI Hub
 
-1. From the [MDAI Example Config repo](https://github.com/DecisiveAI/configs/blob/main/mdaihub_config.yaml), copy the `mdaihub_config.yaml` file into your working directory.
-
-2. Apply the configuration to the hub resource.
+1. Apply the configuration to the hub resource.
    ```
-   kubectl apply -f mdaihub_config.yaml
+   kubectl apply -f ./mdai/hub/hub_ref.yaml -n mdai
    ```
 
 2. Verify the hub is applied by running

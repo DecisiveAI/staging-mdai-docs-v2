@@ -30,8 +30,8 @@ With a cluster running and data flowing through the cluster:
 
 - Port Forward MDAI Grafana Instance:
   - `kubectl port-forward svc/mdai-grafana 3000:3000 -n mdai`
-- Port forward MDAI event-handler-webservice
-  - `kubectl port-forward svc/event-handler-webservice 8081:8081 -n mdai`
+- Port forward MDAI mdai-gateway
+  - `kubectl port-forward svc/mdai-gateway 8081:8081 -n mdai`
 
 ## Dashboards
 ### MDAI Audit Stream
