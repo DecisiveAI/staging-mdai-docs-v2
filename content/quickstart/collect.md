@@ -66,7 +66,8 @@ We'll use Fluentd to capture the synthetic log streams you created, and forward 
     ```
     ls -a synthetics/
     ```
-2. Then
+2. Then install and deploy a fluentD instance to start forwarding logs from the synthetic services we added.
+
     ```
     helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f ./synthetics/loggen_fluent_config.yaml
     ```
