@@ -70,17 +70,19 @@ Make sure Docker is running.
 If the cluster is running, you'll see output similar to the following.
 
 ```
-NAME                                                READY   STATUS    RESTARTS   AGE
-alertmanager-kube-prometheus-stack-alertmanager-0   2/2     Running   0          50s
-mdai-gateway-57d9d88c5f-r6kgf                       1/1     Running   0          59s
-kube-prometheus-stack-operator-6cfdc788d4-pgrx2     1/1     Running   0          59s
-mdai-grafana-68d9c9474c-gh6ff                       3/3     Running   0          59s
-mdai-kube-state-metrics-6cd9fd8458-cn9bq            1/1     Running   0          59s
-mdai-operator-controller-manager-66f9696ff7-7s9j6   1/1     Running   0          59s
-mdai-prometheus-node-exporter-6wvll                 1/1     Running   0          59s
-mdai-valkey-primary-0                               1/1     Running   0          59s
-opentelemetry-operator-6d8ddbdc4d-pcwrb             1/1     Running   0          59s
-prometheus-kube-prometheus-stack-prometheus-0       2/2     Running   0          50s
+NAME                                                READY   STATUS    RESTARTS     AGE
+alertmanager-kube-prometheus-stack-alertmanager-0   2/2     Running   0            50s
+kube-prometheus-stack-operator-6cfdc788d4-ts297     1/1     Running   0            59s
+mdai-event-hub-556c8897f5-kpn9g                     1/1     Running   0            59s
+mdai-gateway-5df8b6f749-qlm88                       1/1     Running   0            59s
+mdai-grafana-84bb594f6c-d6shj                       3/3     Running   0            59s
+mdai-kube-state-metrics-6cd9fd8458-rhrmr            1/1     Running   0            59s
+mdai-operator-controller-manager-65955fb98b-trn26   1/1     Running   0            59s
+mdai-prometheus-node-exporter-zm8k7                 1/1     Running   0            59s
+mdai-rabbitmq-0                                     1/1     Running   0            59s
+mdai-valkey-primary-0                               1/1     Running   0            59s
+opentelemetry-operator-6d8ddbdc4d-5rjcl             1/1     Running   0            59s
+prometheus-kube-prometheus-stack-prometheus-0       2/2     Running   0            50s
 ```
 
 ## Clone our examples repo `mdai-labs`
