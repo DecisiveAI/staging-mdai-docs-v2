@@ -1,3 +1,11 @@
++++
+title = 'Via OTLP'
+url = '/self-instrumentation/'
+sectionPagesMenu = "MDAI Self-monitoring"
+weight = 2
++++
+
+
 # MDAI Self-Monitoring with OTLP Endpoint
 
 Send MDAI Smart Telemetry hub component logs to a new or existing (not provided by MDAI) OTLP HTTP destination to fully-customize your explainability of MDAI operations.
