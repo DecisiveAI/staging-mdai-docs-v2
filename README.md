@@ -44,17 +44,19 @@ The Hugo [Relearn theme](https://github.com/McShelby/hugo-theme-relearn) is inst
 If you cloned this repo, the Relearn theme will need to be re-downloaded. Run:
 
 ```
-git module init
+git submodule update --init
+```
+
+To update Relearn to the latest version, run:
+
+```
 git submodule update --remote --merge
 ```
 
-To update it Relearn to the latest version, run:
+> [!CAUTION]
+> It's possible for a theme update to mess up customizations. It's also possible that Hugo itself will have to be updated to play nice with the latest theme.
 
-```
-git submodule update --remote --merge
-```
-
-Run `hugo server` and check the site locally to ensure that all's well. It's possible for a theme update to mess up customizations. It's also possible that Hugo itself will have to be updated to play nice with the latest theme.
+Run `hugo server` and check the site locally to ensure that all's well. 
 
 ## Resources
 
