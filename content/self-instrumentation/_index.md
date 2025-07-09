@@ -1,9 +1,9 @@
 +++
-title = 'MDAI Self-monitoring'
-weight = 26
+title = 'MDAI Self-Monitoring'
+url = '/self-monitoring/'
+sectionPagesMenu = "self-monitoring"
+weight = 20
 +++
-
-# Optional: MDAI Self-Monitoring
 
 ## About Self-monitoring
 
