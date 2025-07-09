@@ -1,6 +1,6 @@
 +++
 title = 'MDAI Self-Monitoring'
-url = '/self-monitoring/'
+url = '/self-monitoring'
 sectionPagesMenu = "self-monitoring"
 weight = 20
 +++
