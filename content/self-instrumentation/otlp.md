@@ -9,28 +9,34 @@ weight = 2
 
 Send MDAI Smart Telemetry hub component logs to a new or existing (not provided by MDAI) OTLP HTTP destination to fully-customize your explainability of MDAI operations.
 
-#### Config Updates
+## Config Updates
 
-You can update the  `values.yaml` [(found in our mdai-helm-chart repo)](https://github.com/DecisiveAI/mdai-helm-chart/blob/main/values.yaml) to modify where logs are sent. This destination must be able to accepts OTLP HTTP logs.
+We have default `mdai-hub` settings tha can be found in our `values.yaml` [(found in our mdai-helm-chart repo)](https://github.com/DecisiveAI/mdai-helm-chart/blob/main/values.yaml). You can modify where logs are sent by updating.
 
-Changes should be made in the following locations:
+> [!WARNING]
+>
+> This destination must be able to accepts OTLP HTTP logs.
 
+Defaults can be found at these locations:
 1. [MDAI Operator Blob](https://github.com/DecisiveAI/mdai-helm-chart/blob/422e1c345806f634ed92db2a67a672ed7e9c7101/values.yaml#L52)
 
-    ```
-    mdai-operator:
-      enabled: true
-      fullnameOverride: mdai-operator
-      controllerManager:
-        manager:
-          env:
-            otelExporterOtlpEndpoint: http://your-otlp-endpoint:4318
-    ```
+1. [mdai-gateway blob](https://github.com/DecisiveAI/mdai-helm-chart/blob/422e1c345806f634ed92db2a67a672ed7e9c7101/values.yaml#L59)
 
-2. [mdai-gateway blob](https://github.com/DecisiveAI/mdai-helm-chart/blob/422e1c345806f634ed92db2a67a672ed7e9c7101/values.yaml#L59)
-    ```
-    event-handler-webservice:
-      enabled: true
-      otelExporterOtlpEndpoint: http://your-otlp-endpoint:4318
-    ```
+
+### Deploy hub
+
+
+>[!NOTE]
+>Be sure to update `http://your-otlp-endpoint:4318` in the following installation command
+
+```
+  helm upgrade --install mdai mdai-hub \
+    --repo https://charts.mydecisive.ai \
+    --namespace mdai \
+    --create-namespace \
+    --version v0.8.0-rc3 \
+    --set event-handler-webservice.otelExporterOtlpEndpoint="http://your-otlp-endpoint:4318" \
+    --set mdai-operator.controllerManager.manager.env.otelExporterOtlpEndpoint="http://your-otlp-endpoint:4318" \
+    --cleanup-on-fail >/dev/null 2>&1 || echo "⚠️ mdai: unable to install helm chart"
+```
 
