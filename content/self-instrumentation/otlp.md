@@ -37,6 +37,7 @@ Defaults can be found at these locations:
     --version v0.8.0-rc3 \
     --set event-handler-webservice.otelExporterOtlpEndpoint="http://your-otlp-endpoint:4318" \
     --set mdai-operator.controllerManager.manager.env.otelExporterOtlpEndpoint="http://your-otlp-endpoint:4318" \
+    --set mdai-s3-logs-reader.enabled=false
     --cleanup-on-fail >/dev/null 2>&1 || echo "⚠️ mdai: unable to install helm chart"
 ```
 
