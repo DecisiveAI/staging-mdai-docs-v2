@@ -126,6 +126,24 @@ NAME                         CREATED AT
 mdaihubs.hub.mydecisive.ai   2025-03-24T20:02:19Z
 ```
 
+## Set Up MDAI Observers
+1. Apply the configuration to the observer resource.
+   ```
+   kubectl apply -f ./mdai/observer/observer_ref.yaml -n mdai
+   ```
+
+2. Verify the observer is applied by running
+
+   ```
+   kubectl get customresourcedefinitions mdaiobservers.hub.mydecisive.ai
+   ```
+
+Your output should be similar to the following.
+```
+NAME                         CREATED AT
+mdaiobservers.hub.mydecisive.ai   2025-03-24T20:02:19Z
+```
+
 
 ### Success
 
