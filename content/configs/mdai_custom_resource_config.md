@@ -103,7 +103,7 @@ automations:
             variable_ref: service_list
 ```
 
-> ℹ️ More details is coming.
+> ℹ️ More details are coming.
 
 ---
 
