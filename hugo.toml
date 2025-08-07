@@ -4,8 +4,8 @@ title = 'MyDecisive Documentation'
 
 # theme stuff here
 
-# theme = "hugo-book" # https://github.com/alex-shpak/hugo-book
-theme = "hugo-theme-relearn" # https://github.com/McShelby/hugo-theme-relearn
+# theme = 
+theme = 
 
 [services]
   [services.googleAnalytics]
@@ -26,7 +26,6 @@ theme = "hugo-theme-relearn" # https://github.com/McShelby/hugo-theme-relearn
 # theme = 'docsy' <-- this looks great on paper but very complicated error-prone setup
 
 # sidebar menu
-
 collapsibleMenu = true
 
 [menu]
