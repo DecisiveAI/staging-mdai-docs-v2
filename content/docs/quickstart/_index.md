@@ -28,9 +28,7 @@ weight = 20
 </div>
 
 
-{{% notice style="transparent" %}}
 _“Enterprise-Class OpenTelemetry Made Simple - Transform OTel from a static configuration challenge into an intelligent, self-managing platform. No more rebuilds for reconfigurations or specialized headcount requirements.”_
-{{% /notice %}}
 
 
 Quickly set up the MDAI cluster and test drive MyDecisive observability solutions on your laptop.

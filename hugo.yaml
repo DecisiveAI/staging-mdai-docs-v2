@@ -1,0 +1,55 @@
+baseURL: "https://example.org/"
+languageCode: "en-us"
+title: "MyDecisive Docs"
+
+services:
+  googleAnalytics:
+    ID: "G-3LC2SJ2HZN"
+
+params:
+  navbar:
+    displayTitle: true
+    displayLogo: true
+    logo:
+      path: images/octobuddy_purple_fade.png
+      link: /
+      width: 40
+      height: 20
+
+collapsibleMenu: true
+
+menu:
+  main:
+    - name: Search
+      weight: 1
+      params:
+        type: search
+    - name: Sandbox
+      pageRef: "https://decisive-view-stream.lovable.app/"
+      weight: 2
+    - name: MyDecisive.AI
+      pageRef: "https://www.mydecisive.ai/"
+      weight: 3
+    - name: GitHub
+      weight: 4
+      url: "https://github.com/orgs/DecisiveAI/repositories?type=public"
+      params:
+        icon: github
+    - name: ThemeToggle
+      weight: 5
+      params:
+        type: theme-toggle
+   #placeholder navigation until home page is ready     
+    - name: Docs
+      pageRef: /docs
+      weight: 6
+  
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+module:
+  imports:
+    - path: "github.com/imfing/hextra"
