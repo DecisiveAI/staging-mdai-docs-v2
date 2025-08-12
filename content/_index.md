@@ -1,7 +1,7 @@
-+++
-title = 'Welcome to the MyDecisive Documentation'
-weight = 1
-+++
+---
+title: Welcome to the MyDecisive Documentation
+weight: 1
+---
 
 _“Safe Cost Optimization - Dynamically filter telemetry data based on contextual importance, reducing storage costs by up to 90% while maintaining full incident replay capability. Backfill vendors with complete signal only when needed.”_
 
