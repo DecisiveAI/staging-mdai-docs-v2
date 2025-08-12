@@ -15,8 +15,8 @@ params:
       link: /
       width: 40
       height: 20
-
-collapsibleMenu: true
+  theme:
+    displayToggle: false
 
 menu:
   main:
@@ -24,6 +24,11 @@ menu:
       weight: 1
       params:
         type: search
+    - name: Theme
+      weight: 99
+      params:
+        type: theme-toggle
+        hideLabel: true
     - name: Sandbox
       pageRef: "https://decisive-view-stream.lovable.app/"
       weight: 2
@@ -35,14 +40,10 @@ menu:
       url: "https://github.com/orgs/DecisiveAI/repositories?type=public"
       params:
         icon: github
-    - name: ThemeToggle
-      weight: 5
-      params:
-        type: theme-toggle
    #placeholder navigation until home page is ready     
     - name: Docs
       pageRef: /docs
-      weight: 6
+      weight: 5
   
 
 markup:
