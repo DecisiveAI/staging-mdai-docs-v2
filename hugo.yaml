@@ -2,6 +2,8 @@ baseURL: "https://example.org/"
 languageCode: "en-us"
 title: "MyDecisive Docs"
 
+enableInlineShortcodes: true
+
 services:
   googleAnalytics:
     ID: "G-3LC2SJ2HZN"
@@ -30,21 +32,16 @@ menu:
         type: theme-toggle
         hideLabel: true
     - name: Sandbox
-      pageRef: "https://decisive-view-stream.lovable.app/"
+      url: "https://decisive-view-stream.lovable.app/"
       weight: 2
     - name: MyDecisive.AI
-      pageRef: "https://www.mydecisive.ai/"
+      url: "https://www.mydecisive.ai/"
       weight: 3
     - name: GitHub
       weight: 4
       url: "https://github.com/orgs/DecisiveAI/repositories?type=public"
       params:
         icon: github
-   #placeholder navigation until home page is ready     
-    - name: Docs
-      pageRef: /docs
-      weight: 5
-  
 
 markup:
   goldmark:
