@@ -36,6 +36,12 @@
   margin-top: 0;
 }
 
+/*** Hextra Left Side Menu overrides ***/
+.sidebar-active-item {
+  background-color: transparent !important;
+  color: var(--mdai-primary-color) !important;
+}
+
 /*** Hextra Tabs overrides ***/
 .hx-border-b {
    border-bottom-width: 0;
