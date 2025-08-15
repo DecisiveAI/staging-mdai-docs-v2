@@ -37,6 +37,6 @@ AWAITING CONTENT
 {{< /tabs >}}
 
 ##### Things you can do next
-- [Set up dashboards for mdai monitoring](/docs/recipes)
+- [Set up dashboards for MDAI monitoring](/docs/recipes)
 - [Automate dynamic filtration]() 
 - [Share your goals (Go to recipe)](/docs/dashboard)
