@@ -3,24 +3,40 @@ title: Installation
 weight: 2
 ---
 
-_“Enterprise-Class OpenTelemetry Made Simple - Transform OTel from a static configuration challenge into an intelligent, self-managing platform. No more rebuilds for reconfigurations or specialized headcount requirements.”_
+#### Choose your preferred installation method
 
+{{< tabs items="Automatic install, Guided install" >}}
 
-Quickly set up the MDAI cluster and test drive MyDecisive observability solutions on your laptop.
+<!-- Tab A -->
+  {{< tab >}}
 
-This quickstart demonstrates the ease and power of MDAI. You'll install and run the MDAI cluster, emit data using synthetic log generators, and capture and filter that data.
+  #### Automatic install
 
-Before you get started, you'll need to log into a GitHub account to access MDAI resources.
+    <p class="mdai-description-text">If you are on macOS or Linux, you can use the automated downloader which will fetch the latest release version for you and install it:</p>
 
-> [!NOTE]
-> Instructions in our documentation are for \*nix environments.
+    ```bash
+    chmod +x mdai-kind.sh
+    ```
 
-### Prerequisites
+    <p class="mdai-description-text">You can use the following commands to setup and install your MDAI instance locally:</p>
 
-You'll need to install the following software.
+    ```bash
+    ./mdai-kind.sh preflight_deps_check
+    ./mdai-kind.sh install
+    ```
+  {{< /tab >}}
 
-- [Docker](https://www.docker.com/products/docker-desktop/).
-- [Kubernetes](https://kubernetes.io/releases/download/) (k8s).
-- [kubectl and kind](https://kubernetes.io/docs/tasks/tools/).
-- [Helm](https://helm.sh/docs/intro/install/).
-- (Optional) [k9s](https://k9scli.io/topics/install/).
+<!-- Tab B -->
+  {{< tab >}}
+
+#### Guided install
+
+AWAITING CONTENT
+
+  {{< /tab >}}
+{{< /tabs >}}
+
+##### Things you can do next
+- [Set up dashboards for mdai monitoring](/docs/recipes)
+- [Automate dynamic filtration]() 
+- [Share your goals (Go to recipe)](/docs/dashboard)
