@@ -21,7 +21,7 @@
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-.content :where(a):not(:where([class~=not-prose],[class~=not-prose] *)) , li {
+.content :where(a):not(:where([class~=not-prose],[class~=not-prose] *)) {
   text-decoration: none;
   color: var(--mdai-primary-color);
   font-weight: 700;
@@ -30,6 +30,10 @@
 .content :where(a):not(:where([class~=not-prose],[class~=not-prose] *)):hover {
   text-decoration: underline;
   color: var(--mdai-primary-color);
+}
+
+.content :where(ul):not(:where([class~=not-prose],[class~=not-prose] *)) {
+  margin-top: 0;
 }
 
 /*** Hextra Tabs overrides ***/
@@ -69,6 +73,11 @@
 /********  MDAI Custom Classes  ********/
 .mdai-description-text{
   color: var(--mdai-dark-grey);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
+  margin-top: 5px;
+}
+
+.mdai-references::marker {
+  content: "🐙" / "✦";
 }
