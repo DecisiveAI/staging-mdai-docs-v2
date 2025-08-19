@@ -1,0 +1,122 @@
+name: Deploy Hugo site (prod + staging + PR previews) to GitHub Pages
+
+on:
+  push:
+    branches: [ main, staging ]
+  pull_request:
+    branches: [ main, staging ]
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Override: what to deploy?"
+        type: choice
+        options: [auto, production, staging, both]
+        default: auto
+      baseURL_prod:
+        description: "Optional override for production baseURL"
+        type: string
+        required: false
+      baseURL_staging:
+        description: "Optional override for staging baseURL"
+        type: string
+        required: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      HUGO_VERSION: 0.136.3
+      HUGO_FLAGS: "--gc --minify"
+      TZ: America/Los_Angeles
+    outputs:
+      deploy_prod: ${{ steps.plan.outputs.deploy_prod }}
+      deploy_staging: ${{ steps.plan.outputs.deploy_staging }}
+      deploy_preview: ${{ steps.plan.outputs.deploy_preview }}
+      base_prod: ${{ steps.base.outputs.prod }}
+      base_staging: ${{ steps.base.outputs.staging }}
+      preview_dir: ${{ steps.preview_meta.outputs.dir }}
+    steps:
+      # ... (install, checkout, plan, base, preview_meta, npm steps unchanged)
+
+      - name: Build production
+        if: ${{ steps.plan.outputs.deploy_prod == 'true' }}
+        env:
+          HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
+          HUGO_ENVIRONMENT: production
+        run: |
+          hugo ${HUGO_FLAGS} --baseURL "${{ steps.base.outputs.prod }}"
+          mv public public-prod
+
+      - name: Build staging
+        if: ${{ steps.plan.outputs.deploy_staging == 'true' }}
+        env:
+          HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
+          HUGO_ENVIRONMENT: production
+        run: |
+          hugo ${HUGO_FLAGS} --baseURL "${{ steps.base.outputs.staging }}"
+          # Disallow indexing for staging
+          echo -e "User-agent: *\nDisallow: /" > public/robots.txt
+          # Inject a visual banner into all HTML files
+          BANNER_TEXT="⚠️ STAGING BUILD"
+          BANNER_BG="#1f2937"   # slate-800
+          BANNER_FG="#fcd34d"   # amber-300
+          export BANNER_TEXT BANNER_BG BANNER_FG
+          find public -type f -name "*.html" -print0 | xargs -0 -I{} bash -c '
+            perl -0777 -pe "s|<body([^>]*)>|<body\\1>\\n<!-- ENV BANNER (staging) -->\\n<style>\\n#env-banner{position:fixed;top:0;left:0;right:0;z-index:9999;padding:8px 12px;font:600 14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;background:${BANNER_BG};color:${BANNER_FG};text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.2);} body{margin-top:48px !important;} @media (max-width:480px){body{margin-top:56px !important;}}</style>\\n<div id=\\"env-banner\\">${BANNER_TEXT}</div>|i" -i "{}"
+          '
+          mv public public-staging
+
+      - name: Build PR preview
+        if: ${{ steps.plan.outputs.deploy_preview == 'true' }}
+        env:
+          HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
+          HUGO_ENVIRONMENT: production
+        run: |
+          hugo ${HUGO_FLAGS} --baseURL "/${{ steps.preview_meta.outputs.dir }}/"
+          # Disallow indexing for previews
+          echo -e "User-agent: *\nDisallow: /" > public/robots.txt
+          # Inject a visual banner into all HTML files
+          BANNER_TEXT="🔍 PREVIEW (PR #${{ github.event.number }})"
+          BANNER_BG="#0f766e"   # teal-700
+          BANNER_FG="#e0f2f1"   # teal-50-ish
+          export BANNER_TEXT BANNER_BG BANNER_FG
+          find public -type f -name "*.html" -print0 | xargs -0 -I{} bash -c '
+            perl -0777 -pe "s|<body([^>]*)>|<body\\1>\\n<!-- ENV BANNER (preview) -->\\n<style>\\n#env-banner{position:fixed;top:0;left:0;right:0;z-index:9999;padding:8px 12px;font:600 14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;background:${BANNER_BG};color:${BANNER_FG};text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.2);} body{margin-top:48px !important;} @media (max-width:480px){body{margin-top:56px !important;}}</style>\\n<div id=\\"env-banner\\">${BANNER_TEXT}</div>|i" -i "{}"
+          '
+          mv public public-preview
+
+      - name: Assemble publish directory
+        run: |
+          rm -rf publish && mkdir -p publish
+          if [ -d public-prod ]; then cp -a public-prod/. publish/; fi
+          if [ -d public-staging ]; then mkdir -p publish/staging && cp -a public-staging/. publish/staging/; fi
+          if [ -d public-preview ]; then mkdir -p "publish/${{ steps.preview_meta.outputs.dir }}" && cp -a public-preview/. "publish/${{ steps.preview_meta.outputs.dir }}/"; fi
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: publish
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
