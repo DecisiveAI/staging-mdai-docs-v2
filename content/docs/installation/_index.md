@@ -35,13 +35,13 @@ Before you install the MDAI cluster, make sure Docker is running.
   {{< tab >}}
 
 
-    <p class="mdai-description-text">To automatically install the latest version of MDAI, use the `mdai-kind.sh` script available in the root directory of the [mdai-labs GitHub repo](https://github.com/DecisiveAI/mdai-labs) that you cloned. Make sure the script is executable:</p>
+    To automatically install the latest version of MDAI, use the `mdai-kind.sh` script available in the root directory of the [mdai-labs GitHub repo](https://github.com/DecisiveAI/mdai-labs) that you cloned. Make sure the script is executable>
 
     ```bash
     chmod +x mdai-kind.sh
     ```
 
-    <p class="mdai-description-text">Run the script to install your local MDAI cluster:</p>
+    Run the script to install your local MDAI cluster:
 
     ```bash
     ./mdai-kind.sh install
