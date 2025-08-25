@@ -5,8 +5,8 @@ weight = 30
 
 ### Links to Config Repo:
 - [Config Repo](https://github.com/DecisiveAI/configs)
-  - [MDAI Hub Sample Config](https://github.com/DecisiveAI/mdai-labs/blob/main/mdai/hub/hub_ref.yaml)
-  - [MDAI Observer Sample Config](https://github.com/DecisiveAI/mdai-labs/blob/main/mdai/observer/observer_ref.yaml)
+  - [MDAI Hub Sample Config](https://github.com/DecisiveAI/mdai-labs/blob/main/mdai/hub/0.8.5/hub_ref.yaml)
+  - [MDAI Observer Sample Config](https://github.com/DecisiveAI/mdai-labs/blob/main/mdai/observer/0.8.5/observer_ref.yaml)
   - [OTEL Collector Sample Config](https://github.com/DecisiveAI/mdai-labs/blob/main/otel/otel_ref.yaml)
 
 ### Explaination of Configs

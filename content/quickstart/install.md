@@ -111,7 +111,7 @@ cd mdai-labs
 
 1. Apply the configuration to the hub resource.
    ```
-   kubectl apply -f ./mdai/hub/hub_ref.yaml -n mdai
+   kubectl apply -f ./mdai/hub/0.8.5/hub_ref.yaml -n mdai
    ```
 
 2. Verify the hub is applied by running
@@ -129,7 +129,7 @@ mdaihubs.hub.mydecisive.ai   2025-03-24T20:02:19Z
 ## Set Up MDAI Observers
 1. Apply the configuration to the observer resource.
    ```
-   kubectl apply -f ./mdai/observer/observer_ref.yaml -n mdai
+   kubectl apply -f ./mdai/observer/0.8.5/observer_ref.yaml -n mdai
    ```
 
 2. Verify the observer is applied by running

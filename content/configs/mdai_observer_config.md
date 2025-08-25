@@ -14,7 +14,7 @@ The **MDAI Observer Custom Resource** provides a declarative way to define **obs
 
 ---
 ### Link to example config
-[MDAI Observer Sample Config](https://github.com/DecisiveAI/mdai-labs/blob/main/mdai/observer/observer_ref.yaml)
+[MDAI Observer Sample Config](https://github.com/DecisiveAI/mdai-labs/blob/main/mdai/observer/0.8.5/observer_ref.yaml)
 
 ---
 
