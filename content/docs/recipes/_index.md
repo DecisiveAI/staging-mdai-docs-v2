@@ -10,7 +10,7 @@ Basic (Use cases/Solutions)
 | Recipe Example ([LINK TO RECIPE TEMPLATE](recipe-example))  | Example  | MDAI |
 | Use case 1 (LINK TO RECIPE TEMPLATE)  | Compliance  | MDAI |
 | Use case 2 (LINK TO RECIPE TEMPLATE) | Trace trigger  | MDAI |
-| Use case 3 (LINK TO RECIPE TEMPLATE) | Data filtration | MDAI |
+| [Reduce Log Volumes](filter-logs-usecase) | Data filtration | MDAI |
 
 Advanced (extending MDAI platform/use MDAI to the full potential)
 
