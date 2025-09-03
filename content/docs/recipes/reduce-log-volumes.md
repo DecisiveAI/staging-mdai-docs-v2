@@ -117,17 +117,6 @@ You should see log lines similar to the following.
 ```
 
 
-##### Get insights (Dashboard)
-
-    ```bash
-    some more code
-    ```
-
-##### Level-up with Dynamic (parameterized config)
-
-    ```bash
-    some more code
-    ```
 
 
 ##### Advanced setup (Hungry for more?)
