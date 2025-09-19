@@ -31,8 +31,8 @@ menu:
       params:
         type: theme-toggle
         hideLabel: true
-    - name: Sandbox
-      url: "https://decisive-view-stream.lovable.app/"
+    - name: Platform Demo
+      url: "https://demo.mydecisive.ai/"
       weight: 2
     - name: MyDecisive.AI
       url: "https://www.mydecisive.ai/"
