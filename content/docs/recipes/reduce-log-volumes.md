@@ -278,4 +278,4 @@ GO TO ADVANCED FILTERING TO LEARN HOW TO CREATE A SMARTER FILTER.
 
 Our original goal was to drop only unneeded log lines from our noisy services. We wanted to keep the WARNINGS and ERRORS because they indicate that a service may need attention. To learn how to create a filter that can do that, see [LINK TO ADVANCED FILTERING].
 
-To try a different recipe, see [Recipe List](/recipes/recipe_list).
+To try a different recipe, see [Recipe List](../).

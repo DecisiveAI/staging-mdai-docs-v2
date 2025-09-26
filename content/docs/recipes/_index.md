@@ -1,6 +1,5 @@
 ---
 title: Recipe List
-url: recipes/recipe_list
 weight: 3
 ---
 
