@@ -84,16 +84,15 @@ MDAI runs in a Kubernetes cluster. You'll use Helm charts to bring up the pods i
 
 3. Use Helm to install MDAI.
     ```
-    helm upgrade --install \
-      --repo https://charts.mydecisive.ai \
-      --namespace mdai \
-      --create-namespace \
-      --cleanup-on-fail \
-      --set mdai-operator.manager.env.otelSdkDisabled=true \
-      --set mdai-gateway.otelSdkDisabled=true \
-      --set mdai-s3-logs-reader.enabled=false \
-      --version v0.8.0-rc3 \
-      mdai mdai-hub
+helm upgrade --install mdai mdai-hub \
+  --repo https://charts.mydecisive.ai \
+  --namespace mdai \
+  --create-namespace \
+  --version v0.8.5-dev \
+  --set mdai-operator.manager.env.otelSdkDisabled=true \
+  --set mdai-gateway.otelSdkDisabled=true \
+  --set mdai-s3-logs-reader.enabled=false \
+  --cleanup-on-fail
     ```
 
 4. Verify that the cluster's pods are running.
@@ -123,7 +122,7 @@ prometheus-kube-prometheus-stack-prometheus-0       2/2     Running   0         
 
 1. From the root directory of the [mdai-labs GitHub repo](https://github.com/DecisiveAI/mdai-labs) that you cloned, apply the hub configuration to the hub resource.
    ```
-   kubectl apply -f ./mdai/hub/hub_ref.yaml -n mdai
+   kubectl apply -f ./mdai/hub/0.8.5/hub_ref.yaml -n mdai
    ```
 
 2. Verify the hub is applied by running
