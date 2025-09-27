@@ -9,6 +9,7 @@ services:
     ID: "G-3LC2SJ2HZN"
 
 params:
+  default_version: "0.8.6"
   navbar:
     displayTitle: true
     displayLogo: true
@@ -26,6 +27,10 @@ menu:
       weight: 1
       params:
         type: search
+    - name: Version
+      weight: 2
+      params:
+        type: version
     - name: Theme
       weight: 99
       params:
@@ -33,12 +38,12 @@ menu:
         hideLabel: true
     - name: Platform Demo
       url: "https://demo.mydecisive.ai/"
-      weight: 2
+      weight: 3
     - name: MyDecisive.AI
       url: "https://www.mydecisive.ai/"
-      weight: 3
-    - name: GitHub
       weight: 4
+    - name: GitHub
+      weight: 5
       url: "https://github.com/orgs/DecisiveAI/repositories?type=public"
       params:
         icon: github

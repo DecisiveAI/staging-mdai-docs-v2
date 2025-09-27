@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 :root {
-  --mdai-primary-color: rgba(176, 98, 194, 1); 
+  --mdai-primary-color: rgba(176, 98, 194, 1);
   --mdai-dark-grey: rgb(151, 151, 151);
   --mdai-light-grey: rgb(230, 230, 230);
 }
@@ -48,12 +48,12 @@
 }
 
 .hextra-tabs-toggle, .data-\[state\=selected\]\:hx-border-primary-500[data-state="selected"] {
-  color: black;
+  /* color: black;
   background-color: transparent;
   border: 3px solid var(--mdai-light-grey);
   border-bottom: 5px solid var(--mdai-light-grey);
   margin-right: 0;
-  border-radius: 5px;
+  border-radius: 5px; */
 }
 
 .data-\[state\=selected\]\:hx-border-primary-500[data-state="selected"] {

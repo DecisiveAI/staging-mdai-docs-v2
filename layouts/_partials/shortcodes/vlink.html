@@ -1,0 +1,11 @@
+{{- $path := .Get "path" | default "/" | strings.TrimPrefix "/" -}}
+{{- $text := .Get "text" | default (printf "/%s" $path) -}}
+{{- $fmt  := .Get "format" | default "short" -}}
+{{- $def := .Page.Site.Params.default_version | default "" -}}
+{{- $raw := .Page.Site.Data.versions -}}
+{{- $list := cond (isset $raw "versions") $raw.versions $raw -}}
+{{- $defStr := printf "%v" $def -}}
+{{- $pick := where $list "key" $defStr -}}
+{{- $ver  := cond (gt (len $pick) 0) (index $pick 0) (index $list 0) -}}
+{{- $vstr := partial "version_format.html" (dict "v" $ver.docs_version "fmt" $fmt) -}}
+<a data-global="docs_version" data-format="{{ $fmt }}" data-docs-path="/{{ $path }}" href="/v{{ $vstr }}/{{ $path }}">{{ $text }}</a>

@@ -1,12 +1,18 @@
 ---
-title: Recipe Example Page
-weight: 1
+title: PII Redaction
 ---
-#### Use case
-Use case description goes here
 
-#### Check for dependencies
-Make sure you have your dependencies installed and MDAI Smart Hub running...
+#### Use case
+
+Protect sensitive data by applying programmable redaction rules to strip personally identifiable information (PII) from telemetry streams before it leaves your boundary.
+
+#### Prerequisites
+
+1. OTel collector for pii scrubbing
+1. Policy definitions for what constitutes PII (regex, field names, JSON paths, etc.)
+1. Ensure your redaction rules align with regulations (GDPR, HIPAA, etc.)
+1. Unit & integration tests to validate redaction
+
 
 #### Choose your preferred installation method
 
@@ -46,4 +52,4 @@ AWAITING CONTENT
 ##### Advanced setup (Hungry for more?)
 Power up MDAI with these other relevant recipes
 - [Relevant link to advanced]()
-- [Maybe another relevant link to use case]() 
+- [Maybe another relevant link to use case]()

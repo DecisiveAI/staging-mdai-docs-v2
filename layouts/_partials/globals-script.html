@@ -1,0 +1,52 @@
+<script>
+(function () {
+  const DEFAULT_VER = {{ printf "%q" .Site.Params.default_version }};
+  const VER_RAW = {{ site.Data.versions | jsonify }};
+  const VER_LIST = typeof VER_RAW === "string" ? JSON.parse(VER_RAW)?.versions : (VER_RAW?.versions || []);
+
+  const pick = (key) => VER_LIST.find(x => x.key === String(key)) || VER_LIST[0] || {};
+  const vstr = (v, mode) => {
+    const M = Number(v?.major ?? 0), m = Number(v?.minor ?? 0), p = Number(v?.patch ?? 0);
+    return mode === 'semver' ? `${M}.${m}.${p}` : `${M}.${m}`;
+  };
+
+  function updateBindings(verObj) {
+    const short = vstr(verObj, 'short');
+    document.querySelectorAll('[data-global="docs_version"]').forEach(el => {
+      const fmt  = el.getAttribute('data-format') || 'short';
+      const out  = vstr(verObj, fmt);
+      const path = (el.getAttribute('data-docs-path') || '').replace(/^\//,'');
+      if (el.tagName === 'A' && path) {
+        const href = `/v${short}/${path}`;
+        el.setAttribute('href', href);
+        if (!el.hasAttribute('data-no-text')) el.textContent = href;
+      } else {
+        const attr = el.getAttribute('data-attr');
+        if (attr) el.setAttribute(attr, out);
+        else el.textContent = out;
+      }
+    });
+  }
+
+  function applyVersion(key, { persist = true } = {}) {
+    const version = pick(key);
+    const vobj = version.docs_version || {};
+    const sel = document.getElementById('version-select');
+    if (sel && sel.value !== version.key) sel.value = version.key;
+    updateBindings(vobj);
+    if (persist) localStorage.setItem('mdai_ver', version.key);
+    document.dispatchEvent(new CustomEvent('globalChange', {
+      detail: { version, docs_version: vobj, versions: { short: vstr(vobj,'short'), semver: vstr(vobj,'semver') } }
+    }));
+  }
+
+  window.__setVersion = (k) => applyVersion(k);
+
+  function init() {
+    const qs = new URLSearchParams(location.search);
+    const start = qs.get('ver') || qs.get('version') || localStorage.getItem('mdai_ver') || DEFAULT_VER;
+    applyVersion(start, { persist: false });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+</script>

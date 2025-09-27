@@ -1,0 +1,10 @@
+versions:
+  - key: "0.8.6"
+    label: "v0.8.6 (current)"
+    docs_version: { major: 0, minor: 8, patch: 6 }
+  - key: "0.8.5"
+    label: "v0.8.5"
+    docs_version: { major: 0, minor: 8, patch: 5 }
+  - key: "0.8.0"
+    label: "v0.8.0"
+    docs_version: { major: 0, minor: 8, patch: 0 }

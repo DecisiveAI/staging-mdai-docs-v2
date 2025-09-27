@@ -1,0 +1,8 @@
+{{- $fmt := .Get "format" | default "short" -}}
+{{- $def := .Page.Site.Params.default_version | default "" -}}
+{{- $raw := .Page.Site.Data.versions -}}
+{{- $list := cond (isset $raw "versions") $raw.versions $raw -}}
+{{- $defStr := printf "%v" $def -}}
+{{- $pick := where $list "key" $defStr -}}
+{{- $ver  := cond (gt (len $pick) 0) (index $pick 0) (index $list 0) -}}
+{{- partial "version_format.html" (dict "v" $ver.docs_version "fmt" $fmt) -}}

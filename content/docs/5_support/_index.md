@@ -37,7 +37,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque suscipit sem et
 
 <!-- 4 -->
 {{% details title="How does MyDecisive and the Smart Telemetry Hub add value to my existing data management processes?" closed="true" %}}
-How does MyDecisive and the Smart Telemetry Hub add value to my existing 
+How does MyDecisive and the Smart Telemetry Hub add value to my existing
 data management processes?
 {{% /details %}}
 

@@ -1,7 +1,10 @@
---- 
-Title: Getting Started
+---
+title: Getting Started
 weight: 1
-toc: false
+tags:
+  - Docs
+  - Guide
+next: /docs/guide
 ---
 
 <!-- Change and uncomment below when YT video code available. Delete the image below it -->
@@ -21,24 +24,21 @@ Once you complete the installation, use the provided recipes to install and test
 
 {{% steps %}}
 
-### Step 1
+### Install MDAI
 
-Install dependencies and MDAI.
+### Identify a use case
 
-### Step 2
+### Configure your MyDecisive Smart Telemetry Hub
 
-Share your goals, and we’ll guide you to the best setup.
+### Send data to Hub
 
-### Step 3
+### See real-time results
 
-Enable analysis, get insights and create alerts.
-
-### Step 4
-
-Get promoted! 🤞🏼
+### Deploy to prod!
 
 {{% /steps %}}
 
 {{< cards cols="4" >}}
   {{< card link="/docs/installation" title="Install MDAI Locally" >}}
+  {{< card link="/docs/recipes" title="Jump ahead to recipes" >}}
 {{< /cards >}}
