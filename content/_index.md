@@ -4,6 +4,7 @@ layout: hextra-home
 ---
 
 <!-- HERO 1 -->
+
 {{< hextra/hero-badge >}}
   <div class="hx:w-2 hx:h-2 hx:rounded-full hx:bg-primary-400"></div>
   <span>Free, open source</span>
@@ -37,8 +38,8 @@ We connect your services and infra to any otlp-compatible destination.
 {{< /hextra/hero-subtitle >}}
 </div>
 
-<a href="/images/overview-auto-purp.svg" target="_blank" rel="noopener noreferrer">
-  <img alt="MyDecisive Overview" src="/images/overview-auto-purp.svg">
+<a href="/images/overview-auto.svg" target="_blank" rel="noopener noreferrer">
+  <img alt="MyDecisive Overview" src="/images/overview-auto.svg">
 </a>
 
 <br />
