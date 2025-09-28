@@ -1,0 +1,63 @@
+{{/* render_frag: robust fragment renderer
+   Usage: {{< render_frag path="docs/02_recipes/use_cases/data_filtration/_fragments/ddf_guided" >}}
+
+   It tries, in order:
+   1) site.GetPage for the given path (headless/regular, leaf/branch)
+   2) site.GetPage for "<path>/index"
+   3) Same two attempts with "_"→"-" and "-"→"_"
+   4) Disk read fallbacks for content/<path>.md/.html (and the normalized variants)
+   Markdown is rendered via .Page.RenderString; HTML is output as safeHTML.
+*/}}
+
+{{- $path := .Get "path" -}}
+{{- $page := .Page -}}
+
+{{/* Build candidate paths with underscore/hyphen normalization */}}
+{{- $cands := slice $path (replace $path "_" "-") (replace $path "-" "_") -}}
+
+{{- $found := false -}}
+{{- $out := "" -}}
+
+{{/* 1 & 2) Try site.GetPage for each candidate (and with /index) */}}
+{{- range $cands }}
+  {{- if not $found -}}
+    {{- with site.GetPage . -}}
+      {{- $out = .Content -}}
+      {{- $found = true -}}
+    {{- else -}}
+      {{- with site.GetPage (print . "/index") -}}
+        {{- $out = .Content -}}
+        {{- $found = true -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{/* 3) Fallback: readFile from disk (content/<path>.md|.html) */}}
+{{- if not $found -}}
+  {{- $contentDir := "content" -}}
+  {{- range $cands }}
+    {{- if not $found -}}
+      {{- $md   := printf "%s/%s.md"   $contentDir . -}}
+      {{- $html := printf "%s/%s.html" $contentDir . -}}
+
+      {{- $raw := readFile $md | default "" -}}
+      {{- if ne $raw "" -}}
+        {{- $out = $page.RenderString (dict "display" "block") $raw -}}
+        {{- $found = true -}}
+      {{- else -}}
+        {{- $raw = readFile $html | default "" -}}
+        {{- if ne $raw "" -}}
+          {{- $out = safeHTML $raw -}}
+          {{- $found = true -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if $found -}}
+  {{- $out -}}
+{{- else -}}
+  {{- errorf "render_frag: could not find fragment for %q (tried hyphen/underscore variants, bundle pages, and disk reads)" $path -}}
+{{- end -}}
