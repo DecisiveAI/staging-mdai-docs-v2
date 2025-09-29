@@ -72,7 +72,7 @@
   {{- with $data.use_cases }}
     {{- template "sectionTable" (dict "Title" "Use cases/Solutions" "Items" . "Page" $page) -}}
   {{- end }}
-  {{- with $data.advanced }}
+  {{- with $data.platform }}
     {{- template "sectionTable" (dict "Title" "Advanced (extending MDAI platform/use MDAI to the full potential)" "Items" . "Page" $page) -}}
   {{- end }}
 </div>

@@ -1,11 +1,36 @@
+{{- /* usage:
+     {{< vlink path="/install/" >}}Install guide{{< /vlink >}}
+     or: {{< vlink path="/reference/api/" text="API Reference" >}}
+*/ -}}
 {{- $path := .Get "path" | default "/" | strings.TrimPrefix "/" -}}
-{{- $text := .Get "text" | default (printf "/%s" $path) -}}
+{{- $text := .Inner | default (.Get "text") | default (printf "/%s" $path) -}}
 {{- $fmt  := .Get "format" | default "short" -}}
-{{- $def := .Page.Site.Params.default_version | default "" -}}
+
+{{- $def := printf "%v" (.Page.Site.Params.default_version | default "") -}}
 {{- $raw := .Page.Site.Data.versions -}}
 {{- $list := cond (isset $raw "versions") $raw.versions $raw -}}
-{{- $defStr := printf "%v" $def -}}
-{{- $pick := where $list "key" $defStr -}}
+{{- $pick := where $list "key" $def -}}
 {{- $ver  := cond (gt (len $pick) 0) (index $pick 0) (index $list 0) -}}
-{{- $vstr := partial "version_format.html" (dict "v" $ver.docs_version "fmt" $fmt) -}}
-<a data-global="docs_version" data-format="{{ $fmt }}" data-docs-path="/{{ $path }}" href="/v{{ $vstr }}/{{ $path }}">{{ $text }}</a>
+
+{{- $scr := newScratch -}}
+{{- if and $ver (isset $ver "docs_version") -}}
+  {{- $scr.Set "v" $ver.docs_version -}}
+{{- else -}}
+  {{- $key := printf "%v" $ver.key -}}
+  {{- $parts := split $key "." -}}
+  {{- $maj := int (index (append $parts "0") 0) -}}
+  {{- $min := int (index (append $parts "0") 1) -}}
+  {{- $pat := int (index (append $parts "0") 2) -}}
+  {{- $scr.Set "v" (dict "major" $maj "minor" $min "patch" $pat) -}}
+{{- end -}}
+
+{{- $v := $scr.Get "v" -}}
+{{- $M := ($v.major | default 0) -}}{{- $m := ($v.minor | default 0) -}}{{- $p := ($v.patch | default 0) -}}
+{{- $vs := cond (eq $fmt "semver") (printf "%d.%d.%d" $M $m $p) (printf "%d.%d" $M $m) -}}
+
+<a
+  data-global="docs_version"
+  data-format="{{ $fmt }}"
+  data-docs-path="/{{ $path }}"
+  href="/v{{ $vs }}/{{ $path }}"
+>{{- $text -}}</a>

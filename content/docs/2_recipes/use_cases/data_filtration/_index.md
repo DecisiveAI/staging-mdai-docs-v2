@@ -8,8 +8,9 @@ Filter telemetry streams in real time using dynamic rules that adapt to services
 
 #### Prerequisites
 
-1. OTel collector to apply your filter rules to
-1. Drop vs. forward monitoring tool
+1. A k8s cluster where `mdai` can be installed
+2. OTel collector to apply your filter rules to
+3. Drop vs. forward monitoring tool
 
 #### Choose your preferred installation method
 

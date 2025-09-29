@@ -1,4 +1,4 @@
-use_cases:
+labs:
   - title: "Dynamic Data Filtration"
     link: "use_cases/data_filtration"
     tags:

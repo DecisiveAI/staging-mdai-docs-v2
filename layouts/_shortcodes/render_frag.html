@@ -1,19 +1,52 @@
-{{/* render_frag: robust fragment renderer
-   Usage: {{< render_frag path="docs/02_recipes/use_cases/data_filtration/_fragments/ddf_guided" >}}
-
-   It tries, in order:
-   1) site.GetPage for the given path (headless/regular, leaf/branch)
-   2) site.GetPage for "<path>/index"
-   3) Same two attempts with "_"→"-" and "-"→"_"
-   4) Disk read fallbacks for content/<path>.md/.html (and the normalized variants)
-   Markdown is rendered via .Page.RenderString; HTML is output as safeHTML.
+{{/* render_frag: robust fragment renderer with version tokens
+   Usage:
+     {{< render_frag path="docs/02_recipes/use_cases/data_filtration/_fragments/{version}/ddf_guided" >}}
+     {{< render_frag path="docs/1-installation/_fragments/{semver}/install_automated" >}}
+   Optional params:
+     version_format: "short" (default) | "semver" | "major" | "minor" | "patch"
+     version_key:    override the site.Params.default_version for this include
 */}}
 
 {{- $path := .Get "path" -}}
 {{- $page := .Page -}}
 
+{{/* —— Resolve version (from data/versions.*) —— */}}
+{{- $fmt := .Get "version_format" | default "short" -}}
+{{- $keyParam := printf "%v" (.Get "version_key" | default $page.Site.Params.default_version | default "") -}}
+{{- $raw := $page.Site.Data.versions -}}
+{{- $list := cond (isset $raw "versions") $raw.versions $raw -}}
+{{- $pick := where $list "key" $keyParam -}}
+{{- $ver  := cond (gt (len $pick) 0) (index $pick 0) (cond (gt (len $list) 0) (index $list 0) dict) -}}
+
+{{- $scr := newScratch -}}
+{{- if and $ver (isset $ver "docs_version") -}}
+  {{- $scr.Set "v" $ver.docs_version -}}
+{{- else -}}
+  {{- $key := printf "%v" ($ver.key | default $keyParam) -}}
+  {{- $parts := split $key "." -}}
+  {{- $maj := int (index (append $parts "0") 0) -}}
+  {{- $min := int (index (append $parts "0") 1) -}}
+  {{- $pat := int (index (append $parts "0") 2) -}}
+  {{- $scr.Set "v" (dict "major" $maj "minor" $min "patch" $pat) -}}
+{{- end -}}
+{{- $v := $scr.Get "v" -}}
+{{- $M := ($v.major | default 0) -}}{{- $m := ($v.minor | default 0) -}}{{- $p := ($v.patch | default 0) -}}
+{{- $short  := printf "%d.%d"   $M $m -}}
+{{- $semver := printf "%d.%d.%d" $M $m $p -}}
+{{- $chosen := cond (eq $fmt "semver") $semver (cond (eq $fmt "major") (printf "%d" $M) (cond (eq $fmt "minor") (printf "%d" $m) (cond (eq $fmt "patch") (printf "%d" $p) $short))) -}}
+
+{{/* —— Substitute tokens in path —— */}}
+{{- $resolved := $path -}}
+{{- $resolved = replace $resolved "{version}" $chosen -}}
+{{- $resolved = replace $resolved "{ver}"     $chosen -}}
+{{- $resolved = replace $resolved "{semver}"  $semver -}}
+{{- $resolved = replace $resolved "{short}"   $short -}}
+{{- $resolved = replace $resolved "{major}"   (printf "%d" $M) -}}
+{{- $resolved = replace $resolved "{minor}"   (printf "%d" $m) -}}
+{{- $resolved = replace $resolved "{patch}"   (printf "%d" $p) -}}
+
 {{/* Build candidate paths with underscore/hyphen normalization */}}
-{{- $cands := slice $path (replace $path "_" "-") (replace $path "-" "_") -}}
+{{- $cands := slice $resolved (replace $resolved "_" "-") (replace $resolved "-" "_") -}}
 
 {{- $found := false -}}
 {{- $out := "" -}}
@@ -59,5 +92,5 @@
 {{- if $found -}}
   {{- $out -}}
 {{- else -}}
-  {{- errorf "render_frag: could not find fragment for %q (tried hyphen/underscore variants, bundle pages, and disk reads)" $path -}}
+  {{- errorf "render-frag: could not find fragment for %q (resolved to %q; version=%q short=%q semver=%q)" $path $resolved $chosen $short $semver -}}
 {{- end -}}
