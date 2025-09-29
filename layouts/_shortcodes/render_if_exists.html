@@ -1,0 +1,4 @@
+{{- $path := .Get "path" -}}
+{{- with site.GetPage $path -}}
+  {{- .Content -}}
+{{- end -}}

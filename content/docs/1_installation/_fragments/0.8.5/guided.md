@@ -1,6 +1,12 @@
-aASFASDG
-asdfas
 
+---
+title: "Install (Guided) - 0.8.5"
+type: frags
+url: "/_fragments/0.8.5/install_guided"
+_build:
+  list: never
+  render: always
+---
 
 MDAI runs in a Kubernetes cluster. You'll use Helm charts to bring up the pods in the cluster.
 
@@ -30,18 +36,48 @@ MDAI runs in a Kubernetes cluster. You'll use Helm charts to bring up the pods i
    > The cert-manager may take a few moments to finish installing. To see if they're ready, you can list the pods using `kubectl get pods -n cert-manager`.
 
 3. Use Helm to install MDAI.
+
+    **Install MDAI Collector w/ cert-manager**
+
+    <details>
+
+    ```sh
+    helm upgrade --install mdai-hub oci://ghcr.io/decisiveai/mdai-hub
+    --namespace mdai \
+    --create-namespace \
+    --version v0.8.5 \
+    --set mdai-operator.manager.env.otelSdkDisabled=true \
+    --set mdai-gateway.otelSdkDisabled=true \
+    --set mdai-s3-logs-reader.enabled=false \
+    --cleanup-on-fail
     ```
-    helm upgrade --install \
-      --repo https://charts.mydecisive.ai \
-      --namespace mdai \
-      --create-namespace \
-      --cleanup-on-fail \
-      --set mdai-operator.manager.env.otelSdkDisabled=true \
-      --set mdai-gateway.otelSdkDisabled=true \
-      --set mdai-s3-logs-reader.enabled=false \
-      --version v0.8.6 \
-      mdai mdai-hub
+
+    </details>
+
+    **Install MDAI Collector w/o cert-manager**
+
+    <details>
+
+    ```sh
+    helm upgrade --install mdai-hub oci://ghcr.io/decisiveai/mdai-hub \
+    --version 0.8.5 \
+    --namespace mdai \
+    --create-namespace \
+    --set mdai-operator.manager.env.otelSdkDisabled=true \
+    --set mdai-gateway.otelSdkDisabled=true \
+    --set mdai-s3-logs-reader.enabled=false \
+    --set opentelemetry-operator.admissionWebhooks.certManager.enabled=false \
+    --set opentelemetry-operator.admissionWebhooks.autoGenerateCert.enabled=true \
+    --set opentelemetry-operator.admissionWebhooks.autoGenerateCert.recreate=true \
+    --set opentelemetry-operator.admissionWebhooks.autoGenerateCert.certPeriodDays=365 \
+    --set mdai-operator.admissionWebhooks.certManager.enabled=false \
+    --set mdai-operator.admissionWebhooks.autoGenerateCert.enabled=true \
+    --set mdai-operator.admissionWebhooks.autoGenerateCert.recreate=true \
+    --set mdai-operator.admissionWebhooks.autoGenerateCert.certPeriodDays=365 \
+    --cleanup-on-fail
     ```
+
+    </details>
 
 4. Verify that the cluster's pods are running.
     ```

@@ -1,7 +1,12 @@
 ---
 title: Installation
 weight: 2
+versions: ["0.8.0","0.8.5","0.8.6"]
+default_version: "0.8.6"
+base: "docs/1_installation/_fragments"
 ---
+
+{{- $version := printf "%v" (site.Params.default_version | default "") -}}
 
 There are 2 ways to install the MDAI cluster locally.
 
@@ -29,26 +34,34 @@ Before you install the MDAI cluster, make sure Docker is running.
 
 ## Choose an Installation Method
 
-This guide targets v{{< version format="semver" >}}.
-Full: {{< version format="semver" >}}
-
-
-<p>Short: <span data-global="docs_version" data-format="short"></span></p>
-<p>Semver: <span data-global="docs_version" data-format="semver"></span></p>
-
-{{< tabs items="Automatic Install, Guided Install" >}}
-
-<!-- AUTOMATED -->
+{{< tabs items="Automatic, Guided" >}}
   {{< tab >}}
-    {{< render_frag path="docs/1_installation/_fragments/{semver}/install_automated" >}}
+
+    {{< runtime_switcher
+        base="docs/1_installation/_fragments"
+        choose="automated"
+        keymap=`{
+          "0.8.6": "0.8.6",
+          "0.8.5": "0.8.5",
+          "0.8.0": "0.8.0"
+        }`
+    >}}
+
   {{< /tab >}}
 
-<!-- GUIDED -->
   {{< tab >}}
-    {{< render_frag path="docs/1_installation/_fragments/{semver}/install_guided" >}}
+    {{< runtime_switcher
+        base="docs/1_installation/_fragments"
+        choose="guided"
+        keymap=`{
+          "0.8.6": "0.8.6",
+          "0.8.5": "0.8.5",
+          "0.8.0": "0.8.0"
+        }`
+    >}}
   {{< /tab >}}
-
 {{< /tabs >}}
+
 
 ## Explore MDAI Use Cases
 

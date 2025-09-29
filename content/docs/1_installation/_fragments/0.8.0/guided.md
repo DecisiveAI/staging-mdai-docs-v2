@@ -1,3 +1,12 @@
+---
+title: "Install (Guided) - 0.8.0"
+type: frags
+url: "/_fragments/0.8.0/install_guided"
+_build:
+  list: never
+  render: always
+---
+
 MDAI runs in a Kubernetes cluster. You'll use Helm charts to bring up the pods in the cluster.
 
 ### Bring Up the MDAI Cluster

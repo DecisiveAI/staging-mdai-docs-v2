@@ -1,6 +1,15 @@
 {{- $def := printf "%v" (site.Params.default_version | default "") -}}
 {{- $raw := site.Data.versions -}}
 {{- $list := cond (isset $raw "versions") $raw.versions $raw -}}
+
+{{- $found := false -}}
+
+{{- range $list -}}
+  {{- if eq .key $def -}}
+    {{- $found = true -}}
+  {{- end -}}
+{{- end -}}
+
 <label
   style="display: none;"
   for="version-select"
@@ -12,19 +21,13 @@
   onchange="window.__setVersion && window.__setVersion(this.value)"
   style="color: var(--hx-color-gray-400);"
 >
-  <option
-    selected
-    disabled
-  >
-    Select Hub Version
+  <option value="" disabled hidden>Select Hub Version</option>
   </option>
   {{- range $list -}}
     <option
       value="{{ .key }}" {{ if eq .key $def }}selected{{ end }}
     >
-      <span>
-        {{ .label }}
-      </span>
+      {{ .label }}
     </option>
   {{- end -}}
 </select>

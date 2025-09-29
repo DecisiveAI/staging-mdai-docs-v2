@@ -3,6 +3,16 @@ title: MyDecisive.ai Docs
 layout: hextra-home
 ---
 
+<!-- WARNING -- ONLY UNCOMMENT IF YOU WANT TO DEBUG VERSION RENDERING
+
+This guide targets v{{< version format="semver" >}}.
+Full: {{< version format="semver" >}}
+
+<p>Short: <span data-global="docs_version" data-format="short"></span></p>
+<p>Semver: <span data-global="docs_version" data-format="semver"></span></p>
+
+ -->
+
 <!-- HERO 1 -->
 
 {{< hextra/hero-badge >}}

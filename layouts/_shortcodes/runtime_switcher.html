@@ -1,0 +1,145 @@
+{{- /*
+Shortcode: runtime_switcher
+Goal: Swap between docs fragments at runtime, but ONLY render the fragment HTML (no site chrome).
+Approach: Pre-render each fragment into a hidden <template>, then JS swaps the right one in. No network fetch.
+
+Fragment paths (examples):
+  content/docs/1_installation/_fragments/0.8.6/automated.md
+  content/docs/1_installation/_fragments/0.8.6/guided.md
+
+Runtime selection priority:
+  1) ?ver= in URL, e.g. ?ver=0.9.0
+  2) window.RUNTIME_VER (if defined)
+  3) localStorage["mdai_ver"]
+  4) .Site.Params.default_version
+
+Params:
+- base   (required): content path under "content/", e.g. "docs/1_installation/_fragments"
+- keymap (required): JSON mapping "selector" -> "versionDir" (string). Example:
+    { "0.8.x": "0.8.6", "0.9.x": "0.9.2" }
+  (Advanced: value can be a map with "dir": {"dir":"0.8.6"})
+- choose (optional, default "automated"): which file inside the version folder ("automated"|"guided"|...)
+- inline_fallback (optional bool, default true): render default inline for no-JS users.
+*/ -}}
+
+{{- $base := .Get "base" | default "" -}}
+{{- if not $base -}} {{- errorf "runtime_switcher: 'base' param is required" -}} {{- end -}}
+
+{{- $keymapRaw := .Get "keymap" | default "{}" -}}
+{{- $choose := .Get "choose" | default "automated" -}}
+{{- $inlineFallback := .Get "inline_fallback" | default "true" | lower | eq "true" -}}
+{{- $keymap := transform.Unmarshal $keymapRaw -}}
+
+{{- $defaultVer := site.Params.default_version | default "" -}}
+{{- $hash := md5 (printf "%s|%s|%s|%s" .Page.RelPermalink $base $choose $defaultVer) -}}
+{{- $idShort := slicestr $hash 0 8 -}}
+{{- $switchId := printf "rt-switch-%s" $idShort -}}
+
+<div id="{{ $switchId }}" class="runtime-switcher" data-default='{{ $defaultVer }}'>
+  {{/* ---- Build one <template> per selector; each contains ONLY fragment HTML ---- */}}
+  {{- $selectors := slice -}}
+  {{- range $sel, $val := $keymap -}}
+    {{- $versionDir := "" -}}
+    {{- if eq (printf "%T" $val) "string" -}}
+      {{- $versionDir = $val -}}
+    {{- else if isset $val "dir" -}}
+      {{- $versionDir = index $val "dir" -}}
+    {{- end -}}
+    {{- if not $versionDir -}}
+      {{- warnf "runtime_switcher: selector %q has no usable versionDir" $sel -}}
+      {{- continue -}}
+    {{- end -}}
+
+    {{- $p := site.GetPage (printf "/%s/%s/%s" $base $versionDir $choose) | default (site.GetPage (printf "%s/%s/%s" $base $versionDir $choose)) -}}
+    {{- if not $p -}}
+      {{- warnf "runtime_switcher: page not found for selector %q at %q/%q/%q" $sel $base $versionDir $choose -}}
+      {{- continue -}}
+    {{- end -}}
+
+    {{- $selectors = $selectors | append $sel -}}
+    <template data-key="{{ $sel }}">
+      {{- /* Force the 'fragment' layout so only the body renders */ -}}
+      {{- $p.Render "fragment" -}}
+    </template>
+  {{- end -}}
+
+  <div class="rt-content">
+    {{- if $inlineFallback -}}
+      {{- $defVal := index $keymap $defaultVer -}}
+      {{- $defDir := "" -}}
+      {{- if eq (printf "%T" $defVal) "string" -}}
+        {{- $defDir = $defVal -}}
+      {{- else if isset $defVal "dir" -}}
+        {{- $defDir = index $defVal "dir" -}}
+      {{- end -}}
+      {{- with $defDir -}}
+        {{- with (site.GetPage (printf "/%s/%s/%s" $base . $choose) | default (site.GetPage (printf "%s/%s/%s" $base . $choose))) -}}
+          {{- .Render "fragment" -}}
+        {{- else -}}
+          <p><em>Default fragment not found for {{ $defaultVer }}/{{ $choose }}.</em></p>
+        {{- end -}}
+      {{- else -}}
+        <p><em>No default version mapping found.</em></p>
+      {{- end -}}
+    {{- else -}}
+      <p><em>Loading…</em></p>
+    {{- end -}}
+  </div>
+</div>
+
+<script>
+(function(){
+  const root = document.getElementById("{{ $switchId }}");
+  if (!root) return;
+
+  const DEF = (root.dataset.default || "").trim();
+
+  function norm(v){ return (v || "").toString().trim(); }
+  function pickVersion(){
+    const params = new URLSearchParams(location.search);
+    const q = norm(params.get("ver"));
+    if (q) return q;
+    if (typeof window.RUNTIME_VER === "string" && window.RUNTIME_VER.trim()) {
+      return norm(window.RUNTIME_VER);
+    }
+    try {
+      const ls = localStorage.getItem("mdai_ver");
+      if (ls) return norm(ls);
+    } catch(_) {}
+    return norm(DEF);
+  }
+
+  function getKeys(){
+    return Array.from(root.querySelectorAll("template[data-key]")).map(t => t.dataset.key);
+  }
+
+  function closestKey(ver, keys){
+    if (keys.includes(ver)) return ver;
+    const parts = norm(ver).split(".");
+    const M = parts[0] || "0";
+    const m = parts[1] || "0";
+    const candidates = [`${M}.${m}.x`, `${M}.x`];
+    for (const c of candidates) if (keys.includes(c)) return c;
+    if (keys.includes(DEF)) return DEF;
+    return keys[0] || "";
+  }
+
+  function swap(){
+    const keys = getKeys();
+    if (!keys.length) return;
+    const ver = pickVersion();
+    const key = closestKey(ver, keys);
+    const tpl = root.querySelector(`template[data-key="${CSS.escape(key)}"]`);
+    const slot = root.querySelector(".rt-content");
+    if (tpl && slot) {
+      slot.innerHTML = tpl.innerHTML; // insert ONLY the fragment HTML
+    }
+  }
+
+  // Initial render
+  swap();
+
+  // Optional: expose refresh hook
+  root.runtimeSwitchRefresh = swap;
+})();
+</script>

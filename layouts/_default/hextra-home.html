@@ -1,4 +1,6 @@
 {{ define "main" }}
+{{ $verjs := resources.Get "js/version-global.js" | resources.Minify | resources.Fingerprint }}
+  <script defer src="{{ $verjs.RelPermalink }}"></script>
   <div class='hx:mx-auto hx:flex hextra-max-page-width'>
 
     {{ partial "sidebar.html" (dict "context" . "disableSidebar" false "shouldOpen" true) }}

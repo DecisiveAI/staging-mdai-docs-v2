@@ -2,30 +2,31 @@
 (function () {
   const DEFAULT_VER = {{ printf "%q" .Site.Params.default_version }};
 
-  // Try multiple data shapes/locations
-  const RAW_A = {{ site.Data.versions | jsonify }};                 // data/versions.(yml|yaml|json)
-  const RAW_B = {{ (site.Data.docs | default dict) | jsonify }};    // data/docs/versions.(...)
+  const RAW_A = {{ site.Data.versions | jsonify }};
+  const RAW_B = {{ (site.Data.docs | default dict) | jsonify }};
   const LIST_A = Array.isArray(RAW_A) ? RAW_A : (RAW_A?.versions || []);
   const LIST_B = Array.isArray(RAW_B?.versions) ? RAW_B.versions : [];
   const VER_LIST = LIST_A.length ? LIST_A : LIST_B;
 
-  console.debug({
-    DEFAULT_VER,
-    RAW_A,
-    RAW_B,
-    LIST_A,
-    LIST_B,
-    VER_LIST,
-  })
+  // --- NEW: normalize and helpers ------------------------------------------
+  const norm = (s) => String(s ?? "")
+    .trim()
+    .replace(/^v(?=\d)/i, "");     // drop leading "v" if present (v0.8.6 -> 0.8.6)
 
+  const optionValues = () => {
+    const sel = document.getElementById("version-select");
+    return sel ? Array.from(sel.options).map(o => o.value) : [];
+  };
 
   const fromKey = (key) => {
     const [M="0", m="0", p="0"] = String(key || "").split(".");
     return { major: +M || 0, minor: +m || 0, patch: +p || 0 };
   };
 
-  const pickRec = (key) =>
-    VER_LIST.find(x => String(x.key) === String(key)) || null;
+  const pickRec = (key) => {
+    const target = norm(key);
+    return VER_LIST.find(x => norm(x.key) === target) || null;
+  };
 
   const fmt = (v, mode) => {
     const M = +v?.major || 0, m = +v?.minor || 0, p = +v?.patch || 0;
@@ -33,13 +34,8 @@
   };
 
   function updateBindings(vo) {
-    const short = fmt(vo, "short");
+    const short  = fmt(vo, "short");
     const semver = fmt(vo, "semver");
-
-    console.debug({
-      short,
-      semver,
-    });
 
     document.querySelectorAll('[data-global="docs_version"]').forEach(el => {
       const mode = el.getAttribute("data-format") || "short";
@@ -59,64 +55,52 @@
   }
 
   function applyVersion(key, { persist = true } = {}) {
-    // Prefer a record; if none, derive directly from the key
-    const rec  = pickRec(key);
-    const vobj = rec?.docs_version || (rec ? fromKey(rec.key) : fromKey(key));
+    const wanted = norm(key);
+    const rec    = pickRec(wanted);
+    const reckey = norm(rec?.key || wanted);
+    const vobj   = rec?.docs_version || (rec ? fromKey(rec.key) : fromKey(wanted));
 
-    // Sync a <select id="version-select"> if present
     const sel = document.getElementById("version-select");
+    if (sel) {
+      const values = optionValues();
 
-    console.debug('checkpoint 0', {
-      rec,
-      vobj,
-      sel,
-      selval: String(sel.value),
-      reckey: String(rec?.key),
-      key,
-    })
+      // If the normalized key isn't present, fall back to the first real option (latest)
+      const target = values.includes(reckey) ? reckey : (values.find(v => v) || "");
 
-    if (sel && String(sel.value) !== String(rec?.key || key)) sel.value = String(rec?.key || key);
-
-    console.debug('checkpoint 2',{
-      key,
-      rec,
-      vobj,
-      sel,
-    });
+      // Only assign if different (avoids flicker)
+      if (String(sel.value) !== String(target)) sel.value = target;
+    }
 
     updateBindings(vobj);
 
     if (persist) {
-      if (rec?.key == "undefined" || key == "undefined") return;
-
-      localStorage.setItem("mdai_ver", String(rec?.key || key));
+      if (reckey) localStorage.setItem("mdai_ver", reckey);
     }
 
     document.dispatchEvent(new CustomEvent("globalChange", {
-      detail: { version: rec || { key }, docs_version: vobj,
+      detail: { version: rec || { key: reckey }, docs_version: vobj,
                 versions: { short: fmt(vobj, "short"), semver: fmt(vobj, "semver") } }
     }));
   }
 
-  // Global setter used by your picker UI
   window.__setVersion = (k) => applyVersion(k);
 
   function init() {
     const qs = new URLSearchParams(location.search);
-    const mdai_ver = localStorage.getItem("mdai_ver") != undefined ? localStorage.getItem("mdai_ver") : undefined;
+    const stored = localStorage.getItem("mdai_ver");
+
+    console.debug('initiate', {
+      qs_ver: qs.get("ver"),
+      qs_version: qs.get("version"),
+      stored_ver: (stored ? norm(stored) : ""),
+      default_ver: norm(DEFAULT_VER),
+    })
+
     const start =
       qs.get("ver") ||
       qs.get("version") ||
-      mdai_ver ||
-      DEFAULT_VER;
-
-    console.debug('start', {
-      start,
-      qs_ver: qs.get("ver"),
-      qs_version: qs.get("version"),
-      ls_mdai_ver: localStorage.getItem("mdai_ver"),
-      DEFAULT_VER
-    });
+      (stored ? norm(stored) : "") ||
+      norm(DEFAULT_VER);
 
     applyVersion(start, { persist: false });
   }
