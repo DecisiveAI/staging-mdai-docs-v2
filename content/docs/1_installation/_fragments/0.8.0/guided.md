@@ -17,15 +17,11 @@ MDAI runs in a Kubernetes cluster. You'll use Helm charts to bring up the pods i
     ```
 
 2. Use `kubectl` to install cert-manager.
+3.
     ```
     kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
-    ```
-    ```
     kubectl wait --for=condition=Established crd/certificates.cert-manager.io --timeout=60s
-    ```
-    ```
     kubectl wait --for=condition=Ready pod -l app.kubernetes.io/instance=cert-manager -n cert-manager --timeout=60s
-    ```
     ```
     kubectl wait --for=condition=Available=True deploy -l app.kubernetes.io/instance=cert-manager -n cert-manager --timeout=60s
     ```
@@ -33,7 +29,7 @@ MDAI runs in a Kubernetes cluster. You'll use Helm charts to bring up the pods i
    > [!TIP]
    > The cert-manager may take a few moments to finish installing. To see if they're ready, you can list the pods using `kubectl get pods -n cert-manager`.
 
-3. Use Helm to install MDAI.
+4. Use Helm to install MDAI.
     ```
     helm upgrade --install \
       --repo https://charts.mydecisive.ai \
@@ -47,7 +43,7 @@ MDAI runs in a Kubernetes cluster. You'll use Helm charts to bring up the pods i
       mdai mdai-hub
     ```
 
-4. Verify that the cluster's pods are running.
+5. Verify that the cluster's pods are running.
     ```
     kubectl get pods -n mdai
     ```
