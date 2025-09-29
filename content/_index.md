@@ -48,8 +48,8 @@ We connect your services and infra to any otlp-compatible destination.
 {{< /hextra/hero-subtitle >}}
 </div>
 
-<a href="/images/overview-auto.svg" target="_blank" rel="noopener noreferrer">
-  <img alt="MyDecisive Overview" src="/images/overview-auto.svg">
+<a href="/images/overview-auto.png" target="_blank" rel="noopener noreferrer">
+  <img alt="MyDecisive Overview" src="/images/overview-auto.png">
 </a>
 
 <br />
