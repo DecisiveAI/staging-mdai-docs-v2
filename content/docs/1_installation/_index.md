@@ -1,7 +1,7 @@
 ---
 title: Installation
 weight: 2
-versions: ["0.8.0","0.8.5","0.8.6"]
+versions: ["0.8.5","0.8.6","0.9.0"]
 default_version: "0.8.6"
 base: "docs/1_installation/_fragments"
 ---
@@ -41,9 +41,9 @@ Before you install the MDAI cluster, make sure Docker is running.
         base="docs/1_installation/_fragments"
         choose="automated"
         keymap=`{
+          "0.9.0": "0.9.0",
           "0.8.6": "0.8.6",
-          "0.8.5": "0.8.5",
-          "0.8.0": "0.8.0"
+          "0.8.5": "0.8.5"
         }`
     >}}
 
@@ -54,9 +54,9 @@ Before you install the MDAI cluster, make sure Docker is running.
         base="docs/1_installation/_fragments"
         choose="guided"
         keymap=`{
+          "0.9.0": "0.9.0",
           "0.8.6": "0.8.6",
-          "0.8.5": "0.8.5",
-          "0.8.0": "0.8.0"
+          "0.8.5": "0.8.5"
         }`
     >}}
   {{< /tab >}}

@@ -30,8 +30,7 @@
   }
 
   // expose
-  window.__setVersion = setVersion;     // your navbar uses this
-  window.__setSemver__ = setVersion;    // compatibility with earlier snippets
+  window.__setSemver__ = setVersion;
   window.__getSemverInitial__ = initial;
 
   // bootstrap global once

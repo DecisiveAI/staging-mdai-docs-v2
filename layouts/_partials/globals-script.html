@@ -60,15 +60,38 @@
     const reckey = norm(rec?.key || wanted);
     const vobj   = rec?.docs_version || (rec ? fromKey(rec.key) : fromKey(wanted));
 
+    console.debug('checkpoint 1', {
+      wanted,
+      rec,
+      reckey,
+      vobj,
+    })
+
     const sel = document.getElementById("version-select");
     if (sel) {
       const values = optionValues();
 
       // If the normalized key isn't present, fall back to the first real option (latest)
-      const target = values.includes(reckey) ? reckey : (values.find(v => v) || "");
+      const target = values.includes(reckey)
+        ? reckey
+        : (values.find(v => v) || "");
 
-      // Only assign if different (avoids flicker)
-      if (String(sel.value) !== String(target)) sel.value = target;
+      console.debug('checkpoint 2', {
+        valincreckey: values.includes(reckey),
+        target,
+        values,
+        reckey,
+        eval: values.find(v => v),
+        selval: sel.value,
+      })
+
+      if (String(sel.value) !== String(target) && !!target) {
+        console.debug('checkpoint 3', {
+          var1: String(sel.value),
+          var2: String(target),
+        })
+        sel.value = target
+      };
     }
 
     updateBindings(vobj);
@@ -89,18 +112,39 @@
     const qs = new URLSearchParams(location.search);
     const stored = localStorage.getItem("mdai_ver");
 
+    const qs_ver = qs.get("ver");
+    const qs_version = qs.get("version");
+    const stored_ver = stored ? norm(stored) : "";
+    const def_ver = norm(DEFAULT_VER);
+
     console.debug('initiate', {
-      qs_ver: qs.get("ver"),
-      qs_version: qs.get("version"),
-      stored_ver: (stored ? norm(stored) : ""),
-      default_ver: norm(DEFAULT_VER),
-    })
+      qs_ver,
+      qs_version,
+      stored_ver,
+      def_ver,
+    });
+
+    if (
+      !qs_ver &&
+      !qs_version &&
+      !stored_ver
+    ) {
+      const sel = document.getElementById("version-select");
+      sel.val = def_ver;
+
+      console.debug('checkpoint 0', {
+        selval: sel.val,
+        def_ver,
+      })
+
+      return;
+    }
 
     const start =
-      qs.get("ver") ||
-      qs.get("version") ||
-      (stored ? norm(stored) : "") ||
-      norm(DEFAULT_VER);
+      qs_ver ||
+      qs_version ||
+      stored_ver ||
+      def_ver;
 
     applyVersion(start, { persist: false });
   }

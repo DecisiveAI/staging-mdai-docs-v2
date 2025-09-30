@@ -69,12 +69,12 @@ We connect your services and infra to any otlp-compatible destination.
       subtitle="Don’t have time to download and start using MyDecisive? Try the MyDecisive Product Tour to show you our super powers."
     >}}
     {{< hextra/feature-card
-      link="/docs/getting-started"
+      link="/docs/0_getting-started"
       title="Test drive MyDecisive"
       subtitle="Ready to start taking control of your telemetry streams? Start using MyDecisive Smart Telemetry Hub now!"
     >}}
     {{< hextra/feature-card
-      link=""
+      link="docs/2_recipes"
       title="Discover Use Cases"
       subtitle="Interested in learning about the use cases MyDecisive can solve? Show me the MyDecisive supported use cases and recipes."
     >}}

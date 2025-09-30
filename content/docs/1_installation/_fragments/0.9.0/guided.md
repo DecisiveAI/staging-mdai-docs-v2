@@ -1,13 +1,15 @@
+
 ---
-title: "Install (Guided) - 0.8.0"
+title: "Install (Guided) - 0.8.5"
 type: frags
-url: "/_fragments/0.8.0/install_guided"
+url: "/_fragments/0.8.5/install_guided"
 _build:
   list: never
   render: always
 ---
 
 MDAI runs in a Kubernetes cluster. You'll use Helm charts to bring up the pods in the cluster.
+
 
 ### Bring Up the MDAI Cluster
 
@@ -17,11 +19,15 @@ MDAI runs in a Kubernetes cluster. You'll use Helm charts to bring up the pods i
     ```
 
 2. Use `kubectl` to install cert-manager.
-3.
     ```
     kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
+    ```
+    ```
     kubectl wait --for=condition=Established crd/certificates.cert-manager.io --timeout=60s
+    ```
+    ```
     kubectl wait --for=condition=Ready pod -l app.kubernetes.io/instance=cert-manager -n cert-manager --timeout=60s
+    ```
     ```
     kubectl wait --for=condition=Available=True deploy -l app.kubernetes.io/instance=cert-manager -n cert-manager --timeout=60s
     ```
@@ -29,21 +35,19 @@ MDAI runs in a Kubernetes cluster. You'll use Helm charts to bring up the pods i
    > [!TIP]
    > The cert-manager may take a few moments to finish installing. To see if they're ready, you can list the pods using `kubectl get pods -n cert-manager`.
 
-4. Use Helm to install MDAI.
+3. Use Helm to install MDAI.
+
     ```
-    helm upgrade --install \
-      --repo https://charts.mydecisive.ai \
+    helm upgrade --install mdai-hub oci://ghcr.io/decisiveai/mdai-hub \
       --namespace mdai \
       --create-namespace \
-      --cleanup-on-fail \
-      --set mdai-operator.manager.env.otelSdkDisabled=true \
-      --set mdai-gateway.otelSdkDisabled=true \
       --set mdai-s3-logs-reader.enabled=false \
-      --version v0.8.0-rc3 \
-      mdai mdai-hub
+      --cleanup-on-fail \
+      --devel
     ```
 
-5. Verify that the cluster's pods are running.
+
+4. Verify that the cluster's pods are running.
     ```
     kubectl get pods -n mdai
     ```

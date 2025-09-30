@@ -42,10 +42,10 @@ MDAI runs in a Kubernetes cluster. You'll use Helm charts to bring up the pods i
     <details>
 
     ```sh
-    helm upgrade --install mdai-hub oci://ghcr.io/decisiveai/mdai-hub
+    helm upgrade --install mdai-hub oci://ghcr.io/decisiveai/mdai-hub \
     --namespace mdai \
     --create-namespace \
-    --version v0.8.5 \
+    --version 0.8.5 \
     --set mdai-operator.manager.env.otelSdkDisabled=true \
     --set mdai-gateway.otelSdkDisabled=true \
     --set mdai-s3-logs-reader.enabled=false \
