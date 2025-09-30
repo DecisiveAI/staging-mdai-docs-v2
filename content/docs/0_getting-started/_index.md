@@ -42,6 +42,6 @@ Once installed, you can use the MyDecisive recipes to configure, install, and te
 {{% /steps %}}
 
 {{< cards cols="4" >}}
-{{< card link="/docs/1_installation" title="Install MDAI Locally" >}}
-{{< card link="/docs/2_recipes" title="Jump ahead to recipes" >}}
+  {{< card link="/docs/1_installation" title="Install MDAI Locally" >}}
+  {{< card link="/docs/2_recipes" title="Jump ahead to recipes" >}}
 {{< /cards >}}

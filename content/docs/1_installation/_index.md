@@ -66,3 +66,8 @@ Before you install the MDAI cluster, make sure Docker is running.
 ## Explore MDAI Use Cases
 
 When you're done installing the MDAI cluster, visit [Recipes List](../recipes) to explore available use cases.
+
+{{< cards cols="4" >}}
+  {{< card link="/docs/2_recipes" title="Explore recipes" >}}
+  {{< card link="/docs/5_support" title="Get support" >}}
+{{< /cards >}}
