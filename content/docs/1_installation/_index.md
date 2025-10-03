@@ -34,6 +34,14 @@ Before you install the MDAI cluster, make sure Docker is running.
 
 ## Choose an Installation Method
 
+{{< callout type="important" >}}
+  For the required MDAI cluster resources, clone the [mdai-labs GitHub repo](https://github.com/DecisiveAI/mdai-labs). This repo also contains the scripts resources needed for trying out the MyDecisive solutions.
+
+  ```
+  git clone https://github.com/DecisiveAI/mdai-labs.git
+  ```
+{{< /callout >}}
+
 {{< tabs items="Automatic, Guided" >}}
   {{< tab >}}
 
@@ -42,8 +50,7 @@ Before you install the MDAI cluster, make sure Docker is running.
         choose="automated"
         keymap=`{
           "0.9.0": "0.9.0",
-          "0.8.6": "0.8.6",
-          "0.8.5": "0.8.5"
+          "0.8.6": "0.8.6"
         }`
     >}}
 
@@ -55,8 +62,7 @@ Before you install the MDAI cluster, make sure Docker is running.
         choose="guided"
         keymap=`{
           "0.9.0": "0.9.0",
-          "0.8.6": "0.8.6",
-          "0.8.5": "0.8.5"
+          "0.8.6": "0.8.6"
         }`
     >}}
   {{< /tab >}}
@@ -65,7 +71,7 @@ Before you install the MDAI cluster, make sure Docker is running.
 
 ## Explore MDAI Use Cases
 
-When you're done installing the MDAI cluster, visit [Recipes List](../recipes) to explore available use cases.
+When you're done installing the MDAI cluster, visit [Recipes List](/docs/2_recipes) to explore available use cases.
 
 {{< cards cols="4" >}}
   {{< card link="/docs/2_recipes" title="Explore recipes" >}}

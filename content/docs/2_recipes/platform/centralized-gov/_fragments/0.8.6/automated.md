@@ -8,15 +8,9 @@ chmod +x mdai.sh
 
 You can use the following commands to setup and install your mdai instance locally...
 
-1. OtelCollector
-
-  ```
-  ```
-
-2. MdaiHub
-
-  ```
-  ```
+```
+./mdai.sh compliance --otel ./otel/otel_compliance.yaml --hub ./mdai/hub/hub_compliance.yaml
+```
 
 ### Connect your data streams
 

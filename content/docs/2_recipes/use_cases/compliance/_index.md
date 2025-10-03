@@ -1,15 +1,17 @@
 ---
-title: Dynamic Data Filtration
+title: Compliance
 ---
 
-## Use case
+#### Use case
 
-Filter telemetry streams in real time using dynamic rules that adapt to services, environments, or cost constraints—without code changes or redeploys.
+Guarantee regulatory compliance by forking every telemetry stream—no matter where the data is routed, filtered, or sampled—and persisting a full, unmodified copy into long-term cold or glacial storage for audit and retention needs.
 
-## Prerequisites
+#### Prerequisites
 
-1. A k8s cluster where `mdai` can be installed
-2. Clone the [mdai-labs GitHub repo](https://github.com/DecisiveAI/mdai-labs)
+1. Long-term storage backend (cold/glacial tiers)
+1. Fork/tee in pipeline
+1. Policy/config to duplicate all streams
+1. IAM & encryption keys
 
 ## Choose your preferred self-guided experience
 
@@ -21,7 +23,7 @@ Filter telemetry streams in real time using dynamic rules that adapt to services
   {{< tab >}}
 
     {{< runtime_switcher
-        base="docs/2_recipes/use_cases/data_filtration/_fragments"
+        base="docs/2_recipes/use_cases/compliance/_fragments"
         choose="guided"
         keymap=`{
           "0.9.0": "0.9.0",
@@ -32,7 +34,7 @@ Filter telemetry streams in real time using dynamic rules that adapt to services
 
   {{< tab >}}
     {{< runtime_switcher
-        base="docs/2_recipes/use_cases/data_filtration/_fragments"
+        base="docs/2_recipes/use_cases/compliance/_fragments"
         choose="automated"
         keymap=`{
           "0.9.0": "0.9.0",

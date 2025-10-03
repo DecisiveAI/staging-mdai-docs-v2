@@ -1,15 +1,17 @@
 ---
-title: Dynamic Data Filtration
+title: PII Redaction
 ---
 
-## Use case
+#### Use case
 
-Filter telemetry streams in real time using dynamic rules that adapt to services, environments, or cost constraints—without code changes or redeploys.
+Protect sensitive data by applying programmable redaction rules to strip personally identifiable information (PII) from telemetry streams before it leaves your boundary.
 
-## Prerequisites
+#### Prerequisites
 
-1. A k8s cluster where `mdai` can be installed
-2. Clone the [mdai-labs GitHub repo](https://github.com/DecisiveAI/mdai-labs)
+1. OTel collector for pii scrubbing
+1. Policy definitions for what constitutes PII (regex, field names, JSON paths, etc.)
+1. Ensure your redaction rules align with regulations (GDPR, HIPAA, etc.)
+1. Unit & integration tests to validate redaction
 
 ## Choose your preferred self-guided experience
 

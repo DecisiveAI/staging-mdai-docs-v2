@@ -1,15 +1,16 @@
 ---
-title: Dynamic Data Filtration
+title: Dynamic Tail Sampling
 ---
 
-## Use case
+#### Use case
 
-Filter telemetry streams in real time using dynamic rules that adapt to services, environments, or cost constraints—without code changes or redeploys.
+Control data volume and fidelity with tail-based sampling rules that adapt to traffic patterns and business context—ensuring high-value traces are kept while reducing noise.
 
-## Prerequisites
+#### Prerequisites
 
-1. A k8s cluster where `mdai` can be installed
-2. Clone the [mdai-labs GitHub repo](https://github.com/DecisiveAI/mdai-labs)
+1. OTel collector for centralizing trace spans
+1. OTel collector to apply your sampling policies to (by service/error/latency/user)
+1. Sample in/out monitoring tool
 
 ## Choose your preferred self-guided experience
 
