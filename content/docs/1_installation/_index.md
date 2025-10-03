@@ -6,11 +6,9 @@ default_version: "0.8.6"
 base: "docs/1_installation/_fragments"
 ---
 
-{{- $version := printf "%v" (site.Params.default_version | default "") -}}
-
 There are 2 ways to install the MDAI cluster locally.
 
-- A quick installation script-based install gets the MDAI cluster up and running in minutes.
+- A quick, cli-based install gets the MDAI cluster up and running in minutes.
 - A step-by-step install that let’s you see each of the components composing the MDAI cluster.
 
 > [!NOTE]
@@ -30,17 +28,20 @@ You'll also need to install the following software.
 
 For the required MDAI cluster resources, clone the [mdai-labs GitHub repo](https://github.com/DecisiveAI/mdai-labs). This repo also contains the scripts resources needed for trying out the MyDecisive solutions.
 
-Before you install the MDAI cluster, make sure Docker is running.
+{{< callout type="important" >}}
+
+  1. For the required MDAI cluster resources, clone the [mdai-labs GitHub repo](https://github.com/DecisiveAI/mdai-labs). This repo also contains the scripts resources needed for trying out the MyDecisive solutions.
+
+      ```bash
+      git clone https://github.com/DecisiveAI/mdai-labs.git
+      ```
+
+  2. Before you install the MDAI cluster, **make sure Docker is running.**
+
+{{< /callout >}}
 
 ## Choose an Installation Method
 
-{{< callout type="important" >}}
-  For the required MDAI cluster resources, clone the [mdai-labs GitHub repo](https://github.com/DecisiveAI/mdai-labs). This repo also contains the scripts resources needed for trying out the MyDecisive solutions.
-
-  ```
-  git clone https://github.com/DecisiveAI/mdai-labs.git
-  ```
-{{< /callout >}}
 
 {{< tabs items="Automatic, Guided" >}}
   {{< tab >}}

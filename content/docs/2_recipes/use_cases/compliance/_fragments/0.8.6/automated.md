@@ -1,8 +1,4 @@
-Run the following to make our install/uninstall script executable.
-
-```
-chmod +x mdai.sh
-```
+Make sure you have installed our shell script [](http://localhost:1313/docs/1_installation/#use-mdaish-script-for-installation)
 
 ### Provision resources
 
