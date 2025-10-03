@@ -33,7 +33,9 @@ Run the script to install your local MDAI cluster.
 
 #### I need a local k8s cluster with k8s
 
-{{% details title="Option 1: Install `mdai` with cert-manager" %}}
+{{% details title="Option 1: Install `mdai` with cert-manager" closed="true" %}}
+
+This command installs a local kind cluster and `mdai`.
 
   ```bash
   mdai install --version 0.8.6
@@ -52,7 +54,7 @@ Run the script to install your local MDAI cluster.
 #### I have a local k8s cluster
 
 
-{{% details title="**Option 1: Install `mdai` with cert-manager**" %}}
+{{% details title="**Option 1: Install `mdai` with cert-manager**" closed="true" %}}
 
   {{< callout type="warning" >}}
     For this to work, your existing cluster must have `cert-manager` installed.
