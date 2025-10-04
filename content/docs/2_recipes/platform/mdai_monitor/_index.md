@@ -1,7 +1,8 @@
 ---
-title: MDAI Aduiting
+title: MDAI Monitor
 weight: 1
 ---
+
 #### Use case
 
 Enforce global governance policies for telemetry—covering compliance, retention, and access—across all pipelines and environments from a single control plane.
@@ -15,7 +16,7 @@ Enforce global governance policies for telemetry—covering compliance, retentio
 
 #### Choose your preferred installation method
 
-{{< tabs items="Guided, Automated" >}}
+{{< tabs items="Manual, Automated" >}}
 
 <!-- Tab A -->
   {{< tab >}}

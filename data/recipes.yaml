@@ -5,25 +5,35 @@ use_cases:
       - { name: "cost control", color: "amber" }
       - { name: "logs", color: "blue" }
       - { name: "traces", color: "indigo" }
-    contributor: "MyDecisive.ai"
+    contributor: "mdai"
     description: "Apply live filters to control what data flows downstream."
+    value: "Control costs by filtering what and how much data flows downstream."
+    status:
+      - { name: "released", color: "green" }
 
   - title: "Dynamic Tail Sampling"
     link: "use_cases/tail_sampling"
     tags:
       - { name: "cost control", color: "amber" }
       - { name: "traces", color: "indigo" }
-    contributor: "MyDecisive.ai"
+    contributor: "mdai"
     description: "Keep the important traces, drop the rest, in real time."
+    value: "Control log amounts by keeping the important traces, drop the rest."
+    status:
+      - { name: "released", color: "green" }
+
 
   - title: "PII Redaction"
     link: "use_cases/pii"
     tags:
-      - { name: "security", color: "yellow" }
+      - { name: "security", color: "lightblue" }
       - { name: "logs", color: "blue" }
       - { name: "traces", color: "indigo" }
-    contributor: "MyDecisive.ai"
+    contributor: "mdai"
     description: "Automatically remove sensitive data from your telemetry streams."
+    value: "Automatically remove sensitive data from your telemetry streams (existing)."
+    status:
+      - { name: "released", color: "green" }
 
   - title: "Compliance"
     link: "use_cases/compliance"
@@ -31,15 +41,57 @@ use_cases:
       - { name: "auditability", color: "red" }
       - { name: "logs", color: "blue" }
       - { name: "traces", color: "indigo" }
-    contributor: "MyDecisive.ai"
+    contributor: "mdai"
     description: "Always fork and archive data in long-term storage, regardless of routing or filtering."
+    value: "Never lose important data by keeping in long-term storage, regardless of routing or filtering."
+    status:
+      - { name: "released", color: "green" }
+
+  - title: "Logs in Context"
+    link: "use_cases/logs_in_ctx"
+    tags:
+      - { name: "auditability", color: "red" }
+      - { name: "logs", color: "blue" }
+      - { name: "traces", color: "indigo" }
+    contributor: "mdai"
+    description: "Logs, traces, and metrics—always connected."
+    value: Correlate logs with traces and metrics so every drill-down is seamless—ensuring cohesive, always-available context in your observability platform of choice."
+    status:
+      - { name: "development", color: "yellow" }
 
 platform:
   - title: "Centralized Governance"
-    link: "platform/centralized-gov"
+    link: "platform/centralized_gov"
     tags:
       - { name: "centrality", color: "green" }
       - { name: "logs", color: "blue" }
       - { name: "traces", color: "indigo" }
-    contributor: "MyDecisive.ai"
+    contributor: "mdai"
     description: "Centralize your streams and enforce observability policies."
+    value: "Centralize your streams and enforce observability policies."
+    status:
+      - { name: "released", color: "green" }
+
+  - title: "Telemetry store"
+    link: "platform/telemetry_store"
+    tags:
+      - { name: "storage", color: "orange" }
+      - { name: "logs", color: "blue" }
+      - { name: "traces", color: "indigo" }
+    contributor: "mdai"
+    description: "100% data on demand, effortless incident filtering."
+    value: "Have 100% of the raw telemetry available during incidents, making filtering and analysis effortless when it matters most."
+    status:
+      - { name: "development", color: "yellow" }
+
+  - title: "MDAI Monitor"
+    link: "platform/mdai_monitor"
+    tags:
+      - { name: "storage", color: "orange" }
+      - { name: "logs", color: "blue" }
+      - { name: "traces", color: "indigo" }
+    contributor: "mdai"
+    description: "Centralize your streams and enforce observability policies."
+    value: "Centralize your streams and enforce observability policies."
+    status:
+      - { name: "development", color: "yellow" }

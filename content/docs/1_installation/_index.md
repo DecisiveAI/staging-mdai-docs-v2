@@ -43,7 +43,7 @@ For the required MDAI cluster resources, clone the [mdai-labs GitHub repo](https
 ## Choose an Installation Method
 
 
-{{< tabs items="Automatic, Guided" >}}
+{{< tabs items="Automatic, Manual" >}}
   {{< tab >}}
 
     {{< runtime_switcher
@@ -60,7 +60,7 @@ For the required MDAI cluster resources, clone the [mdai-labs GitHub repo](https
   {{< tab >}}
     {{< runtime_switcher
         base="docs/1_installation/_fragments"
-        choose="guided"
+        choose="manual"
         keymap=`{
           "0.9.0": "0.9.0",
           "0.8.6": "0.8.6"

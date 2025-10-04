@@ -46,7 +46,9 @@ This command installs a local kind cluster and `mdai`.
 
 {{% details title="**Option 2: Install `mdai` without cert-manager**" closed="true" %}}
 
+  ```bash
   mdai --no-cert-manager install --version 0.8.6
+  ```
 
 {{% /details %}}
 

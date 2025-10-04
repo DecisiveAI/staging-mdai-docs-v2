@@ -19,12 +19,12 @@ Protect sensitive data by applying programmable redaction rules to strip persona
   For the required MDAI cluster resources, clone the [mdai-labs GitHub repo](https://github.com/DecisiveAI/mdai-labs). This repo also contains the scripts resources needed for trying out the MyDecisive solutions.
 {{< /callout >}}
 
-{{< tabs items="Automated, Guided" >}}
+{{< tabs items="Automated, Manual" >}}
   {{< tab >}}
 
     {{< runtime_switcher
         base="docs/2_recipes/use_cases/data_filtration/_fragments"
-        choose="guided"
+        choose="manual"
         keymap=`{
           "0.9.0": "0.9.0",
           "0.8.6": "0.8.6"

@@ -16,22 +16,10 @@ Guarantee regulatory compliance by forking every telemetry stream—no matter wh
 ## Choose your preferred self-guided experience
 
 {{< callout type="important" >}}
-  For the required MDAI cluster resources, clone the [mdai-labs GitHub repo](https://github.com/DecisiveAI/mdai-labs). This repo also contains the scripts resources needed for trying out the MyDecisive solutions.
+For the required MDAI cluster resources, clone the [mdai-labs GitHub repo](https://github.com/DecisiveAI/mdai-labs). This repo also contains the scripts resources needed for trying out the MyDecisive solutions.
 {{< /callout >}}
 
-{{< tabs items="Automated, Guided" >}}
-  {{< tab >}}
-
-    {{< runtime_switcher
-        base="docs/2_recipes/use_cases/compliance/_fragments"
-        choose="guided"
-        keymap=`{
-          "0.9.0": "0.9.0",
-          "0.8.6": "0.8.6"
-        }`
-    >}}
-  {{< /tab >}}
-
+{{< tabs items="Automated, Manual" >}}
   {{< tab >}}
     {{< runtime_switcher
         base="docs/2_recipes/use_cases/compliance/_fragments"
@@ -42,7 +30,28 @@ Guarantee regulatory compliance by forking every telemetry stream—no matter wh
         }`
     >}}
   {{< /tab >}}
+
+  {{< tab >}}
+    {{< runtime_switcher
+        base="docs/2_recipes/use_cases/compliance/_fragments"
+        choose="manual"
+        keymap=`{
+          "0.9.0": "0.9.0",
+          "0.8.6": "0.8.6"
+        }`
+    >}}
+  {{< /tab >}}
 {{< /tabs >}}
+
+## Get data flowing using Otel
+
+### Provision use case resources
+
+### Start generating data
+
+### Connect your data stream
+
+### Validate dataflow with prometheus
 
 
 ## Advanced setup (Hungry for more?)

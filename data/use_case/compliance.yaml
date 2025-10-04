@@ -1,0 +1,96 @@
+manual:
+  "0.9.0":
+    title: "Guided – Step by Step"
+    sections:
+      - heading: "Provision use case resources"
+        body: |
+          Use the **mdai-labs** repo to provision a minimal cluster profile for this recipe.
+          Confirm your nodes meet the required CPU/memory.
+        code:
+          lang: bash
+          text: |
+            git clone https://github.com/DecisiveAI/mdai-labs
+            cd mdai-labs
+            ./scripts/recipes/compliance/manual/setup.sh
+      - heading: "Start generating data"
+        body: |
+          Launch the demo services to emit traces/logs/metrics with deterministic volume.
+        code:
+          lang: bash
+          text: |
+            ./scripts/recipes/compliance/manual/generate.sh
+      - heading: "Connect your data stream"
+        body: |
+          Point OTLP exporters to your MDAI Collector service endpoint.
+      - heading: "Validate dataflow with Prometheus"
+        body: |
+          Open Grafana and verify series for `mdai_collector_*`.
+
+  "0.8.6":
+    title: "Guided – Step by Step (0.8.6)"
+    sections:
+      - heading: "Provision resources"
+        body: "Same as 0.9.0 but uses legacy chart values."
+        code:
+          lang: bash
+          text: |
+            ./scripts/recipes/compliance/manual/setup-086.sh
+
+automated:
+  "0.9.0":
+    title: "Automated – Scripted Install"
+    sections:
+      - heading: "Run the one-liner"
+        body: |
+          This path installs the recipe and pre-wires exporters.
+        code:
+          lang: bash
+          text: |
+            curl -fsSL https://get.mydecisive.ai/recipes/compliance.sh | bash
+      - heading: "Validate pipeline"
+        body: "Check the dashboards & logs for successful flow."
+
+  "0.8.6":
+    title: "Automated – Scripted (0.8.6)"
+    sections:
+      - heading: "Run the one-liner"
+        body: "Legacy flags are used under 0.8.6."
+        code:
+          lang: bash
+          text: |
+            mdai use-case compliance --version 0.8.6
+
+static:
+  "0.9.0":
+    title: "See static Compliance"
+    sections:
+      - heading: "Static Otel"
+        body: |
+          Use fixed sampling and routing. Good for initial baselines.
+      - heading: "Validate dataflow with Prometheus"
+        body: "Confirm steady-state metrics and error budgets."
+  "0.8.6":
+    title: "See static Compliance (0.8.6)"
+    sections:
+      - heading: "Static Otel"
+        code:
+        lang: bash
+        text:
+          mdai --apply_file path/to/otel_config.yaml
+
+dynamic:
+  "0.9.0":
+    title: "Add a dynamic Compliance"
+    sections:
+      - heading: "Parameterize Otel"
+        body: |
+          Introduce dynamic rules (sampling, routing, PII policies) via MDAI.
+      - heading: "Validate dataflow with Prometheus"
+        body: "Expect rate shifts as rules change."
+      - heading: "View custom dashboard"
+        body: "Use the Compliance dashboard panel group."
+  "0.8.6":
+    title: "Add a dynamic Compliance (0.8.6)"
+    sections:
+      - heading: "Parameterize Otel"
+        body: "Same concepts; check legacy flags."

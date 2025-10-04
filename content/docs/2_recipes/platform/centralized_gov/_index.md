@@ -15,7 +15,7 @@ Enforce global governance policies for telemetry—covering compliance, retentio
 
 #### Choose your preferred installation method
 
-{{< tabs items="Guided, Automated" >}}
+{{< tabs items="Manual, Automated" >}}
 
 <!-- Tab A -->
   {{< tab >}}

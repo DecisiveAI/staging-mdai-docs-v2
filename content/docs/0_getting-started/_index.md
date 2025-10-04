@@ -29,15 +29,25 @@ Once installed, you can use the MyDecisive recipes to configure, install, and te
 
 {{% steps %}}
 
-  ### Identify a MyDecisive use case or platform capability to try
+### Identify a MyDecisive.ai use case or platform capability
 
-  ### Configure MdaiHub and OTel for your needs
+MyDecisive.ai supports many use cases and platform capabilities. Once you identify them, you can start using our platform and see immediate results, whether it be cost saving or greater control over your telemetry pipelines.
 
-  ### Send real or mock data to your MdaiHub
+### Introduce OTel into your ecosystem
 
-  ### See real-time results and value
+Connect your data sources to your data destinations using OpenTelemetry. Introducing OpenTelemetry enables a standardized data transfer protocol, `otlp`, that enables you to unify how you transmit and manage your telemetry streams.
 
-  ### Deploy to prod!
+### Use static OTel for your use case
+
+OpenTelemetry has many static capabilities. We leverage OTel's ability to conform your telemetry to your business needs. This step will show you the super power of OTel.
+
+### Use dynamic OTel using `mdai`
+
+The MyDecisive Smart Telemetry Hub turns OTel from static to dynamic. By adding an `MdaiHub` to your kubernetes cluster, we can use insights derived from our components and the telemetry flowing through your OTel collector, to make smart, automated, rule-based decisions that afford you greater control over your streams.
+
+### Deploy to prod!
+
+When you see the power of OTel using the `MdaiHub`, you'll want to adopt our platform in prod. We'll be here to support you in your self-service journey.
 
 {{% /steps %}}
 

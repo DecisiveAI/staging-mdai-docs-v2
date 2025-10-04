@@ -1,5 +1,4 @@
 ---
-title: Centralized Governance
 weight: 1
 ---
 #### Use case

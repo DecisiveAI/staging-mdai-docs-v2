@@ -1,0 +1,70 @@
+{{- /*
+Shortcode: use_case_flow
+Params:
+  - usecase (required): e.g. "compliance"
+  - mode    (required): "manual" | "automated"
+  - ver     (required): version dir like "0.9.0", "0.8.6"
+Reads: site.Data.use_case.<usecase>.manual[ver], .automated[ver], .static[ver], .dynamic[ver]
+*/ -}}
+
+{{- $use := .Get "usecase" -}}
+{{- $mode := lower (.Get "mode") -}}
+{{- $ver  := .Get "ver" -}}
+
+{{- if not (and $use $mode $ver) -}}
+  {{- errorf "use_case_flow: missing param (need usecase, mode, ver)" -}}
+{{- end -}}
+
+{{- $root := index site.Data.use_case $use -}}
+{{- if not $root -}}
+  {{- errorf "use_case_flow: data for %q not found under data/use_case" $use -}}
+{{- end -}}
+
+{{- $manual    := index (or $root.manual (dict))    $ver | default dict -}}
+{{- $automated := index (or $root.automated (dict)) $ver | default dict -}}
+{{- $static    := index (or $root.static (dict))    $ver | default dict -}}
+{{- $dynamic   := index (or $root.dynamic (dict))   $ver | default dict -}}
+
+{{- $active := cond (eq $mode "manual") $manual $automated -}}
+
+{{- with $static -}}
+## {{ .title | default (printf "See static %s" (title $use)) }}
+
+  {{- range .sections }}
+### {{ .heading }}
+{{ .body | markdownify }}
+  {{- with .code }}
+```{{ .lang | default "bash" }}
+{{ .text -}}
+```
+  {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- with $dynamic -}}
+## {{ .title | default (printf "Add a dynamic %s" (title $use)) }}
+
+  {{- range .sections }}
+### {{ .heading }}
+{{ .body | markdownify }}
+  {{- with .code }}
+```{{ .lang | default "bash" }}
+{{ .text -}}
+```
+  {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if $active.title }}
+## {{ $active.title }}
+{{- end -}}
+
+{{- range $active.sections }}
+### {{ .heading }}
+{{ .body | markdownify }}
+  {{- with .code }}
+```{{ .lang | default "bash" }}
+{{ .text -}}
+```
+  {{- end -}}
+{{- end -}}
