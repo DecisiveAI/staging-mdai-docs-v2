@@ -17,35 +17,20 @@ Enforce global governance policies for telemetry—covering compliance, retentio
 
 {{< tabs items="Manual, Automated" >}}
 
-<!-- Tab A -->
+  <!-- Tab A -->
   {{< tab >}}
 
-    <p class="mdai-description-text">Default config and you get these things</p>
-
-    ```bash
-    some code
-    ```
-
-##### Get insights (Dashboard)
-
-    ```bash
-    some more code
-    ```
-
-##### Level-up with Dynamic (parameterized config)
-
-    ```bash
-    some more code
-    ```
+    blah
 
   {{< /tab >}}
 
-<!-- Tab B -->
+  <!-- Tab B -->
   {{< tab >}}
 
-AWAITING CONTENT
+    AWAITING CONTENT
 
   {{< /tab >}}
+
 {{< /tabs >}}
 
 ##### Advanced setup (Hungry for more?)

@@ -42,22 +42,3 @@ For the required MDAI cluster resources, clone the [mdai-labs GitHub repo](https
     >}}
   {{< /tab >}}
 {{< /tabs >}}
-
-## Get data flowing using Otel
-
-### Provision use case resources
-
-### Start generating data
-
-### Connect your data stream
-
-### Validate dataflow with prometheus
-
-
-## Advanced setup (Hungry for more?)
-
-{{< cards cols="4" >}}
-  {{< card link="/docs/2_recipes/use_cases/data_filtration/advanced" title="Relevant link to advanced" >}}
-  {{< card link="/docs/recipes" title="Go back to recipes" >}}
-{{< /cards >}}
-

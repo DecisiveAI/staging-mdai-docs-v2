@@ -28,9 +28,15 @@ Reads: site.Data.use_case.<usecase>.manual[ver], .automated[ver], .static[ver], 
 {{- $active := cond (eq $mode "manual") $manual $automated -}}
 
 {{- with $static -}}
+
+<span></span>
+
 ## {{ .title | default (printf "See static %s" (title $use)) }}
 
+
   {{- range .sections }}
+
+
 ### {{ .heading }}
 {{ .body | markdownify }}
   {{- with .code }}

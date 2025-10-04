@@ -1,4 +1,16 @@
 use_cases:
+  - title: "Compliance"
+    link: "use_cases/compliance"
+    tags:
+      - { name: "auditability", color: "red" }
+      - { name: "logs", color: "blue" }
+      - { name: "traces", color: "indigo" }
+    contributor: "mdai"
+    description: "Always fork and archive data in long-term storage, regardless of routing or filtering."
+    value: "Never lose important data by keeping in long-term storage, regardless of routing or filtering."
+    status:
+      - { name: "released", color: "green" }
+
   - title: "Dynamic Data Filtration"
     link: "use_cases/data_filtration"
     tags:
@@ -35,22 +47,10 @@ use_cases:
     status:
       - { name: "released", color: "green" }
 
-  - title: "Compliance"
-    link: "use_cases/compliance"
-    tags:
-      - { name: "auditability", color: "red" }
-      - { name: "logs", color: "blue" }
-      - { name: "traces", color: "indigo" }
-    contributor: "mdai"
-    description: "Always fork and archive data in long-term storage, regardless of routing or filtering."
-    value: "Never lose important data by keeping in long-term storage, regardless of routing or filtering."
-    status:
-      - { name: "released", color: "green" }
-
   - title: "Logs in Context"
     link: "use_cases/logs_in_ctx"
     tags:
-      - { name: "auditability", color: "red" }
+      - { name: "centrality", color: "green" }
       - { name: "logs", color: "blue" }
       - { name: "traces", color: "indigo" }
     contributor: "mdai"

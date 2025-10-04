@@ -1,19 +1,7 @@
-###### Default config
+---
+build:
+  render: never
+  list: never
+---
 
-<p class="mdai-description-text">Default config and you get these things</p>
-
-    ```bash
-    some code
-    ```
-
-###### Get insights (Dashboard)
-
-    ```bash
-    some more code
-    ```
-
-###### Level-up with Dynamic (parameterized config)
-
-    ```bash
-    some more code
-    ```
+{{< use_case_flow usecase="compliance" mode="manual" ver="0.8.6" >}}

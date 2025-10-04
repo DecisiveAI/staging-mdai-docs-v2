@@ -1,4 +1,4 @@
-manual:
+guided:
   "0.9.0":
     title: "Guided – Step by Step"
     sections:
@@ -11,14 +11,14 @@ manual:
           text: |
             git clone https://github.com/DecisiveAI/mdai-labs
             cd mdai-labs
-            ./scripts/recipes/compliance/manual/setup.sh
+            ./scripts/recipes/compliance/guided/setup.sh
       - heading: "Start generating data"
         body: |
           Launch the demo services to emit traces/logs/metrics with deterministic volume.
         code:
           lang: bash
           text: |
-            ./scripts/recipes/compliance/manual/generate.sh
+            ./scripts/recipes/compliance/guided/generate.sh
       - heading: "Connect your data stream"
         body: |
           Point OTLP exporters to your MDAI Collector service endpoint.
@@ -34,7 +34,7 @@ manual:
         code:
           lang: bash
           text: |
-            ./scripts/recipes/compliance/manual/setup-086.sh
+            ./scripts/recipes/compliance/guided/setup-086.sh
 
 automated:
   "0.9.0":
