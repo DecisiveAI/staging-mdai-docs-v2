@@ -3,7 +3,7 @@
 title: "Install (Guided) - 0.8.5"
 type: frags
 url: "/_fragments/0.8.5/install_guided"
-_build:
+build:
   list: never
   render: always
 ---

@@ -1,6 +1,6 @@
 ---
 title: Compliance – Automated (0.8.6)
-_build:
+build:
   render: never
   list: never
 ---
