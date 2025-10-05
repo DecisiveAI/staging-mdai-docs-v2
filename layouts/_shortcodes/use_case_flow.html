@@ -1,76 +1,87 @@
-{{- /*
-Shortcode: use_case_flow
-Params:
-  - usecase (required): e.g. "compliance"
-  - mode    (required): "manual" | "automated"
-  - ver     (required): version dir like "0.9.0", "0.8.6"
-Reads: site.Data.use_case.<usecase>.manual[ver], .automated[ver], .static[ver], .dynamic[ver]
+
+{{- /* layouts/_shortcodes/use_case_flow.html
+     Version-rooted data with per-mode step content.
+     Params:
+       - usecase (required): e.g., "compliance" (maps to data/use_case/<usecase>.yaml)
+       - ver     (required): e.g., "0.9.0"
+       - mode    (required): "manual" | "automated"
+     Behavior:
+       - Renders flow title (if present)
+       - For each step: renders step.title
+           * If step.modes[mode].sections exists -> render those
+           * Else if step.sections exists -> render those
+           * Else if step.items exists -> render each item as a header
 */ -}}
 
-{{- $use := .Get "usecase" -}}
-{{- $mode := lower (.Get "mode") -}}
-{{- $ver  := .Get "ver" -}}
+{{- $page := .Page -}}
 
-{{- if not (and $use $mode $ver) -}}
-  {{- errorf "use_case_flow: missing param (need usecase, mode, ver)" -}}
+{{- $use := .Get "usecase" -}}
+{{- $ver  := .Get "ver" -}}
+{{- $mode := lower (.Get "mode") -}}
+
+{{- if not (and $use $ver $mode) -}}
+  {{- errorf "use_case_flow: missing param (need usecase, ver, mode)" -}}
 {{- end -}}
 
-{{- $root := index site.Data.use_case $use -}}
-{{- if not $root -}}
+{{- $all := index site.Data.use_case $use -}}
+{{- if not $all -}}
   {{- errorf "use_case_flow: data for %q not found under data/use_case" $use -}}
 {{- end -}}
 
-{{- $manual    := index (or $root.manual (dict))    $ver | default dict -}}
-{{- $automated := index (or $root.automated (dict)) $ver | default dict -}}
-{{- $static    := index (or $root.static (dict))    $ver | default dict -}}
-{{- $dynamic   := index (or $root.dynamic (dict))   $ver | default dict -}}
+{{- $node := index $all $ver -}}
+{{- if not $node -}}
+  {{- errorf "use_case_flow: version %q not found for %q" $ver $use -}}
+{{- end -}}
 
-{{- $active := cond (eq $mode "manual") $manual $automated -}}
+{{- $flow := or $node.flow (dict) -}}
+{{- $steps := or $flow.steps (slice) -}}
 
-{{- with $static -}}
+{{- with $flow.title }}
 
-<span></span>
+## {{ . }}
 
-## {{ .title | default (printf "See static %s" (title $use)) }}
+{{- end }}
 
+{{- range $steps }}
 
-  {{- range .sections }}
+### {{ .title }}
 
+  {{- /* Resolve sections with per-mode override */ -}}
+  {{- $sections := slice -}}
+  {{- $hasModes := (and (isset . "modes") (index . "modes")) -}}
+  {{- if $hasModes -}}
+    {{- $m := index .modes $mode -}}
+    {{- if and $m (isset $m "sections") -}}
+      {{- $sections = or $m.sections (slice) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if and (eq (len $sections) 0) (isset . "sections") -}}
+    {{- $sections = or .sections (slice) -}}
+  {{- end -}}
 
-### {{ .heading }}
-{{ .body | markdownify }}
-  {{- with .code }}
+  {{- if gt (len $sections) 0 }}
+    {{- range $sections }}
+
+#### {{ .heading }}
+
+{{ with .body }}
+  {{- $s := trim . "\n" -}}
+  {{- $out := $page.RenderString (dict "display" "block") $s -}}
+  {{- $out | safeHTML -}}
+{{ end }}
+
+{{- with .code }}
+
 ```{{ .lang | default "bash" }}
 {{ .text -}}
 ```
-  {{- end -}}
-  {{- end -}}
-{{- end -}}
-
-{{- with $dynamic -}}
-## {{ .title | default (printf "Add a dynamic %s" (title $use)) }}
-
-  {{- range .sections }}
-### {{ .heading }}
-{{ .body | markdownify }}
-  {{- with .code }}
-```{{ .lang | default "bash" }}
-{{ .text -}}
-```
-  {{- end -}}
-  {{- end -}}
-{{- end -}}
-
-{{- if $active.title }}
-## {{ $active.title }}
-{{- end -}}
-
-{{- range $active.sections }}
-### {{ .heading }}
-{{ .body | markdownify }}
-  {{- with .code }}
-```{{ .lang | default "bash" }}
-{{ .text -}}
-```
-  {{- end -}}
-{{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- else }}
+    {{- with .items }}
+      {{- range . }}
+#### {{ . }}
+      {{- end -}}
+    {{- end -}}
+  {{- end }}
+{{- end }}

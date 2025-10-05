@@ -38,7 +38,7 @@ Run the script to install your local MDAI cluster.
 This command installs a local kind cluster and `mdai`.
 
   ```bash
-  mdai install --version 0.8.6
+  mdai install --version 0.8.6 -f values/overrides_0.8.6.yaml
   ```
 
 {{% /details %}}
@@ -47,7 +47,7 @@ This command installs a local kind cluster and `mdai`.
 {{% details title="**Option 2: Install `mdai` without cert-manager**" closed="true" %}}
 
   ```bash
-  mdai --no-cert-manager install --version 0.8.6
+  mdai --no-cert-manager install --version 0.8.6 -f values/overrides_0.8.6.yaml
   ```
 
 {{% /details %}}
@@ -63,7 +63,7 @@ This command installs a local kind cluster and `mdai`.
   {{< /callout >}}
 
   ```bash
-  mdai install_mdai --version 0.8.6
+  mdai install_mdai --version 0.8.6 -f values/overrides_0.8.6.yaml
   ```
 
 {{% /details %}}
@@ -72,7 +72,7 @@ This command installs a local kind cluster and `mdai`.
 {{% details title="**Option 2: Install `mdai` without cert-manager**" closed="true" %}}
 
   ```bash
-  mdai --no-cert-manager install_mdai --version 0.8.6
+  mdai --no-cert-manager install_mdai --version 0.8.6 -f values/overrides_0.8.6.yaml
   ```
 
 {{% /details %}}

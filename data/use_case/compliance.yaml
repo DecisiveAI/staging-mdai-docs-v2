@@ -1,96 +1,77 @@
-guided:
-  "0.9.0":
-    title: "Guided – Step by Step"
-    sections:
-      - heading: "Provision use case resources"
-        body: |
-          Use the **mdai-labs** repo to provision a minimal cluster profile for this recipe.
-          Confirm your nodes meet the required CPU/memory.
-        code:
-          lang: bash
-          text: |
-            git clone https://github.com/DecisiveAI/mdai-labs
-            cd mdai-labs
-            ./scripts/recipes/compliance/guided/setup.sh
-      - heading: "Start generating data"
-        body: |
-          Launch the demo services to emit traces/logs/metrics with deterministic volume.
-        code:
-          lang: bash
-          text: |
-            ./scripts/recipes/compliance/guided/generate.sh
-      - heading: "Connect your data stream"
-        body: |
-          Point OTLP exporters to your MDAI Collector service endpoint.
-      - heading: "Validate dataflow with Prometheus"
-        body: |
-          Open Grafana and verify series for `mdai_collector_*`.
+# data/use_case/compliance.yaml
+"0.8.6":
+  flow:
+    title: "Compliance flow"
+    steps:
+      - title: "Step 1. introduce otel and mdai into your cluster"
+        modes:
+          automated:
+            sections:
+              - heading: "Provision use case resources (hub, otel, data)"
+                lang: "bash"
+                body: |
+                  ```
+                  mdai use-case compliance --version 0.8.6
+                  ```
+              - heading: "Validate dataflow with Grafana"
+                body: |
+                  Open the [OTel Data Flow Dashboard](http://localhost:3000/d/otel_view/otel-data-flow?orgId=1&from=now-15m&to=now&refresh=auto)
 
-  "0.8.6":
-    title: "Guided – Step by Step (0.8.6)"
-    sections:
-      - heading: "Provision resources"
-        body: "Same as 0.9.0 but uses legacy chart values."
-        code:
-          lang: bash
-          text: |
-            ./scripts/recipes/compliance/guided/setup-086.sh
+                  >Note: If you haven't yet logged into Grafana, the username is `admin` and password is `mdai`.
 
-automated:
-  "0.9.0":
-    title: "Automated – Scripted Install"
-    sections:
-      - heading: "Run the one-liner"
-        body: |
-          This path installs the recipe and pre-wires exporters.
-        code:
-          lang: bash
-          text: |
-            curl -fsSL https://get.mydecisive.ai/recipes/compliance.sh | bash
-      - heading: "Validate pipeline"
-        body: "Check the dashboards & logs for successful flow."
+                  ```
+                  kubectl port-forward -n mdai svc/mdai-grafana 3000:80
+                  ```
+          manual:
+            sections:
+              - heading: "Provision use case resources (hub & otel)"
+                lang: "bash"
+                body: |
+                  ```
+                  agjoasijgiaosg
+                  ```
 
-  "0.8.6":
-    title: "Automated – Scripted (0.8.6)"
-    sections:
-      - heading: "Run the one-liner"
-        body: "Legacy flags are used under 0.8.6."
-        code:
-          lang: bash
-          text: |
-            mdai use-case compliance --version 0.8.6
 
-static:
-  "0.9.0":
-    title: "See static Compliance"
-    sections:
-      - heading: "Static Otel"
-        body: |
-          Use fixed sampling and routing. Good for initial baselines.
-      - heading: "Validate dataflow with Prometheus"
-        body: "Confirm steady-state metrics and error budgets."
-  "0.8.6":
-    title: "See static Compliance (0.8.6)"
-    sections:
-      - heading: "Static Otel"
-        code:
-        lang: bash
-        text:
-          mdai --apply_file path/to/otel_config.yaml
+              - heading: "Start generating data"
+                body: "Run the generator job..."
 
-dynamic:
-  "0.9.0":
-    title: "Add a dynamic Compliance"
-    sections:
-      - heading: "Parameterize Otel"
-        body: |
-          Introduce dynamic rules (sampling, routing, PII policies) via MDAI.
-      - heading: "Validate dataflow with Prometheus"
-        body: "Expect rate shifts as rules change."
-      - heading: "View custom dashboard"
-        body: "Use the Compliance dashboard panel group."
-  "0.8.6":
-    title: "Add a dynamic Compliance (0.8.6)"
-    sections:
-      - heading: "Parameterize Otel"
-        body: "Same concepts; check legacy flags."
+              - heading: "Connect your data stream"
+                body: "Configure exporters manually..."
+
+              - heading: "Validate dataflow with Prometheus"
+                body: "Check mdai_collector_* in Prometheus..."
+
+
+      - title: "Step 2. use mdai recipe to statically achieve use case"
+        sections:        # ← shared across modes (falls back to this)
+          - heading: "Update provisioned resources (hub & otel)"
+            body: "Apply static routing/sampling..."
+
+          - heading: "Validate dataflow with Prometheus"
+            body: "Confirm baseline metrics..."
+
+
+      - title: "Step 3. use mdai & otel to dynamically achieve use case"
+        modes:
+          automated:
+            sections:
+              - heading: "Update provisioned resources (hub & otel)"
+                body: "Automated dynamic rules via script..."
+
+              - heading: "Validate dataflow with Prometheus"
+                body: "Observe rate shifts..."
+
+          manual:
+            sections:
+              - heading: "Update provisioned resources (hub & otel)"
+                body: "Manually apply dynamic rules..."
+
+              - heading: "Validate dataflow with Prometheus"
+                body: "Track changes in dashboards..."
+
+
+"0.9.0":
+  flow:
+    title: "Compliance flow"
+    steps:
+      # same step titles; content can differ per mode for this version as well
