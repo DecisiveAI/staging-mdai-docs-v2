@@ -14,14 +14,18 @@
                   mdai use-case compliance --version 0.8.6
                   ```
               - heading: "Validate dataflow with Grafana"
+                info: |
+                  If you haven't yet logged into Grafana, the login is `admin` / `mdai`"
                 body: |
-                  Open the [OTel Data Flow Dashboard](http://localhost:3000/d/otel_view/otel-data-flow?orgId=1&from=now-15m&to=now&refresh=auto)
-
-                  >Note: If you haven't yet logged into Grafana, the username is `admin` and password is `mdai`.
-
                   ```
                   kubectl port-forward -n mdai svc/mdai-grafana 3000:80
                   ```
+
+                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/otel_view/otel-data-flow?orgId=1&from=now-15m&to=now&refresh=5s)
+
+                  ![Grafana](../../../../images/compliance/step_1.png)
+
+                  You should see a consistent stream of data and a 1:1 ratio of logs received : logs exported
           manual:
             sections:
               - heading: "Provision use case resources (hub & otel)"
