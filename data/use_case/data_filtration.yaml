@@ -1,13 +1,13 @@
-# data/use_case/compliance.yaml
+# data/use_case/data_filtration.yaml
 "0.8.6":
   flow:
-    title: "Compliance flow"
+    title: "Data Filtration flow"
     steps:
       - title: "Overview"
         sections: # ← shared across modes (falls back to this)
           - heading: Let's get started with the basics
             body: |
-              To achieve control your Compliance pipelines, you'll need to...
+              To achieve control your Data Filtration pipelines, you'll need to...
               1. Create a synthetic log stream that forwards data to your collector
               1. Create an OpenTelemetry collector to connect your data sources to destinations
               1. Create an MdaiHub to create dynamic control your data streams
@@ -18,18 +18,38 @@
         modes:
           automated:
             sections:
-              - heading: "Provision resources for your Compliance pipeline"
+              - heading: "Provision resources for your Data Filtration pipeline"
                 lang: "bash"
                 body: |
                   Run the following command an you'll deploy mock data, otel, and an MDAI Hub
 
                   ```
-                  mdai use-case compliance --version 0.8.6 --workflow basic
+                  mdai use-case data_filtration --version 0.8.6 --workflow basic
                   ```
+
+              - heading: "Provision resources for your Data Filtration pipeline"
+                lang: "bash"
+                body: |
+                  Separately, install a `fluentD` instance to forward your synthetic log streams to the OTel collector.
+
+                  You'll now see traffic flowing through to the collector
+
+                  * `service1` - `service1000` - Normal logging from these services
+                  * `service1234` - A noisy service
+                  * `service4321` - A super noisy service
+
+
+                  ```
+                  helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f ./synthetics/loggen_fluent_config.yaml
+                  ```
+
+
+
 
               - heading: "Validate dataflow with Grafana"
                 info: |
-                  If you haven't yet logged into Grafana, the login is `admin` / `mdai`
+                  If you haven't yet logged into Grafana, the login is `admin` / `mdai`<br /><br />
+                  Note: It may take a few minutes for data to start showing up in the dashboards.
                 body: |
                   ```
                   kubectl port-forward -n mdai svc/mdai-grafana 3000:80
@@ -37,7 +57,7 @@
 
                   Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/otel_view/otel-data-flow?orgId=1&from=now-15m&to=now&refresh=5s)
 
-                  ![Grafana](../../../../images/compliance/step_1.png)
+                  ![Grafana](../../../../images/data_filtration/step_1.png)
 
                   You should see a consistent stream of data and a 1:1 ratio of logs received : logs exported
 
@@ -48,22 +68,23 @@
                   Kick off your synthetic data generators. This will represent log streams from your services and/or infra in your existing ecosystem.
 
                   ```
-                  kubectl  apply -f ./mock-data/compliance.yaml -n mdai
+                  kubectl  apply -f ./mock-data/data_filtration.yaml -n mdai
                   ```
 
-              - heading: "Provision resources for your Compliance pipeline"
+              - heading: "Provision resources for your Data Filtration pipeline"
                 lang: "bash"
                 body: |
                   Run the following commands and you'll see these resources created.
 
                   ```
-                  kubectl  apply -f ./0.8.6/use_cases/compliance/basic/otel.yaml -n mdai
+                  kubectl  apply -f ./0.8.6/use_cases/data_filtration/basic/otel.yaml -n mdai
                   ```
 
 
               - heading: "Validate dataflow with Grafana"
                 info: |
-                  If you haven't yet logged into Grafana, the login is `admin` / `mdai`
+                  If you haven't yet logged into Grafana, the login is `admin` / `mdai`<br /><br />
+                  Note: It may take a few minutes for data to start showing up in the dashboards.
                 body: |
                   ```
                   kubectl port-forward -n mdai svc/mdai-grafana 3000:80
@@ -71,7 +92,7 @@
 
                   Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/otel_view/otel-data-flow?orgId=1&from=now-15m&to=now&refresh=5s)
 
-                  ![Grafana](../../../../images/compliance/step_1.png)
+                  ![Grafana](../../../../images/data_filtration/step_1.png)
 
                   You should see a consistent stream of data and a 1:1 ratio of logs received : logs exported
 
@@ -84,14 +105,17 @@
                   Update your collector to utilize static routing.
 
                   ```
-                  mdai use_case compliance --version 0.8.6 --workflow static
+                  mdai use_case data_filtration --version 0.8.6 --workflow static
                   ```
 
               - heading: "Validate dataflow with Grafana"
                 body: |
+                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/otel_view/otel-data-flow?orgId=1&from=now-15m&to=now&refresh=5s)
+
+
                   You should see that your log stream no longer sends the 1:1 ratio and has decreased the amount exported.
 
-                  ![Grafana](../../../../images/compliance/step_2.png)
+                  ![Grafana](../../../../images/data_filtration/step_2.png)
 
           manual:
             sections:
@@ -100,51 +124,64 @@
                   Update your collector to utilize static routing.
 
                   ```
-                  kubectl  apply -f ./0.8.6/use_cases/compliance/static/otel.yaml -n mdai
+                  kubectl  apply -f ./0.8.6/use_cases/data_filtration/static/otel.yaml -n mdai
                   ```
 
               - heading: "Validate dataflow with Grafana"
                 body: |
-                  You should see that your log stream no longer sends the 1:1 ratio and has decreased the amount exported.
+                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/otel_view/otel-data-flow?orgId=1&from=now-15m&to=now&refresh=5s)
 
-                  ![Grafana](../../../../images/compliance/step_2.png)
+                  You should see that your log stream no longer sends the 1:1 ratio and has significantly decreased the amount exported.
+
+                  ![Grafana](../../../../images/data_filtration/step_2.png)
 
       - title: "Step 3. Use MyDecisive to parameterize achieve use case"
-        sections:
-          - heading: "Coming soon..."
-            body: |
-              ![Coming soon](../../../../images/nothing_to_see_here.png)
-        # modes:
-        #   automated:
-        #       - heading: "Apply parameterized routing"
-        #         body: "Automated dynamic rules via script..."
+        modes:
+          automated:
+            sections:
+              - heading: "Apply dynamic filtration"
+                body: |
+                  Provision dynamic resources:
+                  ```
+                  mdai use-case data_filtration --version 0.8.6 --workflow dynamic
+                  ```
 
-        #       - heading: "Validate dataflow with Prometheus"
-        #         body: "Observe rate shifts..."
+                  Provision an observer
+                  ```
+                  mdai apply ./0.8.6/use_cases/data_filtration/dynamic/observer.yaml -n mdai
+                  ```
 
-        #   manual:
-        #     sections:
-        #       - heading: "Update provisioned resources (hub & otel)"
-        #         body: "Manually apply dynamic rules..."
+              - heading: "Validate dataflow with Prometheus"
+                body: |
+                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/otel_view/otel-data-flow?orgId=1&from=now-15m&to=now&refresh=5s)
 
-        #       - heading: "Validate dataflow with Prometheus"
-        #         body: "Track changes in dashboards..."
+                  You should see that your log stream no longer sends the 1:1 ratio and has significantly decreased the amount exported.
+
+                  ![Grafana](../../../../images/data_filtration/step_3.png)
+
+          manual:
+            sections:
+              - heading: "Update provisioned resources (hub & otel)"
+                body: "Manually apply dynamic rules..."
+
+              - heading: "Validate dataflow with Prometheus"
+                body: "Track changes in dashboards..."
 
       - title: "Congrats 🎉"
         sections:
           - heading: "You've completed this recipe!"
             body: |
-              You successfully completed the compliance use case
+              You successfully completed the Data Filtration use case
 
 "0.9.0":
   flow:
-    title: "Compliance flow"
+    title: "Data Filtration flow"
     steps:
       - title: "Overview"
         sections: # ← shared across modes (falls back to this)
           - heading: Let's get started with the basics
             body: |
-              To achieve control your Compliance pipelines, you'll need to...
+              To achieve control your Data Filtration pipelines, you'll need to...
               1. Create a synthetic log stream that forwards data to your collector
               1. Create an OpenTelemetry collector to connect your data sources to destinations
               1. Create an MdaiHub to create dynamic control your data streams
@@ -155,13 +192,13 @@
         modes:
           automated:
             sections:
-              - heading: "Provision resources for your Compliance pipeline"
+              - heading: "Provision resources for your Data Filtration pipeline"
                 lang: "bash"
                 body: |
                   Run the following command an you'll deploy mock data, otel, and an MDAI Hub
 
                   ```
-                  mdai use-case compliance --version 0.9.0 --workflow basic
+                  mdai use-case data_filtration --version 0.9.0 --workflow basic
                   ```
 
               - heading: "Validate dataflow with Grafana"
@@ -174,7 +211,7 @@
 
                   Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/otel_view/otel-data-flow?orgId=1&from=now-15m&to=now&refresh=5s)
 
-                  ![Grafana](../../../../images/compliance/step_1.png)
+                  ![Grafana](../../../../images/data_filtration/step_1.png)
 
                   You should see a consistent stream of data and a 1:1 ratio of logs received : logs exported
 
@@ -185,16 +222,16 @@
                   Kick off your synthetic data generators. This will represent log streams from your services and/or infra in your existing ecosystem.
 
                   ```
-                  kubectl  apply -f ./mock-data/compliance.yaml -n mdai
+                  kubectl  apply -f ./mock-data/fluentd_config.yaml -n mdai
                   ```
 
-              - heading: "Provision resources for your Compliance pipeline"
+              - heading: "Provision resources for your Data Filtration pipeline"
                 lang: "bash"
                 body: |
                   Run the following commands and you'll see these resources created.
 
                   ```
-                  kubectl  apply -f ./0.9.0/use_cases/compliance/basic/otel.yaml -n mdai
+                  kubectl  apply -f ./0.9.0/use_cases/data_filtration/basic/otel.yaml -n mdai
                   ```
 
 
@@ -208,7 +245,7 @@
 
                   Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/otel_view/otel-data-flow?orgId=1&from=now-15m&to=now&refresh=5s)
 
-                  ![Grafana](../../../../images/compliance/step_1.png)
+                  ![Grafana](../../../../images/data_filtration/step_1.png)
 
                   You should see a consistent stream of data and a 1:1 ratio of logs received : logs exported
 
@@ -221,14 +258,14 @@
                   Update your collector to utilize static routing.
 
                   ```
-                  mdai use_case compliance --version 0.9.0 --workflow static
+                  mdai use_case data_filtration --version 0.9.0 --workflow static
                   ```
 
               - heading: "Validate dataflow with Grafana"
                 body: |
                   You should see that your log stream no longer sends the 1:1 ratio and has decreased the amount exported.
 
-                  ![Grafana](../../../../images/compliance/step_2.png)
+                  ![Grafana](../../../../images/data_filtration/step_2.png)
 
           manual:
             sections:
@@ -237,14 +274,14 @@
                   Update your collector to utilize static routing.
 
                   ```
-                  kubectl  apply -f ./0.9.0/use_cases/compliance/static/otel.yaml -n mdai
+                  kubectl  apply -f ./0.9.0/use_cases/data_filtration/static/otel.yaml -n mdai
                   ```
 
               - heading: "Validate dataflow with Grafana"
                 body: |
                   You should see that your log stream no longer sends the 1:1 ratio and has decreased the amount exported.
 
-                  ![Grafana](../../../../images/compliance/step_2.png)
+                  ![Grafana](../../../../images/data_filtration/step_2.png)
 
       - title: "Step 3. Use MyDecisive to parameterize achieve use case"
         sections:
@@ -271,7 +308,7 @@
         sections:
           - heading: "You've completed this recipe!"
             body: |
-              You successfully completed the compliance use case
+              You successfully completed the Data Filtration use case
 
 
 

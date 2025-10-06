@@ -22,7 +22,7 @@ Filter telemetry streams in real time using dynamic rules that adapt to services
 
     {{< runtime_switcher
         base="docs/2_recipes/use_cases/data_filtration/_fragments"
-        choose="manual"
+        choose="automated"
         keymap=`{
           "0.9.0": "0.9.0",
           "0.8.6": "0.8.6"
@@ -33,7 +33,7 @@ Filter telemetry streams in real time using dynamic rules that adapt to services
   {{< tab >}}
     {{< runtime_switcher
         base="docs/2_recipes/use_cases/data_filtration/_fragments"
-        choose="automated"
+        choose="manual"
         keymap=`{
           "0.9.0": "0.9.0",
           "0.8.6": "0.8.6"
@@ -43,10 +43,9 @@ Filter telemetry streams in real time using dynamic rules that adapt to services
 {{< /tabs >}}
 
 
-## Advanced setup (Hungry for more?)
 
 {{< cards cols="4" >}}
-  {{< card link="/docs/2_recipes/use_cases/data_filtration/advanced" title="Relevant link to advanced" >}}
-  {{< card link="/docs/recipes" title="Go back to recipes" >}}
+  {{< card link="/docs/2_recipes/use_cases/data_filtration/advanced" title="Hungry for more?" >}}
+  {{< card link="/docs/2_recipes" title="Go back to recipes" >}}
 {{< /cards >}}
 

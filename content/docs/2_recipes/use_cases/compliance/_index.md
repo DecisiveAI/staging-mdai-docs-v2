@@ -42,3 +42,8 @@ For the required MDAI cluster resources, clone the [mdai-labs GitHub repo](https
     >}}
   {{< /tab >}}
 {{< /tabs >}}
+
+
+{{< cards cols="4" >}}
+  {{< card link="/docs/2_recipes" title="Discover more recipes" >}}
+{{< /cards >}}
