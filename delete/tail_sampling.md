@@ -2,11 +2,11 @@
 title: Dynamic Tail Sampling
 ---
 
-#### Use case
+## Use case
 
 Control data volume and fidelity with tail-based sampling rules that adapt to traffic patterns and business context—ensuring high-value traces are kept while reducing noise.
 
-#### Prerequisites
+## Prerequisites
 
 1. OTel collector for centralizing trace spans
 1. OTel collector to apply your sampling policies to (by service/error/latency/user)

@@ -1,7 +1,8 @@
 ---
-title: Centralized Governance
+title: MDAI Auditor
 weight: 1
 ---
+
 ## Use case
 
 Enforce global governance policies for telemetry—covering compliance, retention, and access—across all pipelines and environments from a single control plane.
@@ -22,7 +23,7 @@ For the required MDAI cluster resources, clone the [mdai-labs GitHub repo](https
 {{< tabs items="Automated, Manual" >}}
   {{< tab >}}
     {{< runtime_switcher
-        base="docs/2_recipes/platform/centralized_gov/_fragments"
+        base="docs/2_recipes/platform/mdai_auditor/_fragments"
         choose="automated"
         keymap=`{
           "0.9.0": "0.9.0",
@@ -33,7 +34,7 @@ For the required MDAI cluster resources, clone the [mdai-labs GitHub repo](https
 
   {{< tab >}}
     {{< runtime_switcher
-        base="docs/2_recipes/platform/centralized_gov/_fragments"
+        base="docs/2_recipes/platform/mdai_auditor/_fragments"
         choose="manual"
         keymap=`{
           "0.9.0": "0.9.0",

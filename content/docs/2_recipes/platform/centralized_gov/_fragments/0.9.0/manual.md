@@ -1,19 +1,8 @@
-###### Default config
+---
+title: Centralized Gov – Manual (0.9.0)
+build:
+  render: never
+  list: never
+---
 
-<p class="mdai-description-text">Default config and you get these things</p>
-
-    ```bash
-    some code
-    ```
-
-###### Get insights (Dashboard)
-
-    ```bash
-    some more code
-    ```
-
-###### Level-up with Dynamic (parameterized config)
-
-    ```bash
-    some more code
-    ```
+{{< platform_flow platform="centralized_gov" mode="manual" ver="0.9.0" >}}

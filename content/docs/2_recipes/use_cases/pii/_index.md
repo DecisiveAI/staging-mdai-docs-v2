@@ -2,11 +2,11 @@
 title: PII Redaction
 ---
 
-#### Use case
+## Use case
 
 Protect sensitive data by applying programmable redaction rules to strip personally identifiable information (PII) from telemetry streams before it leaves your boundary.
 
-#### Prerequisites
+## Prerequisites
 
 1. OTel collector for pii scrubbing
 1. Policy definitions for what constitutes PII (regex, field names, JSON paths, etc.)

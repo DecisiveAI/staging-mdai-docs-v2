@@ -84,8 +84,8 @@ platform:
     status:
       - { name: "development", color: "yellow" }
 
-  - title: "MDAI Monitor"
-    link: "platform/mdai_monitor"
+  - title: "MDAI Auditor"
+    link: "platform/mdai_auditor"
     tags:
       - { name: "storage", color: "orange" }
       - { name: "logs", color: "blue" }

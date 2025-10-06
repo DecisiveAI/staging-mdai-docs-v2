@@ -1,0 +1,93 @@
+{{- /* layouts/_shortcodes/platform_flow.html
+     Params:
+       platform (required) - e.g. "centralized_gov" => data/platform/centralized_gox.yaml
+       ver     (required) - e.g. "0.8.6"
+       mode    (required) - "manual" | "automated"
+       info (optional) - global info text; appears ABOVE each section body unless a per-section info is present
+     Notes:
+       - Renders info and body if both are present.
+       - Per-section info via 'info:' overrides global param.
+*/ -}}
+
+{{- $plat          := .Get "platform" -}}
+{{- $ver          := .Get "ver" -}}
+{{- $mode         := lower (.Get "mode") -}}
+{{- $infoParam := .Get "info" -}}
+{{- $page         := .Page -}}
+
+{{- if not (and $plat $ver $mode) -}}
+  {{- errorf "platform_flow: missing param(s). Need platform, ver, mode. Got platform=%q ver=%q mode=%q" $plat $ver $mode -}}
+{{- end -}}
+
+{{- $all := index site.Data.platform $plat -}}
+{{- if not $all -}}
+  {{- errorf "platform_flow: data for %q not found under data/platform" $plat -}}
+{{- end -}}
+
+{{- $node := index $all $ver -}}
+{{- if not $node -}}
+  {{- errorf "platform_flow: version %q not found for platform %q" $ver $plat -}}
+{{- end -}}
+
+{{- $flow  := or $node.flow (dict) -}}
+{{- $steps := or $flow.steps (slice) -}}
+
+{{- with $flow.title -}}
+  {{- $o := $page.RenderString (dict "display" "block") (printf "## %s" .) -}}
+  {{- $o | safeHTML -}}
+{{- end -}}
+
+{{- range $i, $step := $steps }}
+  {{- $o := $page.RenderString (dict "display" "block") (printf "### %s" $step.title) -}}
+  {{- $o | safeHTML -}}
+
+  {{- /* Prefer per-mode sections, else generic sections */ -}}
+  {{- $hasMode   := and $step.modes (index $step.modes $mode) -}}
+  {{- $modeEntry := cond $hasMode (index $step.modes $mode) (dict) -}}
+  {{- $sections  := or (and $modeEntry (index $modeEntry "sections")) $step.sections -}}
+
+  {{- if $sections }}
+    {{- range $j, $sec := $sections }}
+
+      {{- with $sec.heading -}}
+        {{- $o := $page.RenderString (dict "display" "block") (printf "#### %s" .) -}}
+        {{- $o | safeHTML -}}
+      {{- end -}}
+
+      {{- $secinfo := or $sec.info $infoParam -}}
+      {{- if $secinfo }}
+        <div class="hx:overflow-x-auto hx:mt-6 hx:flex hx:rounded-lg hx:border hx:py-2 hx:ltr:pr-4 hx:rtl:pl-4 hx:contrast-more:border-current hx:contrast-more:dark:border-current hx:border-amber-200 hx:bg-amber-100 hx:text-amber-900 hx:dark:border-amber-200/30 hx:dark:bg-amber-900/30 hx:dark:text-amber-200">
+          <div class="hx:ltr:pl-3 hx:ltr:pr-2 hx:rtl:pr-3 hx:rtl:pl-2">
+            <svg height="1.2em" class="hx:inline-block hx:align-middle" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54.0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464.0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+            </svg>
+          </div>
+          <div class="hx:w-full hx:min-w-0 hx:leading-7">
+            {{ $secinfo | markdownify | safeHTML }}
+          </div>
+        </div>
+      {{- end }}
+
+
+      {{- with $sec.body -}}
+        {{- $out := $page.RenderString (dict "display" "block") (trim . "\n") -}}
+        {{- $out | safeHTML -}}
+      {{- end -}}
+
+      {{- with $sec.code -}}
+        {{- $lang := (.lang | default "bash") -}}
+        {{- $code := printf "```%s\n%s\n```" $lang .text -}}
+        {{- $out := $page.RenderString (dict "display" "block") $code -}}
+        {{- $out | safeHTML -}}
+      {{- end -}}
+
+    {{- end -}}
+  {{- else }}
+    {{- with $step.items }}
+      {{- range $k, $it := . }}
+        {{- $o := $page.RenderString (dict "display" "block") (printf "#### %s" $it) -}}
+        {{- $o | safeHTML -}}
+      {{- end -}}
+    {{- end }}
+  {{- end }}
+{{- end }}

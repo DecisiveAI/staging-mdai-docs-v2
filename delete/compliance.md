@@ -1,11 +1,11 @@
 ---
 title: Compliance
 ---
-#### Use case
+## Use case
 
 Guarantee regulatory compliance by forking every telemetry stream—no matter where the data is routed, filtered, or sampled—and persisting a full, unmodified copy into long-term cold or glacial storage for audit and retention needs.
 
-#### Prerequisites
+## Prerequisites
 
 1. Long-term storage backend (cold/glacial tiers)
 1. Fork/tee in pipeline

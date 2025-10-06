@@ -26,7 +26,7 @@ Ensure logs are structured (e.g., JSON or key-value) so correlation fields (trac
   {{< tab >}}
 
     {{< runtime_switcher
-        base="docs/2_recipes/use_cases/logs_in_cts/_fragments"
+        base="docs/2_recipes/use_cases/logs_in_ctx/_fragments"
         choose="automated"
         keymap=`{
           "0.9.0": "0.9.0",
@@ -37,7 +37,7 @@ Ensure logs are structured (e.g., JSON or key-value) so correlation fields (trac
 
   {{< tab >}}
     {{< runtime_switcher
-        base="docs/2_recipes/use_cases/logs_in_cts/_fragments"
+        base="docs/2_recipes/use_cases/logs_in_ctx/_fragments"
         choose="manual"
         keymap=`{
           "0.9.0": "0.9.0",

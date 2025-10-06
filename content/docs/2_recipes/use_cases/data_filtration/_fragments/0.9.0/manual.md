@@ -46,11 +46,3 @@ kubectl apply -f ./prometheus/scrape_collector_count_metrics.yaml -n mdai
 ```sh
 helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f ./synthetics/loggen_fluent_config.yaml
 ```
-
-### What do to after manual install?
-
-Jump to our docs to see how to use mdai to:
-1. [setup dashboards for mdai monitoring](https://docs.mydecisive.ai/quickstart/dashboard/index.html)
-2. [automate dynamic filtration](https://docs.mydecisive.ai/quickstart/filter/index.html)
-
-## Appendix: how to make error conditions happen for testing

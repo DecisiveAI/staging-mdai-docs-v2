@@ -1,0 +1,11 @@
+# data/use_case/centralized_gov.yaml
+"0.8.6":
+  flow:
+    title: "Centralized Ingest"
+    steps:
+      - title: "Overview"
+        sections:
+          - heading: "Coming soon..."
+            body: |
+              ![Coming soon](../../../../images/nothing_to_see_here.png)
+

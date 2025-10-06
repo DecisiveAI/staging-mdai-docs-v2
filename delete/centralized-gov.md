@@ -1,11 +1,11 @@
 ---
 weight: 1
 ---
-#### Use case
+## Use case
 
 Enforce global governance policies for telemetry—covering compliance, retention, and access—across all pipelines and environments from a single control plane.
 
-#### Prerequisites
+## Prerequisites
 
 1. Policy distribution/control plane
 1. RBAC & roles/approvals
