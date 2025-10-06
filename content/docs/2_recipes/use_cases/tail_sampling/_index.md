@@ -43,11 +43,8 @@ Control data volume and fidelity with tail-based sampling rules that adapt to tr
   {{< /tab >}}
 {{< /tabs >}}
 
-
-## Advanced setup (Hungry for more?)
+----
 
 {{< cards cols="4" >}}
-  {{< card link="/docs/2_recipes/use_cases/data_filtration/advanced" title="Relevant link to advanced" >}}
-  {{< card link="/docs/recipes" title="Go back to recipes" >}}
+  {{< card link="/docs/2_recipes" title="Discover more recipes" >}}
 {{< /cards >}}
-

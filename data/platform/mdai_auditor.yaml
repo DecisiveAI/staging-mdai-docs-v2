@@ -9,3 +9,13 @@
             body: |
               ![Coming soon](../../../../images/nothing_to_see_here.png)
 
+"0.9.0":
+  flow:
+    title: "Mdai Auditor"
+    steps:
+      - title: "Overview"
+        sections:
+          - heading: "Coming soon..."
+            body: |
+              ![Coming soon](../../../../images/nothing_to_see_here.png)
+

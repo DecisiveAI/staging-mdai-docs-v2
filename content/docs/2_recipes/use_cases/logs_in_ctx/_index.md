@@ -47,10 +47,9 @@ Ensure logs are structured (e.g., JSON or key-value) so correlation fields (trac
   {{< /tab >}}
 {{< /tabs >}}
 
-
-## Advanced setup (Hungry for more?)
+----
 
 {{< cards cols="4" >}}
-  {{< card link="/docs/recipes" title="Go back to recipes" >}}
+  {{< card link="/docs/2_recipes" title="Discover more recipes" >}}
 {{< /cards >}}
 

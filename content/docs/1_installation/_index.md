@@ -76,5 +76,5 @@ When you're done installing the MDAI cluster, visit [Recipes List](/docs/2_recip
 
 {{< cards cols="4" >}}
   {{< card link="/docs/2_recipes" title="Explore recipes" >}}
-  {{< card link="/docs/5_support" title="Get support" >}}
+  {{< card link="/docs/3_support" title="Get support" >}}
 {{< /cards >}}

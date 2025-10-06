@@ -42,10 +42,8 @@ Filter telemetry streams in real time using dynamic rules that adapt to services
   {{< /tab >}}
 {{< /tabs >}}
 
-
+----
 
 {{< cards cols="4" >}}
-  {{< card link="/docs/2_recipes/use_cases/data_filtration/advanced" title="Hungry for more?" >}}
-  {{< card link="/docs/2_recipes" title="Go back to recipes" >}}
+  {{< card link="/docs/2_recipes" title="Discover more recipes" >}}
 {{< /cards >}}
-
