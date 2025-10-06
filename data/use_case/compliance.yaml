@@ -10,12 +10,19 @@
               - heading: "Provision use case resources (hub, otel, data)"
                 lang: "bash"
                 body: |
+                  In this steps you'll create deployments that
+                  1. Create an MdaiHub
+                  1. Create an OpenTelemetry collector
+                  1. Create a synthetic log stream that forwards data to your collector
+
+                  Run the following command an you'll see these resources created.
+
                   ```
                   mdai use-case compliance --version 0.8.6
                   ```
               - heading: "Validate dataflow with Grafana"
                 info: |
-                  If you haven't yet logged into Grafana, the login is `admin` / `mdai`"
+                  If you haven't yet logged into Grafana, the login is `admin` / `mdai`
                 body: |
                   ```
                   kubectl port-forward -n mdai svc/mdai-grafana 3000:80
@@ -31,8 +38,16 @@
               - heading: "Provision use case resources (hub & otel)"
                 lang: "bash"
                 body: |
+                  Update your collector to utilize static routing. We've prepared a file for you, `0.8.6/use_cases/compliance/otel_static.yaml`
+
                   ```
-                  agjoasijgiaosg
+                  mdai use_case compliance --version 0.8.6 --otel 0.8.6/use_cases/compliance/otel_static.yaml
+                  ```
+
+                  ![Grafana](../../../../images/compliance/step_2.png)
+
+                  ```
+
                   ```
 
 
@@ -48,12 +63,19 @@
 
       - title: "Step 2. use mdai recipe to statically achieve use case"
         sections:        # ← shared across modes (falls back to this)
-          - heading: "Update provisioned resources (hub & otel)"
-            body: "Apply static routing/sampling..."
+          - heading: "Apply static routing/sampling..."
+            body: |
+              Update your collector to utilize static routing. We've prepared a file for you, `0.8.6/use_cases/compliance/otel_static.yaml`
 
-          - heading: "Validate dataflow with Prometheus"
-            body: "Confirm baseline metrics..."
+              ```
+              mdai use_case compliance --version 0.8.6 --otel 0.8.6/use_cases/compliance/otel_static.yaml
+              ```
 
+          - heading: "Validate dataflow with Grafana"
+            body: |
+              You should see that your log stream no longer sends the 1:1 ratio and has decreased the amount exported.
+
+              ![Grafana](../../../../images/compliance/step_2.png)
 
       - title: "Step 3. use mdai & otel to dynamically achieve use case"
         modes:
