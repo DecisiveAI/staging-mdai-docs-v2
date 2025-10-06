@@ -28,33 +28,36 @@ Full: {{< version format="semver" >}}
 
 <div class="hx:mb-12">
 {{< hextra/hero-subtitle >}}
- Take back control. End the Break-Fix cycle using the MyDecisive Smart Telemetry Hub.
+Take back control. End the Break-Fix cycle.<br /><br />
+Use the MyDecisive Smart Telemetry Hub.
 {{< /hextra/hero-subtitle >}}
 </div>
 
-
-
-<!-- DIAGRAM -->
 
 <div class="hx:mt-6 hx:mb-6">
 {{< hextra/hero-headline >}}
-  How it works
+  Quick links
 {{< /hextra/hero-headline >}}
 </div>
 
-<div class="hx:mb-12">
-{{< hextra/hero-subtitle >}}
-We connect your services and infra to any otlp-compatible destination.
-{{< /hextra/hero-subtitle >}}
-</div>
+{{< hextra/feature-grid >}}
+  {{< hextra/feature-card
+    link="/docs/2_recipes/use_cases/data_filtration/"
+    title="Data Filtration"
+    subtitle="**Our #1 use case!**<br/> Cut off those noisy services and only send what you need."
+  >}}
+  {{< hextra/feature-card
+    link="https://github.com/DecisiveAI/mdai-labs/blob/main/cli/docs/usage.md"
+    title="Show me the CLI"
+    subtitle="**Enhance your experience**<br/> Start using our CLI-like script to install and manage mdai"
+  >}}
+  {{< hextra/feature-card
+    link="/docs/1_installation/#choose-an-installation-method"
+    title="Install now"
+    subtitle="**Install MyDecisive** Your first step in taking back control over your telemetry streams."
+  >}}
+{{< /hextra/feature-grid >}}
 
-<a href="/images/overview-auto.png" target="_blank" rel="noopener noreferrer">
-  <img alt="MyDecisive Overview" src="/images/overview-auto.png">
-</a>
-
-<br />
-
-<!-- CHOOSE YOUR DESTINATION -->
 
 <div class="hx:mt-6 hx:mb-6">
 {{< hextra/hero-headline >}}
@@ -70,8 +73,8 @@ We connect your services and infra to any otlp-compatible destination.
     >}}
     {{< hextra/feature-card
       link="/docs/0_getting-started"
-      title="Test drive MyDecisive"
-      subtitle="Ready to start taking control of your telemetry streams? Start using MyDecisive Smart Telemetry Hub now!"
+      title="Getting Started"
+      subtitle="Want to know what you're getting yourself into using MyDecisive?"
     >}}
     {{< hextra/feature-card
       link="docs/2_recipes"

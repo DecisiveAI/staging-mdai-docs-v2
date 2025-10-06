@@ -4,4 +4,4 @@ build:
   list: never
 ---
 
-{{< use_case_flow usecase="compliance" mode="manual" ver="0.8.6" >}}
+{{< use_case_flow usecase="compliance" mode="manual" ver="0.9.0" >}}

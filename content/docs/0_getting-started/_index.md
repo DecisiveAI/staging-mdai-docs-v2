@@ -7,14 +7,15 @@ tags:
 next: /docs/guide
 ---
 
-<!-- Change and uncomment below when YT video code available. Delete the image below it -->
-
-<!-- https://gohugo.io/shortcodes/youtube/ -->
-<!-- {{< youtube dQw4w9WgXcQ >}} -->
-
-<!-- ![landscape](/images/nothing_to_see_here.png) -->
+### How it works
 
 MyDecisive solutions transform OpenTelemetry from a static configuration challenge into an intelligent, self-managing platform. These solutions run on our infrastructure, the MdaiHub, which utilizes industry-standard and proprietary open-source components.
+
+<a href="/images/overview-auto.png" target="_blank" rel="noopener noreferrer">
+  <img alt="MyDecisive Overview" src="/images/overview-auto.png">
+</a>
+
+
 
 You can set up and test drive MyDecisive observability solutions easily:
 
@@ -35,7 +36,7 @@ MyDecisive.ai supports many use cases and platform capabilities. Once you identi
 
 ### Introduce OTel into your ecosystem
 
-Connect your data sources to your data destinations using OpenTelemetry. Introducing OpenTelemetry enables a standardized data transfer protocol, `otlp`, that enables you to unify how you transmit and manage your telemetry streams.
+Connect your data sources to your data destinations using OpenTelemetry. Introducing OpenTelemetry enables a standardized data transfer protocol, `otlp`, and [other supported protocols](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver), that enables you to unify how you transmit and manage your telemetry streams.
 
 ### Use static OTel for your use case
 
