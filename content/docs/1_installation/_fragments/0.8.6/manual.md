@@ -33,6 +33,7 @@ helm upgrade --install \
     --set mdai-operator.manager.env.otelSdkDisabled=true \
     --set mdai-gateway.otelSdkDisabled=true \
     --set mdai-s3-logs-reader.enabled=false \
+    --values values/overrides_0.8.6.yaml \
     --cleanup-on-fail
 ```
 
@@ -64,6 +65,7 @@ helm upgrade --install \
     --set mdai-operator.manager.env.otelSdkDisabled=true \
     --set mdai-gateway.otelSdkDisabled=true \
     --set mdai-s3-logs-reader.enabled=false \
+    --values values/overrides_0.8.6.yaml \
     --cleanup-on-fail
 ```
 
@@ -88,6 +90,7 @@ helm upgrade --install mdai-hub oci://ghcr.io/decisiveai/mdai-hub \
     --set mdai-operator.admissionWebhooks.autoGenerateCert.enabled=true \
     --set mdai-operator.admissionWebhooks.autoGenerateCert.recreate=true \
     --set mdai-operator.admissionWebhooks.autoGenerateCert.certPeriodDays=365 \
+    --values values/overrides_0.8.6.yaml \
     --cleanup-on-fail
 ```
 
