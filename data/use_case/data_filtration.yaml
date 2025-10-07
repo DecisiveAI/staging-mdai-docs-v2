@@ -43,9 +43,6 @@
                   helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f ./synthetics/loggen_fluent_config.yaml
                   ```
 
-
-
-
               - heading: "Validate dataflow with Grafana"
                 info: |
                   If you haven't yet logged into Grafana, the login is `admin` / `mdai`<br /><br />
@@ -57,7 +54,9 @@
 
                   Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/otel_view/otel-data-flow?orgId=1&from=now-15m&to=now&refresh=5s)
 
-                  ![Grafana](../../../../images/data_filtration/step_1.png)
+                  <a href="../../../../images/data_filtration/step_1.png" target="_blank" rel="noopener noreferrer">
+                    <img alt="Grafana" src="../../../../images/data_filtration/step_1.png">
+                  </a>
 
                   You should see a consistent stream of data and a 1:1 ratio of logs received : logs exported
 
@@ -115,7 +114,10 @@
 
                   You should see that your log stream no longer sends the 1:1 ratio and has decreased the amount exported.
 
-                  ![Grafana](../../../../images/data_filtration/step_2.png)
+
+                  <a href="../../../../images/data_filtration/step_2.png" target="_blank" rel="noopener noreferrer">
+                    <img alt="Grafana" src="../../../../images/data_filtration/step_2.png">
+                  </a>
 
           manual:
             sections:
@@ -146,18 +148,60 @@
                   mdai use-case data_filtration --version 0.8.6 --workflow dynamic
                   ```
 
+                  Provision an MdaiCollector (Monitor)
+                  ```
+                  mdai apply ./0.8.6/use_cases/data_filtration/dynamic/monitor.yaml -n mdai
+                  ```
+
                   Provision an observer
                   ```
                   mdai apply ./0.8.6/use_cases/data_filtration/dynamic/observer.yaml -n mdai
                   ```
 
-              - heading: "Validate dataflow with Prometheus"
+              - heading: "Validate dataflow with Grafana"
                 body: |
                   Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/otel_view/otel-data-flow?orgId=1&from=now-15m&to=now&refresh=5s)
 
-                  You should see that your log stream no longer sends the 1:1 ratio and has significantly decreased the amount exported.
+                  Before you ran new configs, your export volume was relatively high and costly with your noisy services.
 
-                  ![Grafana](../../../../images/data_filtration/step_3.png)
+                  <a href="../../../../images/data_filtration/step_3_a.png" target="_blank" rel="noopener noreferrer">
+                    <img alt="Grafana" src="../../../../images/data_filtration/step_3_a.png">
+                  </a>
+
+                  As data continues to flow you should see that your log stream export volume has significantly decreased. You should also note that the new configuration has parameterized your filter values intelligently and dynamically, based on the monitored throughput volume, per service.
+
+
+                  <a href="../../../../images/data_filtration/step_3_b.png" target="_blank" rel="noopener noreferrer">
+                    <img alt="Grafana" src="../../../../images/data_filtration/step_3_b.png">
+                  </a>
+
+              - heading: "Validate dynamic filtration"
+                body: |
+                  Navigate to the [MDAI Data Management dashboard](http://localhost:3000/d/de978rcegwfswb/mdai-data-management?orgId=1&refresh=5s) included in your `grafana` instance.
+
+                  The MdaiHub creates metrics about your telemetry streams that are used to take action, like filtration, simply by monitoring and deriving insights.
+
+                  The insights provided can be summarized as:
+                  * Total services being monitored
+                  * Total received data (by bytes)
+                  * Total sent data (by bytes)
+                  * Data reduction %
+                  * Total I/O (bytes and messages) by service
+
+
+                  <a href="../../../../images/data_filtration/step_3_c.png" target="_blank" rel="noopener noreferrer">
+                    <img alt="Grafana" src="../../../../images/data_filtration/step_3_c.png">
+                  </a>
+
+                  The insights provided can be summarized as:
+                  * Top talkers, received (total message I/O, total bytes I/O)
+                  * Top talkers, sent (total message I/O, total bytes I/O)
+                  * Active alerts - services surpassing volume ove your configured threshold
+
+
+                  <a href="../../../../images/data_filtration/step_3_d.png" target="_blank" rel="noopener noreferrer">
+                    <img alt="Grafana" src="../../../../images/data_filtration/step_3_d.png">
+                  </a>
 
           manual:
             sections:
