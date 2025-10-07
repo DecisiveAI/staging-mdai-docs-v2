@@ -215,7 +215,7 @@
         sections:
           - heading: "You've completed this recipe!"
             body: |
-              You successfully completed the Data Filtration use case
+              You're one step closer to taking control of your observability streams and costs.
 
 "0.9.0":
   flow:
@@ -352,7 +352,7 @@
         sections:
           - heading: "You've completed this recipe!"
             body: |
-              You successfully completed the Data Filtration use case
+              You're one step closer to taking control of your observability streams and costs.
 
 
 

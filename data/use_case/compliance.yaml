@@ -134,7 +134,7 @@
         sections:
           - heading: "You've completed this recipe!"
             body: |
-              You successfully completed the compliance use case
+              You're one step closer to reducing your observability costs and owning your data.
 
 "0.9.0":
   flow:
@@ -271,7 +271,7 @@
         sections:
           - heading: "You've completed this recipe!"
             body: |
-              You successfully completed the compliance use case
+              You're one step closer to reducing your observability costs and owning your data.
 
 
 

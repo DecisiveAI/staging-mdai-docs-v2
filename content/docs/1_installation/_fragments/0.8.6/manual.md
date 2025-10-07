@@ -3,7 +3,7 @@
 MDAI runs in a Kubernetes cluster. You'll use Helm charts to bring up the pods in the cluster.
 
 
-#### I need a local k8s cluster with k8s
+#### Install a kind cluster
 
 This command installs a kind cluster
 
@@ -11,7 +11,10 @@ This command installs a kind cluster
 kind create cluster --name mdai
 ```
 
-{{% details title="Option 1: Install `mdai` with cert-manager" closed="true" %}}
+#### Install `mdai`
+
+
+{{% details title="Option 1: With cert-manager" closed="true" %}}
 
 This command installs `cert-manager`
 
@@ -40,39 +43,7 @@ helm upgrade --install \
 {{% /details %}}
 
 
-{{% details title="**Option 2: Install `mdai` without cert-manager**" closed="true" %}}
-
-
-
-{{% /details %}}
-
-
-#### I have a local k8s cluster
-
-
-{{% details title="**Option 1: Install `mdai` with cert-manager**" closed="true" %}}
-
-{{< callout type="warning" >}}
-For this to work, your existing cluster must have `cert-manager` installed.
-{{< /callout >}}
-
-```
-helm upgrade --install \
-    mdai oci://ghcr.io/decisiveai/ \mdai-hub \
-    --namespace mdai \
-    --create-namespace \
-    --version 0.8.6 \
-    --set mdai-operator.manager.env.otelSdkDisabled=true \
-    --set mdai-gateway.otelSdkDisabled=true \
-    --set mdai-s3-logs-reader.enabled=false \
-    --values values/overrides_0.8.6.yaml \
-    --cleanup-on-fail
-```
-
-{{% /details %}}
-
-
-{{% details title="**Option 2: Install `mdai` without cert-manager**" closed="true" %}}
+{{% details title="**Option 2: Without cert-manager**" closed="true" %}}
 
 ```bash
 helm upgrade --install mdai-hub oci://ghcr.io/decisiveai/mdai-hub \

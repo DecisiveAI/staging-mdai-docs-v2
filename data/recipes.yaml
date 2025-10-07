@@ -7,7 +7,7 @@ use_cases:
       - { name: "traces", color: "indigo" }
     contributor: "mdai"
     description: "Always fork and archive data in long-term storage, regardless of routing or filtering."
-    value: "Never lose important data by keeping in long-term storage, regardless of routing or filtering."
+    value: "Never lose important data by keeping it in long-term storage, regardless of routing or filtering."
     status:
       - { name: "released", color: "green" }
 

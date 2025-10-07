@@ -6,7 +6,7 @@ weight: 10
 #### Transform passive monitoring into intelligent, programmable automation.
 
 <ul>
-  <li class="mdai-references"><a href="https://www.mydecisive.ai/solutions" style="margin-left: 8px">MDAI Solutions</a></li>
+  <li class="mdai-references"><a href="https://www.mydecisive.ai/" style="margin-left: 8px">MDAI Solutions</a></li>
   <p class="mdai-description-text">We have provided a head start for you using our solutions and recipes that solve some of the most common challenges faced in observability today.</p>
 
   <li class="mdai-references"><a href="https://github.com/DecisiveAI" style="margin-left: 8px">MDAI Github</a></li>

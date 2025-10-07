@@ -4,18 +4,29 @@ weight: 6
 ---
 
 ##### Join our Slack community
-- [Technical support](https://mydecisivecommunity.slack.com/archives/C090KU1MB6K")
+- [Technical support](https://mydecisivecommunity.slack.com/archives/C090KU1MB6K)
 - [Documentation issues](https://mydecisivecommunity.slack.com/archives/C090KU6F679)
 - [Feature requests](https://mydecisivecommunity.slack.com/archives/C090UH3JYNS)
 - [Community](https://mydecisivecommunity.slack.com/archives/C08LE3DJ877)
 
-When reporting bugs or issues, please include:
-- Steps to reproduce the problem
-- Your operating system and version (if relevant)
-- Project version you’re using
-- Error messages or logs
-- Screenshots (if relevant)
+When reporting bugs or issues, please use this template:
 
+```
+# New Issue
+
+## Steps to reproduce the problem
+1.
+1.
+1.
+
+## Your operating system and version (if relevant)
+
+## Project version you’re using
+
+## Error messages or logs
+
+## Screenshots (if relevant)
+```
 We will get back to you within 48 business hours, 9am to 5pm PST.
 
 <br >
@@ -53,7 +64,7 @@ Managing OpenTelemetry-based pipelines typically requires manual effort, such as
 <!-- 3 -->
 {{% details title="How does MyDecisive integrate with my existing observability tools and infrastructure?" closed="true" %}}
 
-If you are using open-source technologies such as OpenTelemetry, Kubernetes, Prometheus, ValKey, and others, the MyDecisive platform will integrate seamlessly with your existing infrastructure. Learn more about the [technologies behind MyDecisive’s Smart Telemetry Hub](/docs/5_architecture).
+If you are using open-source technologies such as OpenTelemetry, Kubernetes, Prometheus, ValKey, and others, the MyDecisive platform will integrate seamlessly with your existing infrastructure. Learn more about the [technologies behind MyDecisive’s Smart Telemetry Hub](/docs/4_architecture).
 
 {{% /details %}}
 
@@ -67,7 +78,7 @@ Current data management processes involve proprietary technologies and numerous 
 <!-- 5 -->
 {{% details title="How does the Dynamic Data Filtration feature function?" closed="true" %}}
 
-[Check out our solutions](https://docs.mydecisive.ai/solutions/index.html)
+[Check out our solutions](https://mydecisive.ai/)
 
 {{% /details %}}
 
