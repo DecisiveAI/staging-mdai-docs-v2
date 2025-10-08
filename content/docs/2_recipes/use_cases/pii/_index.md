@@ -23,7 +23,7 @@ Protect sensitive data by applying programmable redaction rules to strip persona
   {{< tab >}}
 
     {{< runtime_switcher
-        base="docs/2_recipes/use_cases/data_filtration/_fragments"
+        base="docs/2_recipes/use_cases/pii/_fragments"
         choose="manual"
         keymap=`{
           "0.9.0": "0.9.0",
@@ -34,7 +34,7 @@ Protect sensitive data by applying programmable redaction rules to strip persona
 
   {{< tab >}}
     {{< runtime_switcher
-        base="docs/2_recipes/use_cases/data_filtration/_fragments"
+        base="docs/2_recipes/use_cases/pii/_fragments"
         choose="automated"
         keymap=`{
           "0.9.0": "0.9.0",

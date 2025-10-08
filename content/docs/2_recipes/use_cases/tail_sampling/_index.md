@@ -22,7 +22,7 @@ Control data volume and fidelity with tail-based sampling rules that adapt to tr
   {{< tab >}}
 
     {{< runtime_switcher
-        base="docs/2_recipes/use_cases/data_filtration/_fragments"
+        base="docs/2_recipes/use_cases/tail_sampling/_fragments"
         choose="manual"
         keymap=`{
           "0.9.0": "0.9.0",
@@ -33,7 +33,7 @@ Control data volume and fidelity with tail-based sampling rules that adapt to tr
 
   {{< tab >}}
     {{< runtime_switcher
-        base="docs/2_recipes/use_cases/data_filtration/_fragments"
+        base="docs/2_recipes/use_cases/tail_sampling/_fragments"
         choose="automated"
         keymap=`{
           "0.9.0": "0.9.0",
