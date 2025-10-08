@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+  --mdai-primary-color: rgba(176, 98, 194, 1);
+  --mdai-dark-grey: rgb(151, 151, 151);
+  --mdai-light-grey: rgb(230, 230, 230);
+}
+
+/* changed to 1rem for Mydecisive */
+@media only all and (max-width: 59.999rem) {
+  a#R-logo.R-default {
+    font-size: 1rem;
+  }
+}
+
+/********  Hextra Overrides  ********/
+
+/*** Hextra Content overrides ***/
+
+.content {
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.content :where(a):not(:where([class~=not-prose],[class~=not-prose] *)) {
+  text-decoration: none;
+  color: var(--mdai-primary-color);
+  font-weight: 700;
+}
+
+.content :where(a):not(:where([class~=not-prose],[class~=not-prose] *)):hover {
+  text-decoration: underline;
+  color: var(--mdai-primary-color);
+}
+
+.content :where(ul):not(:where([class~=not-prose],[class~=not-prose] *)) {
+  margin-top: 0;
+}
+
+/*** Hextra Left Side Menu overrides ***/
+.sidebar-active-item {
+  background-color: transparent !important;
+  color: var(--mdai-primary-color) !important;
+}
+
+/*** Hextra Tabs overrides ***/
+.hx-border-b {
+   border-bottom-width: 0;
+}
+
+.hextra-tabs-toggle, .data-\[state\=selected\]\:hx-border-primary-500[data-state="selected"] {
+  /* color: black;
+  background-color: transparent;
+  border: 3px solid var(--mdai-light-grey);
+  border-bottom: 5px solid var(--mdai-light-grey);
+  margin-right: 0;
+  border-radius: 5px; */
+}
+
+.data-\[state\=selected\]\:hx-border-primary-500[data-state="selected"] {
+  color: black;
+  background-color: rgb(230, 230, 230);
+  border: 3px solid var(--mdai-dark-grey);
+  border-bottom: 5px solid var(--mdai-dark-grey);
+}
+
+/* Dark mode styles */
+.data-\[state\=selected\]\:dark\:hx-border-primary-500:is(html[class~="dark"] *)[data-state="selected"] {
+  color: var(--mdai-light-grey);
+  background-color: var(--mdai-dark-grey);
+  border: 3px solid var(--mdai-light-grey);
+  border-bottom: 5px solid var(--mdai-light-grey);
+}
+
+.dark\:hx-text-gray-200:is(html[class~="dark"] *) {
+  border: 3px solid var(--mdai-dark-grey);
+  border-bottom: 5px solid var(--mdai-dark-grey);
+}
+
+/********  MDAI Custom Classes  ********/
+.mdai-description-text{
+  color: var(--mdai-dark-grey);
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+.mdai-references::marker {
+  content: "🐙" / "✦";
+}

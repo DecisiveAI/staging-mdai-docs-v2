@@ -1,0 +1,45 @@
+labs:
+  - title: "Dynamic Data Filtration"
+    link: "use_cases/data_filtration"
+    tags:
+      - { name: "cost control", color: "amber" }
+      - { name: "logs", color: "blue" }
+      - { name: "traces", color: "indigo" }
+    contributor: "MyDecisive.ai"
+    description: "Apply live filters to control what data flows downstream."
+
+  - title: "Dynamic Tail Sampling"
+    link: "use_cases/tail_sampling"
+    tags:
+      - { name: "cost control", color: "amber" }
+      - { name: "traces", color: "indigo" }
+    contributor: "MyDecisive.ai"
+    description: "Keep the important traces, drop the rest, in real time."
+
+  - title: "PII Redaction"
+    link: "use_cases/pii"
+    tags:
+      - { name: "security", color: "yellow" }
+      - { name: "logs", color: "blue" }
+      - { name: "traces", color: "indigo" }
+    contributor: "MyDecisive.ai"
+    description: "Automatically remove sensitive data from your telemetry streams."
+
+  - title: "Compliance"
+    link: "use_cases/compliance"
+    tags:
+      - { name: "auditability", color: "red" }
+      - { name: "logs", color: "blue" }
+      - { name: "traces", color: "indigo" }
+    contributor: "MyDecisive.ai"
+    description: "Always fork and archive data in long-term storage, regardless of routing or filtering."
+
+platform:
+  - title: "Centralized Governance"
+    link: "platform/centralized-gov"
+    tags:
+      - { name: "centrality", color: "green" }
+      - { name: "logs", color: "blue" }
+      - { name: "traces", color: "indigo" }
+    contributor: "MyDecisive.ai"
+    description: "Centralize your streams and enforce observability policies."

@@ -1,0 +1,22 @@
+{{/* layouts/shortcodes/runtime_loader.html */}}
+{{- $base := .Get "base" | default "/frags/install_automated" -}}
+{{- $def  := .Get "default" | default "latest" -}}
+<div id="rl-{{ now.UnixNano }}" data-base="{{ $base }}" data-def="{{ $def }}"></div>
+<script>
+(function(root){
+  var box = root, base = box.dataset.base, defv = box.dataset.def;
+  async function load(v){
+    box.setAttribute('aria-busy','true');
+    try {
+      const res = await fetch(`${base}/${encodeURIComponent(v)}/`, {credentials:'same-origin'});
+      box.innerHTML = res.ok ? await res.text() : `<p class="text-red-600">Fragment for ${v} not found.</p>`;
+    } finally { box.removeAttribute('aria-busy'); }
+  }
+  function cur(){
+    try { const q = new URL(location).searchParams.get('semver'); if (q) return q; } catch(_){}
+    return (typeof window.__SEMVER__ === 'string') ? window.__SEMVER__ : defv;
+  }
+  load(cur());
+  window.addEventListener('semver:changed', e => { const v=e?.detail?.value; if (v) load(v); }, {passive:true});
+})(document.currentScript.previousElementSibling);
+</script>

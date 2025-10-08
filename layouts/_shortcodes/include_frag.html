@@ -1,0 +1,37 @@
+{{/* layouts/shortcodes/include_frag.html
+     Usage: {{< include_frag name="manual.md" >}}
+     Works in both leaf bundles (index.md + Page Resources) and section pages (_index.md)
+     and supports .md (rendered via Page.RenderString) or .html (inlined as safeHTML).
+*/}}
+
+{{- $name := .Get "name" -}}
+{{- $page := .Page -}}
+
+{{/* Try Page Resources first (works when this is a leaf bundle with index.md) */}}
+{{- $res := $page.Resources.GetMatch $name -}}
+{{- if $res -}}
+  {{- $ext := lower (path.Ext $res.Name) -}}
+  {{- $cnt := $res.Content -}}
+  {{- if eq $ext ".html" -}}
+    {{ $cnt | safeHTML }}
+  {{- else -}}
+    {{ $page.RenderString (dict "display" "block") $cnt }}
+  {{- end -}}
+{{- else -}}
+
+  {{/* Fallback: read the file from disk relative to this page directory (works for _index.md too) */}}
+  {{- $dir := $page.File.Dir -}}
+  {{- $full := path.Join "content" $dir $name -}}
+  {{- $raw := readFile $full | default "" -}}
+  {{- if not (eq $raw "") -}}
+    {{- $ext := lower (path.Ext $name) -}}
+    {{- if eq $ext ".html" -}}
+      {{ $raw | safeHTML }}
+    {{- else -}}
+      {{ $page.RenderString (dict "display" "block") $raw }}
+    {{- end -}}
+  {{- else -}}
+    {{- errorf "include_frag: could not find %q as Page Resource or at %q" $name $full -}}
+  {{- end -}}
+
+{{- end -}}

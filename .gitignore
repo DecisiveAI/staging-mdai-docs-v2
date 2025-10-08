@@ -5,3 +5,5 @@ resources/
 .vscode/
 .DS_Store
 .idea/
+/_vendor
+.env

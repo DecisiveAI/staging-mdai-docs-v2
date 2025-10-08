@@ -1,35 +1,84 @@
-+++
-title = 'Welcome to the MyDecisive Documentation'
-weight = 1
-+++
+---
+title: MyDecisive.ai Docs
+layout: hextra-home
+---
 
-{{% notice style="transparent" %}}
-_“Safe Cost Optimization - Dynamically filter telemetry data based on contextual importance, reducing storage costs by up to 90% while maintaining full incident replay capability. Backfill vendors with complete signal only when needed.”_
-{{% /notice %}}
+<!-- WARNING -- ONLY UNCOMMENT IF YOU WANT TO DEBUG VERSION RENDERING
 
-## What's Here
+This guide targets v{{< version format="semver" >}}.
+Full: {{< version format="semver" >}}
 
-This is the MyDecisive.ai (MDAI) documentation, generated from the [mdai-docs-v2](https://github.com/DecisiveAI/mdai-docs-v2) GitHub repo. Use this documentation to explore MDAI and try out use cases.
+<p>Short: <span data-global="docs_version" data-format="short"></span></p>
+<p>Semver: <span data-global="docs_version" data-format="semver"></span></p>
 
-To learn more, go to [https://mydecisive.ai](https://mydecisive.ai).
+ -->
 
-## Before You Get Started
+<!-- HERO 1 -->
 
-The documentation assumes that you have familiarity with installing and running open-source software on a \*nix machine or equivalent.
+{{< hextra/hero-badge >}}
+  <div class="hx:w-2 hx:h-2 hx:rounded-full hx:bg-primary-400"></div>
+  <span>Free, open source</span>
+{{< /hextra/hero-badge >}}
 
-## Give Feedback, File Bugs, and Get Support
+<div class="hx:mt-6 hx:mb-6">
+{{< hextra/hero-headline >}}
+  Welcome to MyDecisive Docs
+{{< /hextra/hero-headline >}}
+</div>
 
-To contribute to the MDAI documentation, file doc bugs on using our [mdai-docs-v2](https://github.com/DecisiveAI/mdai-docs-v2) GitHub repo or create a pull request with your contribution.
+<div class="hx:mb-12">
+{{< hextra/hero-subtitle >}}
+Take back control. End the Break-Fix cycle.<br /><br />
+Use the MyDecisive Smart Telemetry Hub.
+{{< /hextra/hero-subtitle >}}
+</div>
 
-For software issues, use our project's [GitHub repos](https://github.com/orgs/DecisiveAI/repositories?type=public).
 
-You can also email us at info at mydecisive.ai.
+<div class="hx:mt-6 hx:mb-6">
+{{< hextra/hero-headline >}}
+  Quick links
+{{< /hextra/hero-headline >}}
+</div>
 
-## Disclaimer
+{{< hextra/feature-grid >}}
+  {{< hextra/feature-card
+    link="/docs/2_recipes/use_cases/data_filtration/"
+    title="Data Filtration"
+    subtitle="**Our #1 use case!**<br/> Cut off those noisy services and only send what you need."
+  >}}
+  {{< hextra/feature-card
+    link="https://github.com/DecisiveAI/mdai-labs/blob/main/cli/docs/usage.md"
+    title="Show me the CLI"
+    subtitle="**Enhance your experience**<br/> Start using our CLI-like script to install and manage mdai"
+  >}}
+  {{< hextra/feature-card
+    link="/docs/1_installation/#choose-an-installation-method"
+    title="Install now"
+    subtitle="**Install MyDecisive** Your first step in taking back control over your telemetry streams."
+  >}}
+{{< /hextra/feature-grid >}}
 
-This is alpha software.
 
-- This documentation and the MDAI software may contain bugs, limitations, and incomplete features. We encourage users to report any issues encountered during testing.
-- The user interface and user experience (UI/UX) is undergoing significant improvements. Look for major changes in future updates.
-- Features, configurations, and integrations are subject to change based on user feedback and development priorities.
-- Data generated or collected during this alpha phase may not be representative of final production data.
+<div class="hx:mt-6 hx:mb-6">
+{{< hextra/hero-headline >}}
+  Explore
+{{< /hextra/hero-headline >}}
+</div>
+
+{{< hextra/feature-grid >}}
+  {{< hextra/feature-card
+      link="https://demo.mydecisive.ai/"
+      title="Demo MyDecisive"
+      subtitle="Don't have time to download and start using MyDecisive? Try the MyDecisive Product Demo to show you our super powers."
+    >}}
+    {{< hextra/feature-card
+      link="/docs/0_getting-started"
+      title="Getting Started"
+      subtitle="Want to know what you're getting yourself into using MyDecisive?"
+    >}}
+    {{< hextra/feature-card
+      link="docs/2_recipes"
+      title="Discover Use Cases"
+      subtitle="Interested in learning about the use cases MyDecisive can solve? Show me the MyDecisive supported use cases and recipes."
+    >}}
+{{< /hextra/feature-grid >}}

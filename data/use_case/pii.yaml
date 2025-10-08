@@ -1,0 +1,299 @@
+# data/use_case/logs_in_ctx.yaml
+"0.8.6":
+  flow:
+    title: "PII Redaction"
+    steps:
+      - title: "Overview"
+        sections:
+          - heading: "Coming soon..."
+            body: |
+              ![Coming soon](../../../../images/nothing_to_see_here.png)
+"0.9.0":
+  flow:
+    title: "PII Redaction"
+    steps:
+      - title: "Overview"
+        sections:
+          - heading: "Coming soon..."
+            body: |
+              ![Coming soon](../../../../images/nothing_to_see_here.png)
+
+
+
+# # data/use_case/pii.yaml
+# "0.8.6":
+#   flow:
+#     title: "PII Redaction flow"
+#     steps:
+#       - title: "Overview"
+#         sections: # ← shared across modes (falls back to this)
+#           - heading: Let's get started with the basics
+#             body: |
+#               To achieve control your PII Redaction pipelines, you'll need to...
+#               1. Create a synthetic log stream that forwards data to your collector
+#               1. Create an OpenTelemetry collector to connect your data sources to destinations
+#               1. Create an MdaiHub to create dynamic control your data streams
+
+#               Let's get started with the basics
+
+#       - title: "Step 1. Introduce OTel and MdaiHub into your cluster"
+#         modes:
+#           automated:
+#             sections:
+#               - heading: "Provision resources for your PII Redaction pipeline"
+#                 lang: "bash"
+#                 body: |
+#                   Run the following command an you'll deploy mock data, otel, and an MDAI Hub
+
+#                   ```
+#                   mdai use-case data_filtration --version 0.8.6 --workflow basic
+#                   ```
+
+#               - heading: "Validate dataflow with Grafana"
+#                 info: |
+#                   If you haven't yet logged into Grafana, the login is `admin` / `mdai`
+#                 body: |
+#                   ```
+#                   kubectl port-forward -n mdai svc/mdai-grafana 3000:80
+#                   ```
+
+#                   Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/BKf2sowmjv2/opentelemetry-collector?orgId=1&from=now-15m&to=now&refresh=5s)
+
+#                   ![Grafana](../../../../images/pii/step_1.png)
+
+#                   You should see a consistent stream of data and a 1:1 ratio of logs received : logs exported
+
+#           manual:
+#             sections:
+#               - heading: "Start generating data"
+#                 body: |
+#                   Kick off your synthetic data generators. This will represent log streams from your services and/or infra in your existing ecosystem.
+
+#                   ```
+#                   kubectl  apply -f ./mock-data/data_filtration.yaml -n mdai
+#                   ```
+
+#               - heading: "Provision resources for your PII Redaction pipeline"
+#                 lang: "bash"
+#                 body: |
+#                   Run the following commands and you'll see these resources created.
+
+#                   ```
+#                   kubectl  apply -f ./0.8.6/use_cases/pii/basic/otel.yaml -n mdai
+#                   ```
+
+
+#               - heading: "Validate dataflow with Grafana"
+#                 info: |
+#                   If you haven't yet logged into Grafana, the login is `admin` / `mdai`
+#                 body: |
+#                   ```
+#                   kubectl port-forward -n mdai svc/mdai-grafana 3000:80
+#                   ```
+
+#                   Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/BKf2sowmjv2/opentelemetry-collector?orgId=1&from=now-15m&to=now&refresh=5s)
+
+#                   ![Grafana](../../../../images/pii/step_1.png)
+
+#                   You should see a consistent stream of data and a 1:1 ratio of logs received : logs exported
+
+#       - title: "Step 2. use mdai recipe to statically achieve use case"
+#         modes:
+#           automated:
+#             sections:
+#               - heading: "Apply static routing"
+#                 body: |
+#                   Update your collector to utilize static routing.
+
+#                   ```
+#                   mdai use_case pii --version 0.8.6 --workflow static
+#                   ```
+
+#               - heading: "Validate dataflow with Grafana"
+#                 body: |
+#                   You should see that your log stream no longer sends the 1:1 ratio and has decreased the amount exported.
+
+#                   ![Grafana](../../../../images/pii/step_2.png)
+
+#           manual:
+#             sections:
+#               - heading: "Apply static routing"
+#                 body: |
+#                   Update your collector to utilize static routing.
+
+#                   ```
+#                   kubectl  apply -f ./0.8.6/use_cases/pii/static/otel.yaml -n mdai
+#                   ```
+
+#               - heading: "Validate dataflow with Grafana"
+#                 body: |
+#                   You should see that your log stream no longer sends the 1:1 ratio and has decreased the amount exported.
+
+#                   ![Grafana](../../../../images/pii/step_2.png)
+
+#       - title: "Step 3. Use MyDecisive to parameterize achieve use case"
+#         sections:
+#           - heading: "Coming soon..."
+#             body: |
+#               ![Coming soon](../../../../images/nothing_to_see_here.png)
+#         # modes:
+#         #   automated:
+#         #       - heading: "Apply parameterized routing"
+#         #         body: "Automated dynamic rules via script..."
+
+#         #       - heading: "Validate dataflow with Prometheus"
+#         #         body: "Observe rate shifts..."
+
+#         #   manual:
+#         #     sections:
+#         #       - heading: "Update provisioned resources (hub & otel)"
+#         #         body: "Manually apply dynamic rules..."
+
+#         #       - heading: "Validate dataflow with Prometheus"
+#         #         body: "Track changes in dashboards..."
+
+#       - title: "Congrats 🎉"
+#         sections:
+#           - heading: "You've completed this recipe!"
+#             body: |
+#               You're one step closer to securing your telemetry stream.
+
+# "0.9.0":
+#   flow:
+#     title: "PII Redaction flow"
+#     steps:
+#       - title: "Overview"
+#         sections: # ← shared across modes (falls back to this)
+#           - heading: Let's get started with the basics
+#             body: |
+#               To achieve control your PII Redaction pipelines, you'll need to...
+#               1. Create a synthetic log stream that forwards data to your collector
+#               1. Create an OpenTelemetry collector to connect your data sources to destinations
+#               1. Create an MdaiHub to create dynamic control your data streams
+
+#               Let's get started with the basics
+
+#       - title: "Step 1. Introduce OTel and MdaiHub into your cluster"
+#         modes:
+#           automated:
+#             sections:
+#               - heading: "Provision resources for your PII Redaction pipeline"
+#                 lang: "bash"
+#                 body: |
+#                   Run the following command an you'll deploy mock data, otel, and an MDAI Hub
+
+#                   ```
+#                   mdai use-case pii --version 0.9.0 --workflow basic
+#                   ```
+
+#               - heading: "Validate dataflow with Grafana"
+#                 info: |
+#                   If you haven't yet logged into Grafana, the login is `admin` / `mdai`
+#                 body: |
+#                   ```
+#                   kubectl port-forward -n mdai svc/mdai-grafana 3000:80
+#                   ```
+
+#                   Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/BKf2sowmjv2/opentelemetry-collector?orgId=1&from=now-15m&to=now&refresh=5s)
+
+#                   ![Grafana](../../../../images/pii/step_1.png)
+
+#                   You should see a consistent stream of data and a 1:1 ratio of logs received : logs exported
+
+#           manual:
+#             sections:
+#               - heading: "Start generating data"
+#                 body: |
+#                   Kick off your synthetic data generators. This will represent log streams from your services and/or infra in your existing ecosystem.
+
+#                   ```
+#                   kubectl  apply -f ./mock-data/fluentd_config.yaml -n mdai
+#                   ```
+
+#               - heading: "Provision resources for your PII Redaction pipeline"
+#                 lang: "bash"
+#                 body: |
+#                   Run the following commands and you'll see these resources created.
+
+#                   ```
+#                   kubectl  apply -f ./0.9.0/use_cases/pii/basic/otel.yaml -n mdai
+#                   ```
+
+
+#               - heading: "Validate dataflow with Grafana"
+#                 info: |
+#                   If you haven't yet logged into Grafana, the login is `admin` / `mdai`
+#                 body: |
+#                   ```
+#                   kubectl port-forward -n mdai svc/mdai-grafana 3000:80
+#                   ```
+
+#                   Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/BKf2sowmjv2/opentelemetry-collector?orgId=1&from=now-15m&to=now&refresh=5s)
+
+#                   ![Grafana](../../../../images/pii/step_1.png)
+
+#                   You should see a consistent stream of data and a 1:1 ratio of logs received : logs exported
+
+#       - title: "Step 2. use mdai recipe to statically achieve use case"
+#         modes:
+#           automated:
+#             sections:
+#               - heading: "Apply static routing"
+#                 body: |
+#                   Update your collector to utilize static routing.
+
+#                   ```
+#                   mdai use_case pii --version 0.9.0 --workflow static
+#                   ```
+
+#               - heading: "Validate dataflow with Grafana"
+#                 body: |
+#                   You should see that your log stream no longer sends the 1:1 ratio and has decreased the amount exported.
+
+#                   ![Grafana](../../../../images/pii/step_2.png)
+
+#           manual:
+#             sections:
+#               - heading: "Apply static routing"
+#                 body: |
+#                   Update your collector to utilize static routing.
+
+#                   ```
+#                   kubectl  apply -f ./0.9.0/use_cases/pii/static/otel.yaml -n mdai
+#                   ```
+
+#               - heading: "Validate dataflow with Grafana"
+#                 body: |
+#                   You should see that your log stream no longer sends the 1:1 ratio and has decreased the amount exported.
+
+#                   ![Grafana](../../../../images/pii/step_2.png)
+
+#       - title: "Step 3. Use MyDecisive to parameterize achieve use case"
+#         sections:
+#           - heading: "Coming soon..."
+#             body: |
+#               ![Coming soon](../../../../images/nothing_to_see_here.png)
+#         # modes:
+#         #   automated:
+#         #       - heading: "Apply parameterized routing"
+#         #         body: "Automated dynamic rules via script..."
+
+#         #       - heading: "Validate dataflow with Prometheus"
+#         #         body: "Observe rate shifts..."
+
+#         #   manual:
+#         #     sections:
+#         #       - heading: "Update provisioned resources (hub & otel)"
+#         #         body: "Manually apply dynamic rules..."
+
+#         #       - heading: "Validate dataflow with Prometheus"
+#         #         body: "Track changes in dashboards..."
+
+#       - title: "Congrats 🎉"
+#         sections:
+#           - heading: "You've completed this recipe!"
+#             body: |
+#               You're one step closer to securing your telemetry stream.
+
+
+

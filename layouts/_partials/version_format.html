@@ -1,0 +1,12 @@
+{{- $v := .v -}}{{- $fmt := .fmt | default "short" -}}
+<!-- variable declaration and defaults -->
+{{- $maj := ($v.major | default 0) -}}
+{{- $min := ($v.minor | default 0) -}}
+{{- $pat := ($v.patch | default 0) -}}
+
+<!-- compiled version string -->
+{{- if eq $fmt "semver" -}}{{ printf "%d.%d.%d" $maj $min $pat }}
+{{- else if eq $fmt "major" -}}{{ printf "%d" $maj }}
+{{- else if eq $fmt "minor" -}}{{ printf "%d" $min }}
+{{- else if eq $fmt "patch" -}}{{ printf "%d" $pat }}
+{{- else -}}{{ printf "%d.%d" $maj $min }}{{- end -}}

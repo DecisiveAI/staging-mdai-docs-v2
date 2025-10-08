@@ -1,0 +1,158 @@
+<script>
+(function () {
+  const DEFAULT_VER = {{ printf "%q" .Site.Params.default_version }};
+
+  const RAW_A = {{ site.Data.versions | jsonify }};
+  const RAW_B = {{ (site.Data.docs | default dict) | jsonify }};
+  const LIST_A = Array.isArray(RAW_A) ? RAW_A : (RAW_A?.versions || []);
+  const LIST_B = Array.isArray(RAW_B?.versions) ? RAW_B.versions : [];
+  const VER_LIST = LIST_A.length ? LIST_A : LIST_B;
+
+  // --- NEW: normalize and helpers ------------------------------------------
+  const norm = (s) => String(s ?? "")
+    .trim()
+    .replace(/^v(?=\d)/i, "");     // drop leading "v" if present (v0.8.6 -> 0.8.6)
+
+  const optionValues = () => {
+    const sel = document.getElementById("version-select");
+    return sel ? Array.from(sel.options).map(o => o.value) : [];
+  };
+
+  const fromKey = (key) => {
+    const [M="0", m="0", p="0"] = String(key || "").split(".");
+    return { major: +M || 0, minor: +m || 0, patch: +p || 0 };
+  };
+
+  const pickRec = (key) => {
+    const target = norm(key);
+    return VER_LIST.find(x => norm(x.key) === target) || null;
+  };
+
+  const fmt = (v, mode) => {
+    const M = +v?.major || 0, m = +v?.minor || 0, p = +v?.patch || 0;
+    return mode === "semver" ? `${M}.${m}.${p}` : `${M}.${m}`;
+  };
+
+  function updateBindings(vo) {
+    const short  = fmt(vo, "short");
+    const semver = fmt(vo, "semver");
+
+    document.querySelectorAll('[data-global="docs_version"]').forEach(el => {
+      const mode = el.getAttribute("data-format") || "short";
+      const out  = fmt(vo, mode);
+      const path = (el.getAttribute("data-docs-path") || "").replace(/^\//, "");
+
+      if (el.tagName === "A" && path) {
+        const href = `/v${short}/${path}`;
+        el.setAttribute("href", href);
+        if (!el.hasAttribute("data-no-text")) el.textContent = href;
+      } else {
+        const attr = el.getAttribute("data-attr");
+        if (attr) el.setAttribute(attr, out);
+        else el.textContent = out;
+      }
+    });
+  }
+
+  function applyVersion(key, { persist = true } = {}) {
+    const wanted = norm(key);
+    const rec    = pickRec(wanted);
+    const reckey = norm(rec?.key || wanted);
+    const vobj   = rec?.docs_version || (rec ? fromKey(rec.key) : fromKey(wanted));
+
+    console.debug('checkpoint 1', {
+      wanted,
+      rec,
+      reckey,
+      vobj,
+    })
+
+    const sel = document.getElementById("version-select");
+    if (sel) {
+      const values = optionValues();
+
+      // If the normalized key isn't present, fall back to the first real option (latest)
+      const target = values.includes(reckey)
+        ? reckey
+        : (values.find(v => v) || "");
+
+      console.debug('checkpoint 2', {
+        valincreckey: values.includes(reckey),
+        target,
+        values,
+        reckey,
+        eval: values.find(v => v),
+        selval: sel.value,
+      })
+
+      if (String(sel.value) !== String(target) && !!target) {
+        console.debug('checkpoint 3', {
+          var1: String(sel.value),
+          var2: String(target),
+        })
+        sel.value = target
+      };
+    }
+
+    updateBindings(vobj);
+
+    if (persist) {
+      if (reckey) localStorage.setItem("mdai_ver", reckey);
+    }
+
+    document.dispatchEvent(new CustomEvent("globalChange", {
+      detail: { version: rec || { key: reckey }, docs_version: vobj,
+                versions: { short: fmt(vobj, "short"), semver: fmt(vobj, "semver") } }
+    }));
+  }
+
+  window.__setVersion = (k) => applyVersion(k);
+
+  function init() {
+    const qs = new URLSearchParams(location.search);
+    const stored = localStorage.getItem("mdai_ver");
+
+    const qs_ver = qs.get("ver");
+    const qs_version = qs.get("version");
+    const stored_ver = stored ? norm(stored) : "";
+    const def_ver = norm(DEFAULT_VER);
+
+    console.debug('initiate', {
+      qs_ver,
+      qs_version,
+      stored_ver,
+      def_ver,
+    });
+
+    if (
+      !qs_ver &&
+      !qs_version &&
+      !stored_ver
+    ) {
+      const sel = document.getElementById("version-select");
+      sel.val = def_ver;
+
+      console.debug('checkpoint 0', {
+        selval: sel.val,
+        def_ver,
+      })
+
+      return;
+    }
+
+    const start =
+      qs_ver ||
+      qs_version ||
+      stored_ver ||
+      def_ver;
+
+    applyVersion(start, { persist: false });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>

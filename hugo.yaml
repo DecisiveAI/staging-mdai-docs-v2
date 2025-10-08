@@ -1,0 +1,71 @@
+baseURL: "https://example.org/"
+languageCode: "en-us"
+title: "MyDecisive Docs"
+
+enableInlineShortcodes: true
+
+services:
+  googleAnalytics:
+    ID: "G-3LC2SJ2HZN"
+
+params:
+  default_version: "0.8.6"
+  navbar:
+    displayTitle: true
+    displayLogo: true
+    logo:
+      path: images/octobuddy_purple_fade.png
+      link: /
+      width: 40
+      height: 20
+  theme:
+    displayToggle: false
+
+menu:
+  main:
+    - name: Search
+      weight: 1
+      params:
+        type: search
+    - name: Version
+      weight: 2
+      params:
+        type: version
+    - name: Theme
+      weight: 99
+      params:
+        type: theme-toggle
+        hideLabel: true
+    - name: Demo
+      url: "https://demo.mydecisive.ai/"
+      weight: 3
+    - name: MyDecisive.AI
+      url: "https://www.mydecisive.ai/"
+      weight: 4
+    - name: GitHub
+      weight: 5
+      url: "https://github.com/orgs/DecisiveAI/repositories?type=public"
+      params:
+        icon: github
+    - name: Slack
+      weight: 6
+      # community page
+      # url: "https://mydecisivecommunity.slack.com/archives/C08LE3DJ877"
+      # community slack invite link
+      url: "https://communityinviter.com/apps/mydecisivecommunity/octobuddy"
+      params:
+        icon: slack
+    - name: LinkedIn
+      weight: 7
+      url: "https://www.linkedin.com/company/mydecisiveai/"
+      params:
+        icon: linkedin
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+module:
+  imports:
+    - path: "github.com/imfing/hextra"

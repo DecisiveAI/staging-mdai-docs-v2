@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}" dir="{{ .Site.Language.LanguageDirection | default `ltr` }}">
+  {{- partial "head.html" . -}}
+  <body>
+    {{- partial "banner.html" . -}}
+    {{- partial "navbar.html" . -}}
+    {{- block "main" . }}{{ end -}}
+    {{- if or (eq .Site.Params.footer.enable nil) (.Site.Params.footer.enable) }}
+      {{ partial "footer.html" . }}
+    {{ end }}
+    {{ partial "scripts.html" . }}
+    <!-- ADD GLOBAL SCRIPT FOR RUNTIME CHANGES -->
+    {{ partial "globals-script.html" . }}
+  </body>
+</html>
