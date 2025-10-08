@@ -14,7 +14,4 @@ weight: 10
 
   <li class="mdai-references"><a href="https://opentelemetry.io/" style="margin-left: 8px">OpenTelemetry</a></li>
   <p class="mdai-description-text">OpenTelemetry is a collection of APIs, SDKs, and tools. Use it to instrument, generate, collect, and export telemetry data to help you analyze your software’s performance and behavior.</p>
-
-  <li class="mdai-references"><a href="https://www.linkedin.com/company/mydecisiveai/posts/?feedView=all" style="margin-left: 8px">MDAI LinkedIn</a></li>
-  <p class="mdai-description-text">MDAI linkedIn lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 </ul>

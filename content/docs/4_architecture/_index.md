@@ -14,9 +14,11 @@ tags:
 
 ## Our Components
 
-A detailed architecture diagram, coming soon.
+The following is a high-level overview of how MyDecisive can fit into your ecosystem.
 
-![coming soon](../../../images/nothing_to_see_here.png)
+![mdai overview](../../../images/marketecture.png)
+
+Come back soon for a more detailed technical architecture.
 
 {{< cards >}}
   {{< card link="/" title="Back to home" >}}

@@ -76,5 +76,10 @@ When you're done installing the MDAI cluster, visit [Recipes List](/docs/2_recip
 
 {{< cards cols="4" >}}
   {{< card link="/docs/2_recipes" title="Explore recipes" >}}
-  {{< card link="/docs/3_support" title="Get support" >}}
+
+  <a class="hextra-card hx:group hx:flex hx:flex-col hx:justify-start hx:overflow-hidden hx:rounded-lg hx:border hx:border-gray-200 hx:text-current hx:no-underline hx:dark:shadow-none hx:hover:shadow-gray-100 hx:dark:hover:shadow-none hx:shadow-gray-100 hx:active:shadow-sm hx:active:shadow-gray-200 hx:transition-all hx:duration-200 hx:hover:border-gray-300 hx:bg-transparent hx:shadow-xs hx:dark:border-neutral-800 hx:hover:bg-slate-50 hx:hover:shadow-md hx:dark:hover:border-neutral-700 hx:dark:hover:bg-neutral-900" href="/docs/3_support" target="_blank" rel="noreferrer">
+    <span class="hextra-card-icon hx:flex hx:font-semibold hx:items-start hx:gap-2 hx:p-4 hx:text-gray-700 hx:hover:text-gray-900 hx:dark:text-neutral-200 hx:dark:hover:text-neutral-50">
+      Get support
+    </span>
+  </a>
 {{< /cards >}}

@@ -1,0 +1,73 @@
+{{- /*
+A shortcode to create a card.
+
+@param {string} link
+@param {string} title
+@param {string} icon
+@param {string} subtitle
+@param {string} tag
+@param {string} tagColor
+@param {string} image
+@param {string} method
+@param {string} options
+@param {string} imageStyle
+@param {bool}   new_tab  // open link in new tab (true/1/yes/on)
+*/ -}}
+
+{{- $link := .Get "link" -}}
+{{- $title := .Get "title" -}}
+{{- $icon := .Get "icon" -}}
+{{- $subtitle := .Get "subtitle" -}}
+{{- $image := .Get "image" -}}
+{{- $width := 0 -}}
+{{- $height := 0 -}}
+{{- $imageStyle := .Get "imageStyle" -}}
+{{- $tag := .Get "tag" -}}
+{{- $tagColor := .Get "tagColor" | default (.Get "tagType") | default "" -}}{{- /* Compatibility with previous parameter. */ -}}
+{{- $tagBorder := not (eq (.Get "tagBorder") false) | default true -}}
+{{- $tagIcon := .Get "tagIcon" | default "" -}}
+
+{{/* new-tab handling */}}
+{{- $newTabRaw := .Get "new_tab" -}}
+{{- $newTab := in (slice "true" "1" "yes" "on") (lower (printf "%v" $newTabRaw)) -}}
+{{- $external := hasPrefix $link "http" -}}
+{{- $href := cond (strings.HasPrefix $link "/") ($link | relURL) $link -}}
+{{- $openNew := or $external $newTab -}}
+
+{{/* Image processing options */}}
+{{- $method := .Get "method" | default "Resize" | humanize -}}
+{{- $options := .Get "options" | default "800x webp q80" -}}
+{{- $process := .Get "process" | default (printf "%s %s" $method $options) -}}
+
+{{- if and $image (not (urls.Parse $image).Scheme) -}}
+  {{- with or (.Page.Resources.Get $image) (resources.Get $image) -}}
+    {{- if (not (eq .MediaType.SubType "svg")) -}}
+      {{- $processed := .Process $process -}}
+      {{- $width = $processed.Width -}}
+      {{- $height = $processed.Height -}}
+      {{- $image = $processed.RelPermalink -}}
+    {{- end -}}
+  {{ else }}
+    {{- if hasPrefix $image "/" -}}
+      {{- $image = relURL (strings.TrimPrefix "/" $image) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- partial "shortcodes/card" (dict
+  "page"        .Page
+  "link"        $link
+  "href"        $href
+  "openNew"     $openNew
+  "title"       $title
+  "icon"        $icon
+  "subtitle"    $subtitle
+  "image"       $image
+  "width"       $width
+  "height"      $height
+  "imageStyle"  $imageStyle
+  "tag"         $tag
+  "tagType"     $tagColor
+  "tagBorder"   $tagBorder
+  "tagIcon"     $tagIcon
+) -}}

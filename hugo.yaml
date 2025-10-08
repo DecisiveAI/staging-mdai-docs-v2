@@ -36,7 +36,7 @@ menu:
       params:
         type: theme-toggle
         hideLabel: true
-    - name: Platform Demo
+    - name: Demo
       url: "https://demo.mydecisive.ai/"
       weight: 3
     - name: MyDecisive.AI
@@ -47,6 +47,19 @@ menu:
       url: "https://github.com/orgs/DecisiveAI/repositories?type=public"
       params:
         icon: github
+    - name: Slack
+      weight: 6
+      # community page
+      # url: "https://mydecisivecommunity.slack.com/archives/C08LE3DJ877"
+      # community slack invite link
+      url: "https://communityinviter.com/apps/mydecisivecommunity/octobuddy"
+      params:
+        icon: slack
+    - name: LinkedIn
+      weight: 7
+      url: "https://www.linkedin.com/company/mydecisiveai/"
+      params:
+        icon: linkedin
 
 markup:
   goldmark:

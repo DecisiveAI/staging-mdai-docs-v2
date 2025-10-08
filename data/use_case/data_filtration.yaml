@@ -27,12 +27,12 @@
                   mdai use-case data_filtration --version 0.8.6 --workflow basic
                   ```
 
-              - heading: "Provision resources for your Data Filtration pipeline"
+              - heading: "Provision synthetic data streams that represent your services"
                 lang: "bash"
                 body: |
                   Separately, install a `fluentD` instance to forward your synthetic log streams to the OTel collector.
 
-                  You'll now see traffic flowing through to the collector
+                  You'll now see traffic flowing through to the collector from the synthetic services.
 
                   * `service1` - `service1000` - Normal logging from these services
                   * `service1234` - A noisy service
@@ -52,7 +52,7 @@
                   kubectl port-forward -n mdai svc/mdai-grafana 3000:80
                   ```
 
-                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/otel_view/otel-data-flow?orgId=1&from=now-15m&to=now&refresh=5s)
+                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/BKf2sowmjv2/opentelemetry-collector?orgId=1&from=now-15m&to=now&refresh=5s)
 
                   <a href="../../../../images/data_filtration/step_1.png" target="_blank" rel="noopener noreferrer">
                     <img alt="Grafana" src="../../../../images/data_filtration/step_1.png">
@@ -62,23 +62,30 @@
 
           manual:
             sections:
-              - heading: "Start generating data"
-                body: |
-                  Kick off your synthetic data generators. This will represent log streams from your services and/or infra in your existing ecosystem.
-
-                  ```
-                  kubectl  apply -f ./mock-data/data_filtration.yaml -n mdai
-                  ```
-
               - heading: "Provision resources for your Data Filtration pipeline"
-                lang: "bash"
                 body: |
-                  Run the following commands and you'll see these resources created.
+                  Run the following command an you'll deploy mock data, otel, and an MDAI Hub
 
                   ```
                   kubectl  apply -f ./0.8.6/use_cases/data_filtration/basic/otel.yaml -n mdai
+                  kubectl  apply -f ./mock-data/data_filtration.yaml -n mdai
                   ```
 
+              - heading: "Provision synthetic data streams that represent your services"
+                lang: "bash"
+                body: |
+                  Separately, install a `fluentD` instance to forward your synthetic log streams to the OTel collector.
+
+                  You'll now see traffic flowing through to the collector from the synthetic services.
+
+                  * `service1` - `service1000` - Normal logging from these services
+                  * `service1234` - A noisy service
+                  * `service4321` - A super noisy service
+
+
+                  ```
+                  helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f ./synthetics/loggen_fluent_config.yaml
+                  ```
 
               - heading: "Validate dataflow with Grafana"
                 info: |
@@ -89,13 +96,15 @@
                   kubectl port-forward -n mdai svc/mdai-grafana 3000:80
                   ```
 
-                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/otel_view/otel-data-flow?orgId=1&from=now-15m&to=now&refresh=5s)
+                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/BKf2sowmjv2/opentelemetry-collector?orgId=1&from=now-15m&to=now&refresh=5s)
 
-                  ![Grafana](../../../../images/data_filtration/step_1.png)
+                  <a href="../../../../images/data_filtration/step_1.png" target="_blank" rel="noopener noreferrer">
+                    <img alt="Grafana" src="../../../../images/data_filtration/step_1.png">
+                  </a>
 
                   You should see a consistent stream of data and a 1:1 ratio of logs received : logs exported
 
-      - title: "Step 2. use mdai recipe to statically achieve use case"
+      - title: "Step 2. Use mdai recipe to statically achieve use case"
         modes:
           automated:
             sections:
@@ -109,7 +118,7 @@
 
               - heading: "Validate dataflow with Grafana"
                 body: |
-                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/otel_view/otel-data-flow?orgId=1&from=now-15m&to=now&refresh=5s)
+                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/BKf2sowmjv2/opentelemetry-collector?orgId=1&from=now-15m&to=now&refresh=5s)
 
 
                   You should see that your log stream no longer sends the 1:1 ratio and has decreased the amount exported.
@@ -131,7 +140,7 @@
 
               - heading: "Validate dataflow with Grafana"
                 body: |
-                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/otel_view/otel-data-flow?orgId=1&from=now-15m&to=now&refresh=5s)
+                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/BKf2sowmjv2/opentelemetry-collector?orgId=1&from=now-15m&to=now&refresh=5s)
 
                   You should see that your log stream no longer sends the 1:1 ratio and has significantly decreased the amount exported.
 
@@ -141,16 +150,12 @@
         modes:
           automated:
             sections:
-              - heading: "Apply dynamic filtration"
+              - heading: "Apply static routing"
                 body: |
-                  Provision dynamic resources:
-                  ```
-                  mdai use-case data_filtration --version 0.8.6 --workflow dynamic
-                  ```
+                  Update your collector to utilize static routing.
 
-                  Provision an MdaiCollector (Monitor)
                   ```
-                  mdai apply ./0.8.6/use_cases/data_filtration/dynamic/monitor.yaml -n mdai
+                  mdai use_case data_filtration --version 0.8.6 --workflow dynamic
                   ```
 
                   Provision an observer
@@ -158,58 +163,67 @@
                   mdai apply ./0.8.6/use_cases/data_filtration/dynamic/observer.yaml -n mdai
                   ```
 
-              - heading: "Validate dataflow with Grafana"
-                body: |
-                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/otel_view/otel-data-flow?orgId=1&from=now-15m&to=now&refresh=5s)
-
-                  Before you ran new configs, your export volume was relatively high and costly with your noisy services.
-
-                  <a href="../../../../images/data_filtration/step_3_a.png" target="_blank" rel="noopener noreferrer">
-                    <img alt="Grafana" src="../../../../images/data_filtration/step_3_a.png">
-                  </a>
-
-                  As data continues to flow you should see that your log stream export volume has significantly decreased. You should also note that the new configuration has parameterized your filter values intelligently and dynamically, based on the monitored throughput volume, per service.
-
-
-                  <a href="../../../../images/data_filtration/step_3_b.png" target="_blank" rel="noopener noreferrer">
-                    <img alt="Grafana" src="../../../../images/data_filtration/step_3_b.png">
-                  </a>
-
-              - heading: "Validate dynamic filtration"
-                body: |
-                  Navigate to the [MDAI Data Management dashboard](http://localhost:3000/d/de978rcegwfswb/mdai-data-management?orgId=1&refresh=5s) included in your `grafana` instance.
-
-                  The MdaiHub creates metrics about your telemetry streams that are used to take action, like filtration, simply by monitoring and deriving insights.
-
-                  The insights provided can be summarized as:
-                  * Total services being monitored
-                  * Total received data (by bytes)
-                  * Total sent data (by bytes)
-                  * Data reduction %
-                  * Total I/O (bytes and messages) by service
-
-
-                  <a href="../../../../images/data_filtration/step_3_c.png" target="_blank" rel="noopener noreferrer">
-                    <img alt="Grafana" src="../../../../images/data_filtration/step_3_c.png">
-                  </a>
-
-                  The insights provided can be summarized as:
-                  * Top talkers, received (total message I/O, total bytes I/O)
-                  * Top talkers, sent (total message I/O, total bytes I/O)
-                  * Active alerts - services surpassing volume ove your configured threshold
-
-
-                  <a href="../../../../images/data_filtration/step_3_d.png" target="_blank" rel="noopener noreferrer">
-                    <img alt="Grafana" src="../../../../images/data_filtration/step_3_d.png">
-                  </a>
-
           manual:
             sections:
-              - heading: "Update provisioned resources (hub & otel)"
-                body: "Manually apply dynamic rules..."
+              - heading: "Apply dynamic filtration"
+                body: |
+                  Provision dynamic resources:
+                  ```
+                  kubectl  apply -f ./0.8.6/use_cases/data_filtration/dynamic/otel.yaml -n mdai
+                  kubectl  apply -f ./0.8.6/use_cases/data_filtration/dynamic/hub.yaml -n mdai
+                  ```
 
-              - heading: "Validate dataflow with Prometheus"
-                body: "Track changes in dashboards..."
+                  Provision an observer
+                  ```
+                  mdai apply ./0.8.6/use_cases/data_filtration/dynamic/observer.yaml -n mdai
+                  ```
+
+      - title: "Step 4. Validate dynamic filtration"
+        sections:
+          - heading: "Validate dataflow with Grafana"
+            body: |
+              Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/BKf2sowmjv2/opentelemetry-collector?orgId=1&from=now-15m&to=now&refresh=5s)
+
+              Before you ran new configs, your export volume was relatively high and costly with your noisy services.
+
+              <a href="../../../../images/data_filtration/step_3_a.png" target="_blank" rel="noopener noreferrer">
+                <img alt="Grafana" src="../../../../images/data_filtration/step_3_a.png">
+              </a>
+
+              As data continues to flow you should see that your log stream export volume has significantly decreased. You should also note that the new configuration has parameterized your filter values intelligently and dynamically, based on the monitored throughput volume, per service.
+
+
+              <a href="../../../../images/data_filtration/step_3_b.png" target="_blank" rel="noopener noreferrer">
+                <img alt="Grafana" src="../../../../images/data_filtration/step_3_b.png">
+              </a>
+
+          - heading: "Validate dynamic filtration"
+            body: |
+              Navigate to the [MDAI Data Management dashboard](http://localhost:3000/d/de978rcegwfswb/mdai-data-management?orgId=1&refresh=5s) included in your `grafana` instance.
+
+              The MdaiHub creates metrics about your telemetry streams that are used to take action, like filtration, simply by monitoring and deriving insights.
+
+              The insights provided can be summarized as:
+              * Total services being monitored
+              * Total received data (by bytes)
+              * Total sent data (by bytes)
+              * Data reduction %
+              * Total I/O (bytes and messages) by service
+
+
+              <a href="../../../../images/data_filtration/step_3_c.png" target="_blank" rel="noopener noreferrer">
+                <img alt="Grafana" src="../../../../images/data_filtration/step_3_c.png">
+              </a>
+
+              The insights provided can be summarized as:
+              * Top talkers, received (total message I/O, total bytes I/O)
+              * Top talkers, sent (total message I/O, total bytes I/O)
+              * Active alerts - services surpassing volume ove your configured threshold
+
+
+              <a href="../../../../images/data_filtration/step_3_d.png" target="_blank" rel="noopener noreferrer">
+                <img alt="Grafana" src="../../../../images/data_filtration/step_3_d.png">
+              </a>
 
       - title: "Congrats 🎉"
         sections:
@@ -245,55 +259,84 @@
                   mdai use-case data_filtration --version 0.9.0 --workflow basic
                   ```
 
+              - heading: "Provision synthetic data streams that represent your services"
+                lang: "bash"
+                body: |
+                  Separately, install a `fluentD` instance to forward your synthetic log streams to the OTel collector.
+
+                  You'll now see traffic flowing through to the collector from the synthetic services.
+
+                  * `service1` - `service1000` - Normal logging from these services
+                  * `service1234` - A noisy service
+                  * `service4321` - A super noisy service
+
+
+                  ```
+                  helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f ./synthetics/loggen_fluent_config.yaml
+                  ```
+
               - heading: "Validate dataflow with Grafana"
                 info: |
-                  If you haven't yet logged into Grafana, the login is `admin` / `mdai`
+                  If you haven't yet logged into Grafana, the login is `admin` / `mdai`<br /><br />
+                  Note: It may take a few minutes for data to start showing up in the dashboards.
                 body: |
                   ```
                   kubectl port-forward -n mdai svc/mdai-grafana 3000:80
                   ```
 
-                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/otel_view/otel-data-flow?orgId=1&from=now-15m&to=now&refresh=5s)
+                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/BKf2sowmjv2/opentelemetry-collector?orgId=1&from=now-15m&to=now&refresh=5s)
 
-                  ![Grafana](../../../../images/data_filtration/step_1.png)
+                  <a href="../../../../images/data_filtration/step_1.png" target="_blank" rel="noopener noreferrer">
+                    <img alt="Grafana" src="../../../../images/data_filtration/step_1.png">
+                  </a>
 
                   You should see a consistent stream of data and a 1:1 ratio of logs received : logs exported
 
           manual:
             sections:
-              - heading: "Start generating data"
-                body: |
-                  Kick off your synthetic data generators. This will represent log streams from your services and/or infra in your existing ecosystem.
-
-                  ```
-                  kubectl  apply -f ./mock-data/fluentd_config.yaml -n mdai
-                  ```
-
               - heading: "Provision resources for your Data Filtration pipeline"
-                lang: "bash"
                 body: |
-                  Run the following commands and you'll see these resources created.
+                  Run the following command an you'll deploy mock data, otel, and an MDAI Hub
 
                   ```
                   kubectl  apply -f ./0.9.0/use_cases/data_filtration/basic/otel.yaml -n mdai
+                  kubectl  apply -f ./mock-data/data_filtration.yaml -n mdai
                   ```
 
+              - heading: "Provision synthetic data streams that represent your services"
+                lang: "bash"
+                body: |
+                  Separately, install a `fluentD` instance to forward your synthetic log streams to the OTel collector.
+
+                  You'll now see traffic flowing through to the collector from the synthetic services.
+
+                  * `service1` - `service1000` - Normal logging from these services
+                  * `service1234` - A noisy service
+                  * `service4321` - A super noisy service
+
+
+                  ```
+                  helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f ./synthetics/loggen_fluent_config.yaml
+                  ```
 
               - heading: "Validate dataflow with Grafana"
                 info: |
-                  If you haven't yet logged into Grafana, the login is `admin` / `mdai`
+                  If you haven't yet logged into Grafana, the login is `admin` / `mdai`<br /><br />
+                  Note: It may take a few minutes for data to start showing up in the dashboards.
                 body: |
                   ```
                   kubectl port-forward -n mdai svc/mdai-grafana 3000:80
                   ```
 
-                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/otel_view/otel-data-flow?orgId=1&from=now-15m&to=now&refresh=5s)
+                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/BKf2sowmjv2/opentelemetry-collector?orgId=1&from=now-15m&to=now&refresh=5s)
 
-                  ![Grafana](../../../../images/data_filtration/step_1.png)
+                  <a href="../../../../images/data_filtration/step_1.png" target="_blank" rel="noopener noreferrer">
+                    <img alt="Grafana" src="../../../../images/data_filtration/step_1.png">
+                  </a>
 
                   You should see a consistent stream of data and a 1:1 ratio of logs received : logs exported
 
-      - title: "Step 2. use mdai recipe to statically achieve use case"
+      - title: "Step 2. Use mdai recipe to statically achieve use case"
         modes:
           automated:
             sections:
@@ -307,9 +350,15 @@
 
               - heading: "Validate dataflow with Grafana"
                 body: |
+                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/BKf2sowmjv2/opentelemetry-collector?orgId=1&from=now-15m&to=now&refresh=5s)
+
+
                   You should see that your log stream no longer sends the 1:1 ratio and has decreased the amount exported.
 
-                  ![Grafana](../../../../images/data_filtration/step_2.png)
+
+                  <a href="../../../../images/data_filtration/step_2.png" target="_blank" rel="noopener noreferrer">
+                    <img alt="Grafana" src="../../../../images/data_filtration/step_2.png">
+                  </a>
 
           manual:
             sections:
@@ -323,36 +372,94 @@
 
               - heading: "Validate dataflow with Grafana"
                 body: |
-                  You should see that your log stream no longer sends the 1:1 ratio and has decreased the amount exported.
+                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/BKf2sowmjv2/opentelemetry-collector?orgId=1&from=now-15m&to=now&refresh=5s)
+
+                  You should see that your log stream no longer sends the 1:1 ratio and has significantly decreased the amount exported.
 
                   ![Grafana](../../../../images/data_filtration/step_2.png)
 
       - title: "Step 3. Use MyDecisive to parameterize achieve use case"
+        modes:
+          automated:
+            sections:
+              - heading: "Apply static routing"
+                body: |
+                  Update your collector to utilize static routing.
+
+                  ```
+                  mdai use_case data_filtration --version 0.9.0 --workflow dynamic
+                  ```
+
+                  Provision an observer
+                  ```
+                  mdai apply ./0.9.0/use_cases/data_filtration/dynamic/observer.yaml -n mdai
+                  ```
+
+          manual:
+            sections:
+              - heading: "Apply dynamic filtration"
+                body: |
+                  Provision dynamic resources:
+                  ```
+                  kubectl  apply -f ./0.9.0/use_cases/data_filtration/dynamic/otel.yaml -n mdai
+                  kubectl  apply -f ./0.9.0/use_cases/data_filtration/dynamic/hub.yaml -n mdai
+                  ```
+
+                  Provision an observer
+                  ```
+                  mdai apply ./0.9.0/use_cases/data_filtration/dynamic/observer.yaml -n mdai
+                  ```
+
+      - title: "Step 4. Validate dynamic filtration"
         sections:
-          - heading: "Coming soon..."
+          - heading: "Validate dataflow with Grafana"
             body: |
-              ![Coming soon](../../../../images/nothing_to_see_here.png)
-        # modes:
-        #   automated:
-        #       - heading: "Apply parameterized routing"
-        #         body: "Automated dynamic rules via script..."
+              Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/BKf2sowmjv2/opentelemetry-collector?orgId=1&from=now-15m&to=now&refresh=5s)
 
-        #       - heading: "Validate dataflow with Prometheus"
-        #         body: "Observe rate shifts..."
+              Before you ran new configs, your export volume was relatively high and costly with your noisy services.
 
-        #   manual:
-        #     sections:
-        #       - heading: "Update provisioned resources (hub & otel)"
-        #         body: "Manually apply dynamic rules..."
+              <a href="../../../../images/data_filtration/step_3_a.png" target="_blank" rel="noopener noreferrer">
+                <img alt="Grafana" src="../../../../images/data_filtration/step_3_a.png">
+              </a>
 
-        #       - heading: "Validate dataflow with Prometheus"
-        #         body: "Track changes in dashboards..."
+              As data continues to flow you should see that your log stream export volume has significantly decreased. You should also note that the new configuration has parameterized your filter values intelligently and dynamically, based on the monitored throughput volume, per service.
+
+
+              <a href="../../../../images/data_filtration/step_3_b.png" target="_blank" rel="noopener noreferrer">
+                <img alt="Grafana" src="../../../../images/data_filtration/step_3_b.png">
+              </a>
+
+          - heading: "Validate dynamic filtration"
+            body: |
+              Navigate to the [MDAI Data Management dashboard](http://localhost:3000/d/de978rcegwfswb/mdai-data-management?orgId=1&refresh=5s) included in your `grafana` instance.
+
+              The MdaiHub creates metrics about your telemetry streams that are used to take action, like filtration, simply by monitoring and deriving insights.
+
+              The insights provided can be summarized as:
+              * Total services being monitored
+              * Total received data (by bytes)
+              * Total sent data (by bytes)
+              * Data reduction %
+              * Total I/O (bytes and messages) by service
+
+
+              <a href="../../../../images/data_filtration/step_3_c.png" target="_blank" rel="noopener noreferrer">
+                <img alt="Grafana" src="../../../../images/data_filtration/step_3_c.png">
+              </a>
+
+              The insights provided can be summarized as:
+              * Top talkers, received (total message I/O, total bytes I/O)
+              * Top talkers, sent (total message I/O, total bytes I/O)
+              * Active alerts - services surpassing volume ove your configured threshold
+
+
+              <a href="../../../../images/data_filtration/step_3_d.png" target="_blank" rel="noopener noreferrer">
+                <img alt="Grafana" src="../../../../images/data_filtration/step_3_d.png">
+              </a>
 
       - title: "Congrats 🎉"
         sections:
           - heading: "You've completed this recipe!"
             body: |
               You're one step closer to taking control of your observability streams and costs.
-
-
 

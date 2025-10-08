@@ -13,7 +13,11 @@ chmod +x ./cli/mdai.sh
 In your `.bashrc` (or equivalent), add this to EOF
 
 ```bash
-alias mdai="cd ~/path/to/mdai-labs && ./cli/mdai.sh"
+# Set this to the path of your local clone of mdai-labs
+export MDAI_LABS_DIR="$HOME/path/to/mdai-labs"
+
+# Set mdai alias
+alias mdai='"${MDAI_LABS_DIR%/}/cli/mdai.sh"'
 ```
 
 You can now call `mdai` from your terminal and use it like you would any other CLI.
@@ -38,7 +42,7 @@ Run the script to install your local MDAI cluster.
 This command installs a local kind cluster and `mdai`.
 
   ```bash
-  mdai install --version 0.9.0
+  mdai install --version 0.9.0 --values values/overrides_0.9.0-full.yaml
   ```
 
 {{% /details %}}
@@ -47,7 +51,7 @@ This command installs a local kind cluster and `mdai`.
 {{% details title="**Option 2: Install `mdai` without cert-manager**" closed="true" %}}
 
   ```bash
-  mdai --no-cert-manager install --version 0.9.0
+  mdai --no-cert-manager install --version 0.9.0 --values values/overrides_0.9.0-full.yaml
   ```
 
 {{% /details %}}
@@ -63,7 +67,7 @@ This command installs a local kind cluster and `mdai`.
   {{< /callout >}}
 
   ```bash
-  mdai install_mdai --version 0.9.0
+  mdai install_mdai --version 0.9.0 --values values/overrides_0.9.0-partial.yaml
   ```
 
 {{% /details %}}
@@ -72,7 +76,7 @@ This command installs a local kind cluster and `mdai`.
 {{% details title="**Option 2: Install `mdai` without cert-manager**" closed="true" %}}
 
   ```bash
-  mdai --no-cert-manager install_mdai --version 0.9.0
+  mdai --no-cert-manager install_mdai --version 0.9.0 --values values/overrides_0.9.0-partial.yaml
   ```
 
 {{% /details %}}

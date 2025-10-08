@@ -13,7 +13,11 @@ chmod +x ./cli/mdai.sh
 In your `.bashrc` (or equivalent), add this to EOF
 
 ```bash
-alias mdai="cd ~/path/to/mdai-labs && ./cli/mdai.sh"
+# Set this to the path of your local clone of mdai-labs
+export MDAI_LABS_DIR="$HOME/path/to/mdai-labs"
+
+# Set mdai alias
+alias mdai='"${MDAI_LABS_DIR%/}/cli/mdai.sh"'
 ```
 
 You can now call `mdai` from your terminal and use it like you would any other CLI.

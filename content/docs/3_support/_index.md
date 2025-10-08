@@ -4,7 +4,7 @@ weight: 6
 ---
 
 ##### Join our Slack community
-- [Technical support](https://mydecisivecommunity.slack.com/archives/C090KU1MB6K)
+- [Slack-based technical support](https://mydecisivecommunity.slack.com/archives/C090KU1MB6K)
 - [Documentation issues](https://mydecisivecommunity.slack.com/archives/C090KU6F679)
 - [Feature requests](https://mydecisivecommunity.slack.com/archives/C090UH3JYNS)
 - [Community](https://mydecisivecommunity.slack.com/archives/C08LE3DJ877)

@@ -35,7 +35,7 @@
                   kubectl port-forward -n mdai svc/mdai-grafana 3000:80
                   ```
 
-                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/otel_view/otel-data-flow?orgId=1&from=now-15m&to=now&refresh=5s)
+                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/BKf2sowmjv2/opentelemetry-collector?orgId=1&from=now-15m&to=now&refresh=5s)
 
                   ![Grafana](../../../../images/compliance/step_1.png)
 
@@ -69,7 +69,7 @@
                   kubectl port-forward -n mdai svc/mdai-grafana 3000:80
                   ```
 
-                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/otel_view/otel-data-flow?orgId=1&from=now-15m&to=now&refresh=5s)
+                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/BKf2sowmjv2/opentelemetry-collector?orgId=1&from=now-15m&to=now&refresh=5s)
 
                   ![Grafana](../../../../images/compliance/step_1.png)
 
@@ -172,7 +172,7 @@
                   kubectl port-forward -n mdai svc/mdai-grafana 3000:80
                   ```
 
-                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/otel_view/otel-data-flow?orgId=1&from=now-15m&to=now&refresh=5s)
+                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/BKf2sowmjv2/opentelemetry-collector?orgId=1&from=now-15m&to=now&refresh=5s)
 
                   ![Grafana](../../../../images/compliance/step_1.png)
 
@@ -206,7 +206,7 @@
                   kubectl port-forward -n mdai svc/mdai-grafana 3000:80
                   ```
 
-                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/otel_view/otel-data-flow?orgId=1&from=now-15m&to=now&refresh=5s)
+                  Navigate to the [OTel Dataflow Dashboard](http://localhost:3000/d/BKf2sowmjv2/opentelemetry-collector?orgId=1&from=now-15m&to=now&refresh=5s)
 
                   ![Grafana](../../../../images/compliance/step_1.png)
 

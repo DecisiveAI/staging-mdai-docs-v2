@@ -68,8 +68,8 @@ Use the MyDecisive Smart Telemetry Hub.
 {{< hextra/feature-grid >}}
   {{< hextra/feature-card
       link="https://demo.mydecisive.ai/"
-      title="Tour MyDecisive"
-      subtitle="Don’t have time to download and start using MyDecisive? Try the MyDecisive Product Tour to show you our super powers."
+      title="Demo MyDecisive"
+      subtitle="Don't have time to download and start using MyDecisive? Try the MyDecisive Product Demo to show you our super powers."
     >}}
     {{< hextra/feature-card
       link="/docs/0_getting-started"

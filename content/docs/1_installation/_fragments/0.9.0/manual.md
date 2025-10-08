@@ -32,6 +32,7 @@ helm upgrade --install \
     --namespace mdai \
     --create-namespace \
     --version 0.9.0 \
+    --values values/overrides_0.9.0-partial.yaml \
     --cleanup-on-fail
 ```
 
@@ -56,6 +57,7 @@ helm upgrade --install mdai-hub oci://ghcr.io/decisiveai/mdai-hub \
     --set mdai-operator.admissionWebhooks.autoGenerateCert.enabled=true \
     --set mdai-operator.admissionWebhooks.autoGenerateCert.recreate=true \
     --set mdai-operator.admissionWebhooks.autoGenerateCert.certPeriodDays=365 \
+    --values values/overrides_0.9.0-partial.yaml \
     --cleanup-on-fail
 ```
 

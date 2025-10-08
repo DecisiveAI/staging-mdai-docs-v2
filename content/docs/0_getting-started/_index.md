@@ -11,8 +11,8 @@ next: /docs/guide
 
 MyDecisive solutions transform OpenTelemetry from a static configuration challenge into an intelligent, self-managing platform. These solutions run on our infrastructure, the MdaiHub, which utilizes industry-standard and proprietary open-source components.
 
-<a href="/images/overview-auto.png" target="_blank" rel="noopener noreferrer">
-  <img alt="MyDecisive Overview" src="/images/overview-auto.png">
+<a href="/images/marketecture.png" target="_blank" rel="noopener noreferrer">
+  <img alt="MyDecisive Overview" src="/images/marketecture.png">
 </a>
 
 
@@ -27,7 +27,7 @@ MyDecisive.ai supports many use cases and platform capabilities. Once you identi
 
 ### Install MyDecisive
 
-Utilizing our [CLI-like](http://localhost:1313/docs/1_installation/#choose-an-installation-method) install and management script, you can get a local cluster with the `mdai` components up and running in a matter of minutes. If you don't like or trust our scripts, we have a [manual-install option](http://localhost:1313/docs/1_installation/#choose-an-installation-method) as well.
+Utilizing our [CLI-like](/docs/1_installation/#choose-an-installation-method) install and management script, you can get a local cluster with the `mdai` components up and running in a matter of minutes. If you don't like or trust our scripts, we have a [manual-install option](/docs/1_installation/#choose-an-installation-method) as well.
 
 
 ### Introduce OTel into your ecosystem
