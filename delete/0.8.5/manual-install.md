@@ -96,7 +96,7 @@ kubectl apply -f ./prometheus/scrape_collector_count_metrics.yaml -n mdai
 
 ## Step 8: Fwd logs from the loggen services to MDAI
 ```sh
-helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f ./synthetics/loggen_fluent_config.yaml
+helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f ./mock-data/configs/loggen_fluent.yaml
 ```
 
 ## Appendix: how to make error conditions happen for testing

@@ -40,7 +40,7 @@
 
 
                   ```
-                  helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f ./synthetics/loggen_fluent_config.yaml
+                  helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f ./mock-data/configs/loggen_fluent.yaml
                   ```
 
               - heading: "Validate dataflow with Grafana"
@@ -84,7 +84,7 @@
 
 
                   ```
-                  helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f ./synthetics/loggen_fluent_config.yaml
+                  helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f ./mock-data/configs/loggen_fluent.yaml
                   ```
 
               - heading: "Validate dataflow with Grafana"
@@ -272,7 +272,7 @@
 
 
                   ```
-                  helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f ./synthetics/loggen_fluent_config.yaml
+                  helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f ./mock-data/configs/loggen_fluent.yaml
                   ```
 
               - heading: "Validate dataflow with Grafana"
@@ -316,7 +316,7 @@
 
 
                   ```
-                  helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f ./synthetics/loggen_fluent_config.yaml
+                  helm upgrade --install --repo https://fluent.github.io/helm-charts fluent fluentd -f ./mock-data/configs/loggen_fluent.yaml
                   ```
 
               - heading: "Validate dataflow with Grafana"
