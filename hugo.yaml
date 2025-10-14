@@ -23,14 +23,14 @@ params:
 
 menu:
   main:
-    - name: Search
+    - name: Version
       weight: 1
       params:
-        type: search
-    - name: Version
+        type: version
+    - name: Search
       weight: 2
       params:
-        type: version
+        type: search
     - name: Theme
       weight: 99
       params:
