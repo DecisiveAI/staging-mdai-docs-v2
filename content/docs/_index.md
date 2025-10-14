@@ -1,7 +1,8 @@
 ---
 title: MyDecisive.ai Docs
-linkTitle: Home
+linkTitle: Docs
 layout: hextra-home
+url: "/"
 ---
 
 <!-- WARNING -- ONLY UNCOMMENT IF YOU WANT TO DEBUG VERSION RENDERING

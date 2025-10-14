@@ -2,7 +2,7 @@
 title: Getting Started
 weight: 1
 tags:
-  - Home
+  - Docs
   - Guide
 next: /docs/guide
 ---
