@@ -1,9 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
   --mdai-primary-color: rgba(176, 98, 194, 1);
   --mdai-dark-grey: rgb(151, 151, 151);
   --mdai-light-grey: rgb(230, 230, 230);
+}
+
+body {
+  font-family: 'Geist', 'Roboto Condensed', sans-serif;
 }
 
 /* changed to 1rem for Mydecisive */

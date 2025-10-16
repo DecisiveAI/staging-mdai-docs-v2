@@ -164,8 +164,29 @@
 {{- end -}}
 
 {{- define "sidebar-item-link" -}}
+
+<!-- Variables -->
   {{- $external := strings.HasPrefix .link "http" -}}
   {{- $open := .open | default true -}}
+  {{- $render := "" -}}
+  {{- $hasChildren := false -}}
+
+<!-- If page build params have never render & does page have children -->
+  {{- with .context }}
+    {{- with .Params.build }}
+      {{- with .render }}
+        {{- $render = . -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- with .context -}}
+    {{- if or .RegularPages .Sections -}}
+      {{- $hasChildren = true -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- $toggleOnClick := and (not $external) $hasChildren (eq $render "never") -}}
+
   <a
     class="hx:flex hx:items-center hx:justify-between hx:gap-2 hx:cursor-pointer hx:rounded-sm hx:px-2 hx:py-1.5 hx:text-sm hx:transition-colors [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] [word-break:break-word]
     {{- if .active }}
@@ -173,13 +194,16 @@
     {{- else }}
       hx:text-gray-500 hx:hover:bg-gray-100 hx:hover:text-gray-900 hx:contrast-more:border hx:contrast-more:border-transparent hx:contrast-more:text-gray-900 hx:contrast-more:hover:border-gray-900 hx:dark:text-neutral-400 hx:dark:hover:bg-primary-100/5 hx:dark:hover:text-gray-50 hx:contrast-more:dark:text-gray-50 hx:contrast-more:dark:hover:border-gray-50
     {{- end -}}"
-    href="{{ .link }}"
+    href="{{ if $toggleOnClick }}#{{ else }}{{ .link }}{{ end }}"
     {{ if $external }}target="_blank" rel="noreferrer"{{ end }}
+    {{ if $toggleOnClick }}onclick="this.closest('li').classList.toggle('open'); event.preventDefault();" role="button" aria-expanded="{{ if .active }}true{{ else }}false{{ end }}"{{ end }}
   >
     {{- .title -}}
     {{- with .context }}
       {{- if or .RegularPages .Sections }}
-        <span class="hextra-sidebar-collapsible-button">
+        <span class="hextra-sidebar-collapsible-button"
+        {{ if $toggleOnClick }}onclick="this.closest('li').classList.toggle('open'); event.preventDefault();" role="button"{{ end }}
+        >
           {{- template "sidebar-collapsible-button" -}}
         </span>
       {{- end }}

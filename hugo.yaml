@@ -20,17 +20,34 @@ params:
       height: 20
   theme:
     displayToggle: false
+  footer:
+    enable: true
+    company: "MyDecisive Docs"
+    logo: images/smol-logo.svg
+    links:
+      - name: "mydecisive.ai"
+        url: "https://www.mydecisive.ai/"
+      - name: "Demo"
+        url: "https://demo.mydecisive.ai/"
+      - name: "Community"
+        url: "https://mydecisivecommunity.slack.com"
+      - name: "GitHub"
+        icon: images/github-icon.svg
+        url: "https://github.com/DecisiveAI"
+      - name: "LinkedIn"
+        icon: images/linkedIn-icon.png
+        url: "https://www.linkedin.com/company/mydecisiveai"
 
 menu:
   main:
-    - name: Search
+    - name: Version
       weight: 1
       params:
-        type: search
-    - name: Version
+        type: version
+    - name: Search
       weight: 2
       params:
-        type: version
+        type: search
     - name: Theme
       weight: 99
       params:
@@ -39,7 +56,7 @@ menu:
     - name: Demo
       url: "https://demo.mydecisive.ai/"
       weight: 3
-    - name: MyDecisive.AI
+    - name: mydecisive.ai
       url: "https://www.mydecisive.ai/"
       weight: 4
     - name: GitHub
