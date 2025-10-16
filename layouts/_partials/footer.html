@@ -1,0 +1,46 @@
+{{- $company := .Site.Params.footer.company | default "" -}}
+{{- $logo := .Site.Params.footer.logo -}}
+{{- $logoText := .Site.Params.footer.logoText -}}
+{{- $slack := .Site.Params.footer.slack -}}
+{{- $github := .Site.Params.footer.github -}}
+
+{{- $logoSrc := cond (or (hasPrefix $logo "http") (hasPrefix $logo "/")) $logo ($logo | relURL) -}}
+{{- $logoTextSrc := cond (or (hasPrefix $logoText "http") (hasPrefix $logoText "/")) $logoText ($logoText | relURL) -}}
+
+<footer class="hextra-footer hx:bg-gray-100 hx:pb-[env(safe-area-inset-bottom)] hx:dark:bg-neutral-900 hx:print:bg-transparent">
+    <div
+      class="hextra-max-footer-width hx:mx-auto hx:flex hx:justify-between hx:py-12 hx:pl-[max(env(safe-area-inset-left),1.5rem)] hx:pr-[max(env(safe-area-inset-right),1.5rem)] hx:text-gray-600 hx:dark:text-gray-400 hx:md:justify-between"
+      style="flex-wrap: wrap;"
+    >
+        {{- if $logo -}}
+            <a href="/" class="hx:flex hx:items-center hx:gap-2 hx:text-current hx:no-underline hover:hx:underline hx:mt-2">
+                <img src="{{ $logoSrc }}" alt="mydecisive.ai logo" class="hx:h-auto hx:max-w-full"/>
+                <div class="hx:flex hx:flex-row hx:gap-4 hx:ml-6">
+                  {{ $company | markdownify }}
+                </div>
+            </a>
+        {{- else -}}
+            <div class="hx:flex hx:flex-row hx:gap-4 hx:ml-6 hx:mt-2">
+                <div class="hx:mt-6 hx:text-xs">{{ $company  | markdownify }}</div>
+            </div>
+        {{- end -}}
+        <!-- {{- if .Site.Params.footer.links }}
+        <div class="hx:flex hx:items-center hx:flex-row hx:gap-4 hx:ml-6 hx:mt-2">
+            {{- range .Site.Params.footer.links }}
+            <a href="{{ .url }}" class="hx:text-current hx:no-underline hover:hx:underline">
+            {{- $icon := .icon -}}
+            {{- if $icon -}}
+                {{- $iconSrc := cond (or (hasPrefix $icon "http") (hasPrefix $icon "/")) $icon ($icon | relURL) -}}
+                {{- if $iconSrc -}}
+                        <img src="{{ $iconSrc }}" alt="{{ .name }} icon" class="hx:inline hx:h-5 hx:w-5 hx:mr-1"/>
+                
+                {{- end -}}
+                {{- else -}} 
+                    {{ .name }} 
+                {{- end -}}
+            </a>
+            {{- end -}}
+        </div>
+        {{- end -}} -->
+</div>
+</footer>
